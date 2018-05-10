@@ -4,8 +4,8 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
   <Description about="urn:mozilla:install-manifest">
-    <em:id>keefox@chris.tomlinson</em:id>
-    <em:version>1.8.0</em:version>
+    <em:id>keebird@kee-org</em:id>
+    <em:version>1.0.0</em:version>
     <em:type>2</em:type>
     <em:unpack>true</em:unpack>
     <em:multiprocessCompatible>true</em:multiprocessCompatible>
@@ -14,15 +14,6 @@
 
     <!-- Target Application this extension can install into,
          with minimum and maximum supported versions. -->
-
-    <em:targetApplication>
-      <Description>
-        <!-- Firefox -->
-        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-        <em:minVersion>32.0</em:minVersion>
-        <em:maxVersion>56.*</em:maxVersion>
-      </Description>
-    </em:targetApplication>
 
     <em:targetApplication>
       <Description>
@@ -38,144 +29,14 @@
     <em:targetPlatform>Darwin</em:targetPlatform>
 
     <!-- Front End MetaData -->
-    <em:name>KeeFox</em:name>
-    <em:description>Simple and secure password management. Login automatically, never forget another password, stay in control of your passwords and improve their security. Powered by the world-renowned KeePass Password Safe.</em:description>
+    <em:name>KeeBird</em:name>
+    <em:description>Use KeePass Password Safe to manage your login credentials.</em:description>
     <em:creator>Chris Tomlinson</em:creator>
     <em:contributor>Ben Roberts</em:contributor>
     <em:contributor>David Lechner</em:contributor>
     <em:contributor>Ken Bass</em:contributor>
-    <em:homepageURL>http://keefox.org</em:homepageURL>
+    <em:homepageURL>http://github.com/kee-org/keebird</em:homepageURL>
     <em:iconURL>chrome://keefox/skin/icon.png</em:iconURL>
-
-    <!-- Localised descriptions -->
-
-
-    <em:localized>
-      <Description>
-        <em:locale>zh-CN</em:locale>
-        <em:name>KeeFox</em:name>
-        <em:description>简单且安全的密码管理方式。自动登录，永远不会忘记储存的密码，密码总是掌控在您的手下，以及改善了安全性。技术采用世界知名的 KeePass Password Safe。</em:description>
-        <em:creator>Chris Tomlinson</em:creator>
-        <em:homepageURL>http://keefox.org</em:homepageURL>
-        <em:translator>yfdyh000</em:translator>
-        <em:contributor>Ben Roberts</em:contributor>
-        <em:contributor>David Lechner</em:contributor>
-        <em:contributor>Ken Bass</em:contributor>
-      </Description>
-    </em:localized>
-
-    <em:localized>
-      <Description>
-        <em:locale>de</em:locale>
-        <em:translator>Christian Arnold aka meilon</em:translator>
-        <em:translator>Mario Siegmann - Siggi0904</em:translator>
-        <em:name>KeeFox</em:name>
-        <em:description>Einfaches und sicheres Passwort-Management. Automatisch anmelden, niemals ein Passwort vergessen und immer, zur Erhöhung der Sicherheit, Kontrolle über die eigenen Passwörter haben. All dies wird durch den weltweit bekannten KeePass Password Safe ermöglicht.</em:description>
-        <em:creator>Chris Tomlinson</em:creator>
-        <em:homepageURL>http://keefox.org</em:homepageURL>
-        <em:contributor>Ben Roberts</em:contributor>
-        <em:contributor>David Lechner</em:contributor>
-        <em:contributor>Ken Bass</em:contributor>
-      </Description>
-    </em:localized>
-
-    <em:localized>
-      <Description>
-        <em:locale>ru</em:locale>
-        <em:name>KeeFox</em:name>
-        <em:description>Простое и защищённое управление паролями. Автоматическая авторизация, никогда не забывает ни один из паролей, не теряет контроля над ними и увеличивает их защищённость. Использует всемирно известный KeePass Password Safe.</em:description>
-        <em:creator>Chris Tomlinson</em:creator>
-        <em:homepageURL>http://keefox.org</em:homepageURL>
-        <em:translator>Degit</em:translator>
-        <em:contributor>Ben Roberts</em:contributor>
-        <em:contributor>David Lechner</em:contributor>
-        <em:contributor>Ken Bass</em:contributor>
-      </Description>
-    </em:localized>
-
-    <em:localized>
-      <Description>
-        <em:locale>sv-SE</em:locale>
-        <em:translator>Mikael Hiort af Ornäs</em:translator>
-        <em:name>KeeFox</em:name>
-        <em:description>Enkel och säker lösenordshantering. Logga in automatiskt, glöm aldrig mer bort ett lösenord, håll reda på dina lösenord och stärk deras säkerhet. Att användas tillsammans med den världsberömda lösenordshanteraren KeePass Password Safe.</em:description>
-        <em:creator>Chris Tomlinson</em:creator>
-        <em:homepageURL>http://keefox.org</em:homepageURL>
-        <em:contributor>Ben Roberts</em:contributor>
-        <em:contributor>David Lechner</em:contributor>
-        <em:contributor>Ken Bass</em:contributor>
-      </Description>
-    </em:localized>
-
-    <em:localized>
-      <Description>
-        <em:locale>en-GB</em:locale>
-        <em:name>KeeFox</em:name>
-        <em:description>Simple and secure password management. Login automatically, never forget another password, stay in control of your passwords and improve their security. Powered by the world-renowned KeePass Password Safe.</em:description>
-        <em:creator>Chris Tomlinson</em:creator>
-        <em:homepageURL>http://keefox.org</em:homepageURL>
-        <em:contributor>Ben Roberts</em:contributor>
-        <em:contributor>David Lechner</em:contributor>
-        <em:contributor>Ken Bass</em:contributor>
-        <em:iconURL>chrome://keefox/skin/icon.png</em:iconURL>
-      </Description>
-    </em:localized>
-
-    <em:localized>
-      <Description>
-        <em:locale>en-US</em:locale>
-        <em:name>KeeFox</em:name>
-        <em:description>Simple and secure password management. Login automatically, never forget another password, stay in control of your passwords and improve their security. Powered by the world-renowned KeePass Password Safe.</em:description>
-        <em:creator>Chris Tomlinson</em:creator>
-        <em:homepageURL>http://keefox.org</em:homepageURL>
-        <em:contributor>Ben Roberts</em:contributor>
-        <em:contributor>David Lechner</em:contributor>
-        <em:contributor>Ken Bass</em:contributor>
-        <em:iconURL>chrome://keefox/skin/icon.png</em:iconURL>
-      </Description>
-    </em:localized>
-
-    <em:localized>
-      <Description>
-        <em:locale>cs</em:locale>
-        <em:translator>Radim Pesek</em:translator>
-        <em:name>KeeFox</em:name>
-        <em:description>Jednoduchý a bezpečný správce hesel. Automatické přihlašovaní vám nedovolí zapomenout heslo. Získáte lepší kontrolu nad svými hesly a zvýšíte jejich zabezpečení. Založeno na proslulém KeePass Password Safe.</em:description>
-        <em:creator>Chris Tomlinson</em:creator>
-        <em:homepageURL>http://keefox.org</em:homepageURL>
-        <em:contributor>Ben Roberts</em:contributor>
-        <em:contributor>David Lechner</em:contributor>
-        <em:contributor>Ken Bass</em:contributor>
-      </Description>
-    </em:localized>
-
-    <em:localized>
-      <Description>
-        <em:locale>ko-KR</em:locale>
-        <em:translator>용오름(Wtspout)</em:translator>
-        <em:name>KeeFox</em:name>
-        <em:description>간편하고 안전한 암호 관리. 자동 로그인, 다른 암호를 잊는 일이 없으며, 비밀번호 제어를 유지하고 보안을 향상시킵니다. 세계적으로 유명한 안전한 KeePass 암호를 통해 구동됩니다.</em:description>
-        <em:creator>Chris Tomlinson</em:creator>
-        <em:homepageURL>http://keefox.org</em:homepageURL>
-        <em:contributor>Ben Roberts</em:contributor>
-        <em:contributor>David Lechner</em:contributor>
-        <em:contributor>Ken Bass</em:contributor>
-      </Description>
-    </em:localized>
-
-    <em:localized>
-      <Description>
-        <em:locale>pt-BR</em:locale>
-        <em:translator>Ghelman</em:translator>
-        <em:name>KeeFox</em:name>
-        <em:description>Gerenciador de senhas simples e seguro. Faça login automaticamente, nunca esqueça outra senha, mantenha o controle sobre suas senhas e aumente sua segurança. Fortalecido pelo mundialmente renomado KeePass Password Safe.</em:description>
-        <em:creator>Chris Tomlinson</em:creator>
-        <em:homepageURL>http://keefox.org</em:homepageURL>
-        <em:contributor>Ben Roberts</em:contributor>
-        <em:contributor>David Lechner</em:contributor>
-        <em:contributor>Ken Bass</em:contributor>
-  </Description>
-    </em:localized>
 
   </Description>
 </RDF>
