@@ -1,6 +1,0 @@
-\_svn
-.pgd
-.lib
-.exp
-KeeICEInstaller
-Microsoft.VC90.CRT
