@@ -536,7 +536,7 @@ KeeFox.prototype = {
 
         // If user has defined a relative URL, convert it to a format that is valid for use with setRelativeDescriptor
         if (fileName.startsWith('.\\') || fileName.startsWith('..\\'))
-            fileName = fileName.replace('\\', '/', 'g');
+            fileName = fileName.replace(/\\/g, '/');
         if (fileName.startsWith('./') || fileName.startsWith('../'))
         {
             if (fileName.startsWith('./'))

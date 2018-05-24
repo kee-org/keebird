@@ -203,7 +203,7 @@ Localisation.prototype = {
         }
 
         // return the key if it all went wrong
-        name = name.replace("_", " ", "g");
+        name = name.replace(/_/g, " ");
         return name;
     },
 
