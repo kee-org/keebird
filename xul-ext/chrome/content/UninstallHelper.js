@@ -344,8 +344,7 @@ keefox_win.UninstallHelper.prototype =
                 keefox_win.notificationManager.remove("uninstall-helper"); });
         } else if (action == "setupUpgrade")
         {
-            // We don't differentiate upgrades from downgrades at the moment - probably won't be
-            // useful very often but metrics data will allow us to review this decision in future
+            // We don't differentiate upgrades from downgrades at the moment
             button.setAttribute("label",keefox_org.locale.$STR("KeeFox_Install_Setup_KeeFox.label"));
             button.addEventListener("command", function () { 
                 keefox_org.utils._openAndReuseOneTabPerURL(keefox_org.baseInstallURL+"?upgrade=1");
@@ -444,9 +443,7 @@ keefox_win.UninstallHelper.prototype =
         if (allOK || connectionError)
         {
             // We don't currently offer any specific advice regarding error messages since the
-            // user should have already seen useful advice when they first occurred but we can
-            // monitor the data metrics in this area and start offering something extra in
-            // future if it looks like it will be worthwhile.
+            // user should have already seen useful advice when they first occurred
             message = mainResponse;
             action = "help";
         }
