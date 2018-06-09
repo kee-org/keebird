@@ -649,7 +649,6 @@ var keeFoxDialogManager = {
             // set "no passwords" message
             document.getElementById("keefox-autoauth-description")
                 .setAttribute("value", keefox_org.locale.$STR("httpAuth.noMatches"));
-            window.sizeToContent();
             return;
         }        
         
@@ -776,8 +775,6 @@ var keeFoxDialogManager = {
                 box.removeChild(box.childNodes[0]);
             }
             box.appendChild(list);
-
-            window.sizeToContent();
         }
 
         if (matchedLogins[bestMatch] === undefined)
