@@ -22,6 +22,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 "use strict";
 
+let Cu = Components.utils;
+
+Cu.import("resource://gre/modules/FileUtils.jsm")
+
 var KF_KPZIP_DOWNLOAD_PATH = "https://downloads.sourceforge.net/project/keepass/KeePass%202.x/2.35/";
 var KF_KPZIP_FILE_NAME = "KeePass-2.35.zip?r=&ts=";
 var KF_KPZIP_SAVE_NAME = "KeePass-2.35.zip";
@@ -397,9 +401,7 @@ function IC1setupKP(mainWindow)
             }            
             showSection('IC1setupKPdownloaded');
             
-            var file = Components.classes["@mozilla.org/file/local;1"]
-            .createInstance(Components.interfaces.nsILocalFile);
-            file.initWithFile(mainWindow.keefox_org.utils.myProfileDir());
+            var file = new FileUtils.File(mainWindow.keefox_org.utils.myProfileDir());
             file.append(KF_KP_SAVE_NAME);            
 
             installState |= KF_INSTALL_STATE_KP_EXECUTING;
@@ -456,9 +458,7 @@ function IC1setupNET(mainWindow)
             
             installState |= KF_INSTALL_STATE_NET_EXECUTING;
 
-            var file = Components.classes["@mozilla.org/file/local;1"]
-            .createInstance(Components.interfaces.nsILocalFile);
-            file.initWithFile(mainWindow.keefox_org.utils.myProfileDir());
+            var file = new FileUtils.File(mainWindow.keefox_org.utils.myProfileDir());
             file.append(KF_NET_FILE_NAME);
                                 
             mainWindow.keefox_org.runAnInstaller(file.path,"", 
@@ -569,9 +569,7 @@ function IC2setupKP(mainWindow)
 
             installState |= KF_INSTALL_STATE_KP_EXECUTING;
 
-            var file = Components.classes["@mozilla.org/file/local;1"]
-            .createInstance(Components.interfaces.nsILocalFile);
-            file.initWithFile(mainWindow.keefox_org.utils.myProfileDir());
+            var file = new FileUtils.File(mainWindow.keefox_org.utils.myProfileDir());
             file.append(KF_KP_SAVE_NAME);
             
             mainWindow.keefox_org.runAnInstaller(file.path,"/silent",
@@ -619,9 +617,7 @@ function IC2setupCustomKP(mainWindow)
 
             installState |= KF_INSTALL_STATE_KP_EXECUTING;
 
-            var file = Components.classes["@mozilla.org/file/local;1"]
-            .createInstance(Components.interfaces.nsILocalFile);
-            file.initWithFile(mainWindow.keefox_org.utils.myProfileDir());
+            var file = new FileUtils.File(mainWindow.keefox_org.utils.myProfileDir());
             file.append(KF_KP_SAVE_NAME);
             
             mainWindow.keefox_org.runAnInstaller(file.path,"",
@@ -1040,14 +1036,10 @@ function copyKeePassRPCFilesTo(keePassLocation)
 
 function runKeePassRPCExecutableInstaller(keePassLocation)
 {
-    var destFolder = Components.classes["@mozilla.org/file/local;1"]
-    .createInstance(Components.interfaces.nsILocalFile);
-    destFolder.initWithPath(keePassLocation);
+    var destFolder = new FileUtils.File(keePassLocation);
     destFolder.append("plugins");
     
-    var file = Components.classes["@mozilla.org/file/local;1"]
-        .createInstance(Components.interfaces.nsILocalFile);
-        file.initWithPath(mainWindow.keefox_org.utils.myDepsDir());
+    var file = new FileUtils.File(mainWindow.keefox_org.utils.myDepsDir());
         file.append(KF_KRPC_FILE_NAME);
 
     mainWindow.keefox_org.runAnInstaller(file.path, '"'
@@ -1061,9 +1053,7 @@ function runKeePassRPCExecutableInstaller(keePassLocation)
 // TODO:2: ... or not, if FF4 has removed the required features!
 function extractKPZip (zipFilePath, storeLocation)
 {
-    var zipFile = Components.classes["@mozilla.org/file/local;1"]
-        .createInstance(Components.interfaces.nsILocalFile);
-        zipFile.initWithFile(mainWindow.keefox_org.utils.myProfileDir());
+    var zipFile = new FileUtils.File(mainWindow.keefox_org.utils.myProfileDir());
 
         zipFile.append(zipFilePath);
         
@@ -1085,7 +1075,7 @@ function extractKPZip (zipFilePath, storeLocation)
         {
             try
             {
-                target.create(Components.interfaces.nsILocalFile.DIRECTORY_TYPE, 484);
+                target.create(Components.interfaces.nsIFile.DIRECTORY_TYPE, 484);
             }
             catch (e)
             {
@@ -1108,7 +1098,7 @@ function extractKPZip (zipFilePath, storeLocation)
 
         try
         {
-            target.create(Components.interfaces.nsILocalFile.NORMAL_FILE_TYPE, 484);
+            target.create(Components.interfaces.nsIFile.NORMAL_FILE_TYPE, 484);
             //TODO:2: different permissions for special files on linux. e.g. 755
             // for main executable? not sure how it works with Mono though
             // so needs much more reading...

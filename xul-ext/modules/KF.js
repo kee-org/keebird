@@ -43,6 +43,7 @@ Cu.import("resource://kfmod/TutorialHelper.js");
 Cu.import("resource://kfmod/SampleChecker.js");
 Cu.import("resource://kfmod/DataMigration.js");
 Cu.import("resource://gre/modules/Timer.jsm");
+Cu.import("resource://gre/modules/FileUtils.jsm");
 
 // constructor
 function KeeFox()
@@ -566,8 +567,7 @@ KeeFox.prototype = {
             args.push('' + mruparam + '');
         }
 
-        var file = Components.classes["@mozilla.org/file/local;1"]
-                   .createInstance(Components.interfaces.nsILocalFile);
+        var file = null;
         if (fileNameIsRelative) {
             var ffDir = Components.classes["@mozilla.org/file/directory_service;1"]
                         .getService(Components.interfaces.nsIProperties)
@@ -576,11 +576,13 @@ KeeFox.prototype = {
             // "installation location" so this is the best we can do
             if (ffDir.leafName == "browser")
                 ffDir = ffDir.parent;
-
-            file.setRelativeDescriptor(ffDir, fileName);
+            //TODO: possible broken with TB 60. append does not accept path seperators
+            //file.setRelativeDescriptor(ffDir, fileName);
+            file = new FileUtils.File(ffDir);
+            file.append(fileName);
         } else
         {
-            file.initWithPath(fileName);
+            file = new FileUtils.File(fileName);
         }
 
         this._KFLog.info("About to execute: " + file.path + " " + args.join(' '));
@@ -596,9 +598,7 @@ KeeFox.prototype = {
     runAnInstaller: function (fileName, params, callback)
     {
         var args = [fileName, params];                
-        var file = Components.classes["@mozilla.org/file/local;1"]
-                   .createInstance(Components.interfaces.nsILocalFile);
-        file.initWithPath(this.utils.myDepsDir() + "\\KeeFoxElevate.exe");
+        var file = new FileUtils.File(this.utils.myDepsDir() + "\\KeeFoxElevate.exe");
 
         var process = Components.classes["@mozilla.org/process/util;1"]
                       .createInstance(Components.interfaces.nsIProcess2 || Components.interfaces.nsIProcess);

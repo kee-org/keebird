@@ -1,5 +1,9 @@
 "use strict";
 
+let Cu = Components.utils;
+
+Cu.import("resource://gre/modules/FileUtils.jsm");
+
 function onLoad(){
     var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                  .getService(Components.interfaces.nsIWindowMediator);
@@ -447,37 +451,45 @@ function onsynctopreferenceLogLevel()
 //TODO:2: allow users to choose seperate plugins folder OR automatically detect from a few standard locations
 function browseForKeePassLocation(currentLocationPath)
 {
-    var location = browseForLocation(currentLocationPath, 
-                                     Components.interfaces.nsIFilePicker.modeGetFolder, 'selectKeePassLocation', 'NoFilter');
-    document.getElementById("keePassInstalledLocation").value = location;
-    document.getElementById("KeeFox-pref-keePassInstalledLocation").value = location;
+    browseForLocation(currentLocationPath, 
+                      Components.interfaces.nsIFilePicker.modeGetFolder, 'selectKeePassLocation', 'NoFilter',
+                      function(location) {
+                            document.getElementById("keePassInstalledLocation").value = location;
+                            document.getElementById("KeeFox-pref-keePassInstalledLocation").value = location;
+                      });
 }
 
 function browseForKPRPCLocation(currentLocationPath)
 {
-    var location = browseForLocation(currentLocationPath, 
-                                     Components.interfaces.nsIFilePicker.modeGetFolder, 'selectKeePassLocation', 'NoFilter');
-    document.getElementById("keePassRPCInstalledLocation").value = location;
-    document.getElementById("KeeFox-pref-keePassRPCInstalledLocation").value = location;
+    browseForLocation(currentLocationPath, 
+                      Components.interfaces.nsIFilePicker.modeGetFolder, 'selectKeePassLocation', 'NoFilter',
+                      function(location){
+                            document.getElementById("keePassRPCInstalledLocation").value = location;
+                            document.getElementById("KeeFox-pref-keePassRPCInstalledLocation").value = location;                                         
+                      });
 }
 
 function browseForMonoLocation(currentLocationPath)
 {
-    var location = browseForLocation(currentLocationPath, 
-                                     Components.interfaces.nsIFilePicker.modeOpen, 'selectMonoLocation', 'NoFilter');
-    document.getElementById("monoLocation").value = location;
-    document.getElementById("KeeFox-pref-monoLocation").value = location;
+    browseForLocation(currentLocationPath, 
+                      Components.interfaces.nsIFilePicker.modeOpen, 'selectMonoLocation', 'NoFilter',
+                      function(location){
+                            document.getElementById("monoLocation").value = location;
+                            document.getElementById("KeeFox-pref-monoLocation").value = location;
+                      });
 }
 
 function browseForDefaultKDBXLocation(currentLocationPath)
 {
-    var location = browseForLocation(currentLocationPath, 
-                                     Components.interfaces.nsIFilePicker.modeOpen, 'selectDefaultKDBXLocation', 'DBFilter');
-    document.getElementById("keePassDBToOpen").value = location;
-    document.getElementById("KeeFox-pref-keePassDBToOpen").value = location;
+    browseForLocation(currentLocationPath, 
+                      Components.interfaces.nsIFilePicker.modeOpen, 'selectDefaultKDBXLocation', 'DBFilter',
+                      function(location){
+                            document.getElementById("keePassDBToOpen").value = location;
+                            document.getElementById("KeeFox-pref-keePassDBToOpen").value = location;
+                      });
 }
 
-function browseForLocation(currentLocationPath, pickerMode, captionStringKey, filterMode)
+function browseForLocation(currentLocationPath, pickerMode, captionStringKey, filterMode, callback)
 {
     const nsIFilePicker = Components.interfaces.nsIFilePicker;
 
@@ -501,9 +513,7 @@ function browseForLocation(currentLocationPath, pickerMode, captionStringKey, fi
     if (currentLocationPath != null && currentLocationPath.length > 0)
     {
         try {
-            var currentLocation = Components.classes["@mozilla.org/file/local;1"]
-                .createInstance(Components.interfaces.nsILocalFile);
-            currentLocation.initWithPath(currentLocationPath);
+            var currentLocation = new FileUtils.File(currentLocationPath);
             if (currentLocation.exists())
                 fp.displayDirectory = currentLocation;
         } catch (ex) {
@@ -511,13 +521,14 @@ function browseForLocation(currentLocationPath, pickerMode, captionStringKey, fi
         }
     }
     
-    var rv = fp.show();
-    if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace)
-    {
-        var path = fp.file.path;
-        return path;
-    }
-    return currentLocationPath;
+    fp.open(rv => {
+        var ret = currentLocationPath;
+        if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace)
+        {
+            ret = fp.file.path;
+        }
+        callback(ret);
+    });    
 }
 
 function openSiteConfig()

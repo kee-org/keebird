@@ -25,6 +25,7 @@ let Ci = Components.interfaces;
 let Cu = Components.utils;
 
 var EXPORTED_SYMBOLS = ["KFExtension"];
+Cu.import("resource://gre/modules/FileUtils.jsm");
 
 // constructor
 function KFE()
@@ -36,9 +37,7 @@ function KFE()
                     getService(Components.interfaces.nsIProperties);
         var dir = directoryService.get("ProfD", Components.interfaces.nsIFile);
     
-        var folder = Components.classes["@mozilla.org/file/local;1"]
-            .createInstance(Components.interfaces.nsILocalFile);
-        folder.initWithPath(dir.path);
+        var folder = new FileUtils.File(dir.path);
         folder.append("keefox");
 
         if (!folder.exists())
@@ -97,7 +96,7 @@ function KFE()
     };
     this.prefs._getStringValue = function(name)
     {
-        try { return this._prefBranch.getComplexValue(name, Components.interfaces.nsISupportsString).data;
+        try { return this._prefBranch.getStringPref(name);
         } catch (ex) { return null; }
     };
     this.prefs._getIntValue = function(name)
@@ -122,11 +121,7 @@ function KFE()
     this.prefs._setStringValue = function(name, value)
     {
         try { 
-            var str = Components.classes["@mozilla.org/supports-string;1"]
-                .createInstance(Components.interfaces.nsISupportsString);
-            str.data = value;
-            this._prefBranch.setComplexValue(name, 
-                Components.interfaces.nsISupportsString, str);
+            this._prefBranch.setStringPref(name, value);
         } catch (ex) {}
     };
     this.prefs._setIntValue = function(name, value)

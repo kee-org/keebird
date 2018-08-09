@@ -246,7 +246,7 @@ function config()
 
         try
         {
-            var prefData = prefBranch.getComplexValue("config", Ci.nsISupportsString).data;
+            var prefData = prefBranch.getStringPref("config");
             var conf = JSON.parse(prefData);
             //TODO:2: In future check version here and apply migrations if needed
             //var currentVersion = prefBranch.getIntPref("configVersion");
@@ -265,9 +265,7 @@ function config()
         var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService);
         var prefBranch = prefService.getBranch("extensions.keefox@chris.tomlinson.");
 
-        var str = Cc["@mozilla.org/supports-string;1"].createInstance(Ci.nsISupportsString);
-        str.data = JSON.stringify(this.current);
-        prefBranch.setComplexValue("config", Ci.nsISupportsString, str);
+        prefBranch.setStringPref("config", JSON.stringify(this.current));
 
         //TODO:1.6: Stop forcing this to 1 when we release the first new version
         prefBranch.setIntPref("configVersion",1);

@@ -46,6 +46,7 @@ let Ci = Components.interfaces;
 let Cu = Components.utils;
 
 var EXPORTED_SYMBOLS = ["KeeFoxLog"];
+Cu.import("resource://gre/modules/FileUtils.jsm");
 
 // constructor
 function KeeFoxLogger()
@@ -99,18 +100,13 @@ KeeFoxLogger.prototype = {
                 getService(Components.interfaces.nsIProperties);
             var dir = directoryService.get("ProfD", Components.interfaces.nsIFile);
             
-            var folder = Components.classes["@mozilla.org/file/local;1"]
-                .createInstance(Components.interfaces.nsILocalFile);
-            folder.initWithPath(dir.path);
+            var folder = new FileUtils.File(dir.path);
             folder.append("keefox");
         
             if (!folder.exists())
                 folder.create(folder.DIRECTORY_TYPE, parseInt("0775", 8));
                 
-            var file = Components.classes["@mozilla.org/file/local;1"]
-                .createInstance(Components.interfaces.nsILocalFile);
-
-            file.initWithPath(dir.path);
+            var file = new FileUtils.File(dir.path);
             file.append("keefox");
             file.append("log.txt");
             this.__logFile = file;
