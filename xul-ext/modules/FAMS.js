@@ -609,9 +609,7 @@ FirefoxAddonMessageService.prototype.setConfiguration = function (configuration)
         throw new Exception("Trying to save a configuration with a different ID from the currently initialised config. Failed.");
 
     this.configuration = configuration;
-    var str = Cc["@mozilla.org/supports-string;1"].createInstance(Ci.nsISupportsString);
-    str.data = JSON.stringify(configuration);
-    this.prefBranch.setComplexValue("config.utf8." + configuration.id, Ci.nsISupportsString, str);
+    this.prefBranch.setStringPref("config.utf8." + configuration.id, JSON.stringify(configuration));
 };
 
 // Use the current configuration stored in preferences unless it has not yet been defined
@@ -624,13 +622,11 @@ FirefoxAddonMessageService.prototype.getConfiguration = function ()
         var prefType = this.prefBranch.getPrefType("config." + this.configId);
         if (prefType == 32)
         {
-            var str = Cc["@mozilla.org/supports-string;1"].createInstance(Ci.nsISupportsString);
-            str.data = this.prefBranch.getCharPref("config." + this.configId);
-            this.prefBranch.setComplexValue("config.utf8." + this.configId, Ci.nsISupportsString, str);
+            this.prefBranch.setStringPref("config.utf8." + this.configId, this.prefBranch.getCharPref("config." + this.configId));
             this.prefBranch.clearUserPref("config." + this.configId);
         }
 
-        var prefData = this.prefBranch.getComplexValue("config.utf8." + this.configId, Ci.nsISupportsString).data;
+        var prefData = this.prefBranch.getStringPref("config.utf8." + this.configId);
         var conf = JSON.parse(prefData);
         if (conf.version < this.defaultConfiguration.version)
         {

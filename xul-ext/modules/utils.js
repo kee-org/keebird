@@ -26,6 +26,7 @@ var EXPORTED_SYMBOLS = ["utils"];
 Cu.import("resource://kfmod/KFLogger.js");
 Cu.import("resource://kfmod/KFExtension.js");
 Cu.import("resource://kfmod/biginteger.js");
+Cu.import("resource://gre/modules/FileUtils.jsm");
 
 // constructor
 function Utils()
@@ -196,9 +197,7 @@ Utils.prototype = {
                 
                 try
                 {
-                    var defaultFolder = Components.classes["@mozilla.org/file/local;1"]
-                        .createInstance(Components.interfaces.nsILocalFile);
-                    defaultFolder.initWithPath(KFExtension.prefs.getValue("keePassInstalledLocation","not installed"));
+                    var defaultFolder = new FileUtils.File(KFExtension.prefs.getValue("keePassInstalledLocation","not installed"));
                     defaultFolder.append("plugins");
 
                     if (keePassRPCLocation == defaultFolder.path || keePassRPCLocation.slice(0,-1) == defaultFolder.path)
@@ -221,9 +220,7 @@ Utils.prototype = {
         {
             keePassLocation = KFExtension.prefs.getValue("keePassInstalledLocation","not installed");
 
-            var folder = Components.classes["@mozilla.org/file/local;1"]
-                        .createInstance(Components.interfaces.nsILocalFile);
-            folder.initWithPath(keePassLocation);
+            var folder = new FileUtils.File(keePassLocation);
             folder.append("plugins");
             keePassRPCLocation = folder.path;
             if (this._KFLog.logSensitiveData)
@@ -244,11 +241,9 @@ Utils.prototype = {
         else
             this._KFLog.debug("Looking for the KeePass EXE.");
 
-        var file = Components.classes["@mozilla.org/file/local;1"]
-                    .createInstance(Components.interfaces.nsILocalFile);
         try
         {
-            file.initWithPath(keePassLocation);
+            var file = new FileUtils.File(keePassLocation);
             if (file.isDirectory())
             {
                 file.append("KeePass.exe");
@@ -274,12 +269,11 @@ Utils.prototype = {
             this._KFLog.info("Looking for the KeePassRPC plugin plgx in " + keePassRPCLocation + " and " + keePassLocation);
         else
             this._KFLog.info("Looking for the KeePassRPC plugin plgx");
-
-        var file = Components.classes["@mozilla.org/file/local;1"]
-                    .createInstance(Components.interfaces.nsILocalFile);
+        
+        var file = null;
         try
         {
-            file.initWithPath(keePassRPCLocation);
+            file = new FileUtils.File(keePassRPCLocation);
             if (file.isDirectory())
             {
                 file.append("KeePassRPC.plgx");
@@ -299,7 +293,7 @@ Utils.prototype = {
         {
             try
             {
-                file.initWithPath(keePassLocation);
+                file = new FileUtils.File(keePassLocation);
                 if (file.isDirectory())
                 {
                     file.append("KeePassRPC.plgx");
@@ -323,9 +317,7 @@ Utils.prototype = {
             // (where a DLL is used rather than PLGX)
             if (!KeePassRPCfound)
             {
-                file = Components.classes["@mozilla.org/file/local;1"].
-                    createInstance(Components.interfaces.nsILocalFile)
-                file.initWithPath(keePassRPCLocation);
+                file = new FileUtils.File(keePassRPCLocation);
                 if (file.isDirectory())
                 {
                     file.append("KeePassRPC.dll");
@@ -360,9 +352,7 @@ Utils.prototype = {
         
         if (monoLocation == "not installed")
         {
-            var mono_exec = Components.classes["@mozilla.org/file/local;1"]
-                             .createInstance(Components.interfaces.nsILocalFile);
-            mono_exec.initWithPath(defaultMonoExec);
+            var mono_exec =  new FileUtils.File(defaultMonoExec);
             if (mono_exec.exists())
             {
                 monoLocation = mono_exec.path;            
@@ -384,11 +374,9 @@ Utils.prototype = {
 
         this._KFLog.debug("Looking for the Mono executable in " + monoLocation);
 
-        var file = Components.classes["@mozilla.org/file/local;1"]
-                    .createInstance(Components.interfaces.nsILocalFile);
         try
         {
-            file.initWithPath(monoLocation);
+            var file = new FileUtils.File(monoLocation);
             if (file.isFile())
             {
                 monoExecFound = true;
@@ -409,9 +397,7 @@ Utils.prototype = {
     
     IsUserAdministrator: function()
     {
-        var file = Components.classes["@mozilla.org/file/local;1"]
-                   .createInstance(Components.interfaces.nsILocalFile);
-        file.initWithPath(this.myDepsDir() + "\\CheckForAdminRights.exe");
+        var file = new FileUtils.File(this.myDepsDir() + "\\CheckForAdminRights.exe");
 
         var process = Components.classes["@mozilla.org/process/util;1"]
                       .createInstance(Components.interfaces.nsIProcess);
@@ -455,7 +441,8 @@ Utils.prototype = {
                     if (url == currentBrowser.currentURI.spec)
                     {
                         // The URL is already opened. Select this tab.
-                        tabbrowser.selectedTab = tabbrowser.tabContainer.childNodes[index];
+                        //TODO: tabcontainer may needs to be exchanged for tabmail-tabs (TB59)
+                        tabbrowser.selectedTab = tabbrowser.tabcontainer.childNodes[index];
 
                         // Focus *this* browser-window
                         browserWin.focus();
@@ -495,9 +482,7 @@ Utils.prototype = {
     
     myDepsDir: function()
     {
-        var file = Components.classes["@mozilla.org/file/local;1"]
-        .createInstance(Components.interfaces.nsILocalFile);
-        file.initWithPath(this.myInstalledDir());
+        var file = new FileUtils.File(this.myInstalledDir());
         file.append("deps");
         return file.path;
     },
@@ -527,9 +512,7 @@ Utils.prototype = {
                     getService(Components.interfaces.nsIProperties);
         var dir = directoryService.get("ProfD", Components.interfaces.nsIFile);
     
-        var folder = Components.classes["@mozilla.org/file/local;1"]
-            .createInstance(Components.interfaces.nsILocalFile);
-        folder.initWithPath(dir.path);
+        var folder = new FileUtils.File(dir.path);
         folder.append("keefox");
 
         if (!folder.exists())

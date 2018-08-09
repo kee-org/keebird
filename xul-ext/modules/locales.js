@@ -416,7 +416,7 @@ Localisation.prototype = {
     {
         var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService);
         var prefBranchRoot = prefService.getBranch("");
-        return prefBranchRoot.getComplexValue("general.useragent.locale", Ci.nsISupportsString).data.toLowerCase();
+        return prefBranchRoot.getStringPref("general.useragent.locale").toLowerCase();
     }
 
 };

@@ -725,7 +725,7 @@ function commandManager () {
 
         try
         {
-            var prefData = prefBranch.getComplexValue("commands", Ci.nsISupportsString).data;
+            var prefData = prefBranch.getStringPref("commands");
             var coms = JSON.parse(prefData);
             var currentVersion = prefBranch.getIntPref("commandsVersion");
             // Backwards migrations are not supported
@@ -747,9 +747,7 @@ function commandManager () {
         var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService);
         var prefBranch = prefService.getBranch("extensions.keefox@chris.tomlinson.");
 
-        var str = Cc["@mozilla.org/supports-string;1"].createInstance(Ci.nsISupportsString);
-        str.data = JSON.stringify(this.commands);
-        prefBranch.setComplexValue("commands", Ci.nsISupportsString, str);
+        prefBranch.setStringPref("commands", JSON.stringify(this.commands));
         
         prefBranch.setIntPref("commandsVersion",this.commandsConfigVersion);
     };
