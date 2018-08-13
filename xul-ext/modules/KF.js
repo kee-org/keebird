@@ -119,11 +119,11 @@ function KeeFox()
     observerService.addObserver(this._observer, "quit-application", false);   
     observerService.addObserver(this._observer, "http-on-modify-request", false);
         
-    this._keeFoxExtension.prefs._prefBranchRoot.QueryInterface(Ci.nsIPrefBranch2);
+    this._keeFoxExtension.prefs._prefBranchRoot.QueryInterface(Ci.nsIPrefBranch);
     this._keeFoxExtension.prefs._prefBranchRoot.addObserver("signon.rememberSignons", this._observer, false);
     this._keeFoxExtension.prefs._prefBranchRoot.QueryInterface(Ci.nsIPrefBranch);
     
-    this._keeFoxExtension.prefs._prefBranch.QueryInterface(Ci.nsIPrefBranch2);
+    this._keeFoxExtension.prefs._prefBranch.QueryInterface(Ci.nsIPrefBranch);
     this._keeFoxExtension.prefs._prefBranch.addObserver("", this._observer, false);
     this._keeFoxExtension.prefs._prefBranch.QueryInterface(Ci.nsIPrefBranch);
         
@@ -918,7 +918,7 @@ KeeFox.prototype = {
                                   getService(Ci.nsIObserverService);
                     observerService.removeObserver(this, "quit-application");
                     
-                    this._prefBranchRoot.QueryInterface(Ci.nsIPrefBranch2);
+                    this._prefBranchRoot.QueryInterface(Ci.nsIPrefBranch);
                     this._prefBranchRoot.removeObserver("signon.rememberSignons", this);
                     
                     window.keefox_org._KFLog.info("KeeFox has shut down. Sad times; come back soon!");
