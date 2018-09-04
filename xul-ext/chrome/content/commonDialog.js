@@ -496,7 +496,7 @@ var keeFoxDialogManager = {
             {
                 // e.g. en-US:
                 // Enter username and password for %1$S
-                var currentProxyL10nPattern = "";            
+                var currentProxyL10nPattern = "";
                 try 
                 {
                     try 
@@ -504,7 +504,14 @@ var keeFoxDialogManager = {
                         currentProxyL10nPattern = this._cdBundle.GetStringFromName("EnterUserPasswordFor2");
                     } catch (exception)
                     {
-                        currentProxyL10nPattern = this._cdBundle.GetStringFromName("EnterUserPasswordFor");
+                        try
+                        {
+                            currentProxyL10nPattern = this._cdBundle.GetStringFromName("EnterUserPasswordForCrossOrigin2");
+                        }
+                        catch (exception)
+                        {
+                            currentProxyL10nPattern = this._cdBundle.GetStringFromName("EnterUserPasswordFor");
+                        }
                     }
                 } catch (exception)
                 {
