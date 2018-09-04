@@ -196,7 +196,7 @@ var keeFoxDialogManager = {
                 keefox_org._KFLog.debug("Looking for KeeFox Authorisation description text"); 
                 // find out if this is KeePassRPC authentication popup
                 let authTextString = keefox_org.locale.$STR("KeeFox-conn-setup-enter-password");
-                if (document.getElementById("info.body").firstChild.nodeValue == authTextString)
+                if (document.getElementById("infoBody").firstChild.nodeValue == authTextString)
                 {
                     keefox_org._KFLog.debug("Starting KPRPCConnectionObserver"); 
                     // Start listening for notifications that the KPRPC connection has been closed
@@ -422,7 +422,7 @@ var keeFoxDialogManager = {
                 currentRealmL10nPattern = currentRealmL10nPattern.replace("%2$S","(.+)").replace("%1$S","(.+)");
                 let regEx = new RegExp(currentRealmL10nPattern);
 
-                let matches = document.getElementById("info.body").firstChild.nodeValue.match(regEx);
+                let matches = document.getElementById("infoBody").firstChild.nodeValue.match(regEx);
                 if (matches !== null && typeof matches[1] !== "undefined" && typeof matches[2] !== "undefined")
                 {
                     if (realmFirst)
@@ -477,7 +477,7 @@ var keeFoxDialogManager = {
                 currentProxyL10nPattern = currentProxyL10nPattern.replace("%2$S","(.+)").replace("%1$S","(.+)");
                 let regEx = new RegExp(currentProxyL10nPattern);
 
-                let matches = document.getElementById("info.body").firstChild.nodeValue.match(regEx);
+                let matches = document.getElementById("infoBody").firstChild.nodeValue.match(regEx);
                 if (matches !== null && typeof matches[1] !== "undefined" && typeof matches[2] !== "undefined") {
                     if (realmFirst)
                     {
@@ -520,7 +520,7 @@ var keeFoxDialogManager = {
                 currentProxyL10nPattern = currentProxyL10nPattern.replace("%1$S","(.+)");
                 let regEx = new RegExp(currentProxyL10nPattern);
 
-                let matches = document.getElementById("info.body").firstChild.nodeValue.match(regEx);
+                let matches = document.getElementById("infoBody").firstChild.nodeValue.match(regEx);
                 if (matches !== null && typeof matches[1] !== "undefined")  {
                         host = matches[1];
                 }
