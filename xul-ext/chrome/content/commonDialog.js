@@ -525,7 +525,23 @@ var keeFoxDialogManager = {
                         host = matches[1];
                 }
             }
-            
+
+            // check for cross origin auth dialog
+            if (host.length < 1) 
+            {
+                // e.g. en-US:
+                // Enter username and password for %1$S
+                var currentProxyL10nPattern = this._cdBundle.GetStringFromName("EnterUserPasswordForCrossOrigin2");
+
+                currentProxyL10nPattern = currentProxyL10nPattern.replace("%1$S","(.+)");
+                let regEx = new RegExp(currentProxyL10nPattern);
+
+                let matches = document.getElementById("info.body").firstChild.nodeValue.match(regEx);
+                if (matches !== null && typeof matches[1] !== "undefined")  {
+                        host = matches[1];
+                }
+            }
+
             if (host.length < 1) {
               return;
             }
