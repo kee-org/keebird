@@ -536,7 +536,7 @@ var keeFoxDialogManager = {
                 currentProxyL10nPattern = currentProxyL10nPattern.replace("%1$S","(.+)");
                 let regEx = new RegExp(currentProxyL10nPattern);
 
-                let matches = document.getElementById("info.body").firstChild.nodeValue.match(regEx);
+                let matches = document.getElementById("infoBody").firstChild.nodeValue.match(regEx);
                 if (matches !== null && typeof matches[1] !== "undefined")  {
                         host = matches[1];
                 }
