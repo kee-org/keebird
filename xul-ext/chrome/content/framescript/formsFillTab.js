@@ -23,7 +23,7 @@
 */
 "use strict";
 
-Cu.import("resource://kfmod/kfDataModel.js");
+const { keeFoxLoginInfo } = ChromeUtils.import("resource://kfmod/kfDataModel.js");
 
 var _calculateFieldMatchScore = function (formField, dataField, currentPage, overWriteFieldsAutomatically)
 {

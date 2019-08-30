@@ -27,10 +27,10 @@ let Cu = Components.utils;
 
 var EXPORTED_SYMBOLS = ["jsonrpcClient"];
 
-Cu.import("resource://kfmod/kprpcClient.js");
-Cu.import("resource://kfmod/KFLogger.js");
-Cu.import("resource://kfmod/kfDataModel.js");
-Cu.import("resource://kfmod/utils.js");
+const { kprpcClient } = ChromeUtils.import("resource://kfmod/kprpcClient.js");
+const { KeeFoxLog } = ChromeUtils.import("resource://kfmod/KFLogger.js");
+// const { keeFoxLoginInfo, keeFoxLoginField, keeFoxFormFieldType } = ChromeUtils.import("resource://kfmod/kfDataModel.js");
+const { utils } = ChromeUtils.import("resource://kfmod/utils.js");
 
 var log = KeeFoxLog;
 

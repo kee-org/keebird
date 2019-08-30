@@ -33,7 +33,7 @@ let Cu = Components.utils;
 
 var EXPORTED_SYMBOLS = ["tutorialHelper"];
 
-Cu.import("resource://kfmod/KFExtension.js");
+const { KFExtension } = ChromeUtils.import("resource://kfmod/KFExtension.js");
 
 let tutorialProgress = function () {
     this._state = JSON.parse(KFExtension.prefs.getValue("tutorialProgress",
@@ -110,8 +110,8 @@ let TutorialHelper = function()
     this.sendSetupStateToTutorial = function (browser) {
         let [ connectState, setupState, setupActive, notUsed, dbState ] = browser.ownerGlobal.keefox_org.getAddonState();
 
-        Components.utils.import("resource://gre/modules/AddonManager.jsm");
-        AddonManager.getAddonByID("keefox@chris.tomlinson", function(addon) {
+        const { AddonManager } = ChromeUtils.import("resource://gre/modules/AddonManager.jsm");
+        AddonManager.getAddonByID("keefox@chris.tomlinson").then(addon => {
             browser.messageManager.sendAsyncMessage("keefox:sendStatusToTutorialPage", {
                 "connectState": connectState, "setupState": setupState, "setupActive": setupActive,
                 "version": addon.version,

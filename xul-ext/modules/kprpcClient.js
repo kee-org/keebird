@@ -26,20 +26,20 @@ let Cu = Components.utils;
 
 var EXPORTED_SYMBOLS = ["kprpcClient"];
 
-Cu.import("resource://gre/modules/Timer.jsm");
+const { setTimeout } = ChromeUtils.import("resource://gre/modules/Timer.jsm");
 
-Cu.import("resource://kfmod/KFLogger.js");
-Cu.import("resource://kfmod/biginteger.js");
+const { KeeFoxLog } = ChromeUtils.import("resource://kfmod/KFLogger.js");
+// const { BigInteger } = ChromeUtils.import("resource://kfmod/biginteger.js");
 
 let scriptLoader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
                            .getService(Components.interfaces.mozIJSSubScriptLoader); 
 scriptLoader.loadSubScript("resource://kfmod/sjcl.js");
 
-Cu.import("resource://kfmod/utils.js");
-Cu.import("resource://kfmod/SRP.js");
-Cu.import("resource://gre/modules/Timer.jsm");
+const { utils } = ChromeUtils.import("resource://kfmod/utils.js");
+// const { SRPc } = ChromeUtils.import("resource://kfmod/SRP.js");
+// const { setTimeout } = ChromeUtils.import("resource://gre/modules/Timer.jsm");
 
-Cu.import("resource://kfmod/session.js");
+const { session } = ChromeUtils.import("resource://kfmod/session.js");
 
 try
 {

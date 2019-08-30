@@ -28,9 +28,9 @@ keefox_win.PasswordSaver = function(doc, saveData, URLs, saveButtonCallback)
     this.URLs = URLs;
     this.saveButtonCallback = saveButtonCallback;
 
-    Cu.import("resource://kfmod/search.js", this);
+    const { Search } = ChromeUtils.import("resource://kfmod/search.js");
 
-    this.search = new this.Search(keefox_org, {
+    this.search = new Search(keefox_org, {
         version: 1,
         searchAllDatabases: true,
         maximumResults: 50

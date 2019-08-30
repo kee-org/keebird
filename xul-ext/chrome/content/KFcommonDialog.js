@@ -37,7 +37,7 @@ if (!Ci)
 if (!Cu)
     var Cu = Components.utils;
 
-Cu.import("resource://kfmod/KF.js");
+const { keefox_org } = ChromeUtils.import("resource://kfmod/KF.js");
 
 var keeFoxDialogManager = {
     scriptLoader : Components.classes["@mozilla.org/moz/jssubscript-loader;1"]

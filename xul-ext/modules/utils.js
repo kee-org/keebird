@@ -23,10 +23,10 @@ let Ci = Components.interfaces;
 let Cu = Components.utils;
 
 var EXPORTED_SYMBOLS = ["utils"];
-Cu.import("resource://kfmod/KFLogger.js");
-Cu.import("resource://kfmod/KFExtension.js");
-Cu.import("resource://kfmod/biginteger.js");
-Cu.import("resource://gre/modules/FileUtils.jsm");
+const { KeeFoxLog } = ChromeUtils.import("resource://kfmod/KFLogger.js");
+const { KFExtension } = ChromeUtils.import("resource://kfmod/KFExtension.js");
+const { BigInteger } = ChromeUtils.import("resource://kfmod/biginteger.js");
+const { FileUtils } = ChromeUtils.import("resource://gre/modules/FileUtils.jsm");
 
 // constructor
 function Utils()

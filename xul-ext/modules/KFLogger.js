@@ -46,7 +46,7 @@ let Ci = Components.interfaces;
 let Cu = Components.utils;
 
 var EXPORTED_SYMBOLS = ["KeeFoxLog"];
-Cu.import("resource://gre/modules/FileUtils.jsm");
+const { FileUtils } = ChromeUtils.import("resource://gre/modules/FileUtils.jsm");
 
 // constructor
 function KeeFoxLogger()

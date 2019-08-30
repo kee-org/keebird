@@ -23,9 +23,9 @@ let Ci = Components.interfaces;
 let Cu = Components.utils;
 
 var EXPORTED_SYMBOLS = ["KFCommands"];
-Cu.import("resource://kfmod/KFLogger.js");
-Cu.import("resource://kfmod/utils.js");
-Cu.import("resource://kfmod/KFExtension.js");
+const { KeeFoxLog } = ChromeUtils.import("resource://kfmod/KFLogger.js");
+const { utils } = ChromeUtils.import("resource://kfmod/utils.js");
+const { KFExtension } = ChromeUtils.import("resource://kfmod/KFExtension.js");
 
 function commandManager () {
     this._KFLog = KeeFoxLog;

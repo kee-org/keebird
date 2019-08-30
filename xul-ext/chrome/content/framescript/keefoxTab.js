@@ -55,9 +55,9 @@ keefox_tab.scriptLoader.loadSubScript("chrome://keefox/content/framescript/proxi
 
 // Load our other javascript
 keefox_tab.scriptLoader.loadSubScript("chrome://keefox/content/shared/uriUtils.js", keefox_tab);
-Cu.import("resource://gre/modules/Timer.jsm");
-Cu.import("resource://kfmod/kfDataModel.js");
-Cu.import("resource://kfmod/KFExtension.js");
+const { setTimeout } = ChromeUtils.import("resource://gre/modules/Timer.jsm");
+// const { keeFoxLoginInfo, keeFoxLoginField, keeFoxFormFieldType } = ChromeUtils.import("resource://kfmod/kfDataModel.js");
+// const { KFExtension } = ChromeUtils.import("resource://kfmod/KFExtension.js");
 keefox_tab.scriptLoader.loadSubScript("chrome://keefox/content/framescript/formsTab.js", keefox_tab);
 keefox_tab.scriptLoader.loadSubScript("chrome://keefox/content/framescript/formsFillTab.js", keefox_tab);
 keefox_tab.scriptLoader.loadSubScript("chrome://keefox/content/framescript/formsSaveTab.js", keefox_tab);

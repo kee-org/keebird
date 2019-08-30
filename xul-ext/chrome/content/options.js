@@ -2,7 +2,7 @@
 
 let Cu = Components.utils;
 
-Cu.import("resource://gre/modules/FileUtils.jsm");
+const { FileUtils } = ChromeUtils.import("resource://gre/modules/FileUtils.jsm");
 
 function onLoad(){
     var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]

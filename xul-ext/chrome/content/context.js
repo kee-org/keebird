@@ -20,8 +20,8 @@
 */
 "use strict";
 
-Cu.import("resource://gre/modules/XPCOMUtils.jsm");
-Cu.import("resource://kfmod/kfDataModel.js");
+// const { XPCOMUtils } = ChromeUtils.import("resource://gre/modules/XPCOMUtils.jsm");
+// const { keeFoxLoginInfo, keeFoxLoginField, keeFoxFormFieldType } = ChromeUtils.import("resource://kfmod/kfDataModel.js");
 
 keefox_win.context = {
 

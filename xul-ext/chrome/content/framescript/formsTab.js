@@ -22,7 +22,7 @@
 */
 "use strict";
 
-Cu.import("resource://gre/modules/XPCOMUtils.jsm");
+// const { XPCOMUtils } = ChromeUtils.import("resource://gre/modules/XPCOMUtils.jsm");
 
 var findLoginOps = [];
 var matchResults = [];

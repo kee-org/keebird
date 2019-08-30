@@ -31,7 +31,7 @@ let Ci = Components.interfaces;
 let Cu = Components.utils;
 
 var EXPORTED_SYMBOLS = ["KFConfig"];
-Cu.import("resource://kfmod/KFLogger.js");
+const { KeeFoxLog } = ChromeUtils.import("resource://kfmod/KFLogger.js");
 
 // constructor
 function config()

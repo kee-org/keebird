@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 let Cu = Components.utils;
 
-Cu.import("resource://gre/modules/FileUtils.jsm")
+const { FileUtils } = ChromeUtils.import("resource://gre/modules/FileUtils.jsm");
 
 var KF_KPZIP_DOWNLOAD_PATH = "https://downloads.sourceforge.net/project/keepass/KeePass%202.x/2.35/";
 var KF_KPZIP_FILE_NAME = "KeePass-2.35.zip?r=&ts=";

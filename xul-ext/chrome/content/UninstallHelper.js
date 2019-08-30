@@ -22,7 +22,7 @@
 */
 "use strict";
 
-Cu.import("resource://gre/modules/Timer.jsm");
+const { setTimeout } = ChromeUtils.import("resource://gre/modules/Timer.jsm");
 
 keefox_win.UninstallHelper = function()
 {

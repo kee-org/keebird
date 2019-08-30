@@ -27,7 +27,7 @@ let Cu = Components.utils;
 
 var EXPORTED_SYMBOLS = ["session"];
 
-Cu.import("resource://kfmod/KFLogger.js");
+const { KeeFoxLog } = ChromeUtils.import("resource://kfmod/KFLogger.js");
 
 var log = KeeFoxLog;
 

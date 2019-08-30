@@ -33,7 +33,7 @@ if (!Ci)
 if (!Cu)
     var Cu = Components.utils;
 
-Cu.import("resource://kfmod/KF.js");
+const { keefox_org } = ChromeUtils.import("resource://kfmod/KF.js");
 
 var keeFoxGDataProviderHelper = {
     scriptLoader : Components.classes["@mozilla.org/moz/jssubscript-loader;1"]

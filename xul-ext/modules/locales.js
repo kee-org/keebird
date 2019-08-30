@@ -47,8 +47,8 @@ const Cc = Components.classes;
 const Ci = Components.interfaces;
 const Cu = Components.utils;
 
-Cu.import("resource://gre/modules/Services.jsm");
-Cu.import("resource://kfmod/KFLogger.js"); // You can use a different logging mechanism - just ensure the API is similar enough
+const { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
+const { KeeFoxLog } = ChromeUtils.import("resource://kfmod/KFLogger.js") // You can use a different logging mechanism - just ensure the API is similar enough;
 
 var EXPORTED_SYMBOLS = ["Localisation"];
 

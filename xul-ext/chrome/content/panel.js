@@ -21,8 +21,8 @@
 */
 "use strict";
 
-//Cu.import("resource://gre/modules/XPCOMUtils.jsm");
-Cu.import("resource://kfmod/kfDataModel.js");
+//const { XPCOMUtils } = ChromeUtils.import("resource://gre/modules/XPCOMUtils.jsm");
+const { keeFoxLoginInfo } = ChromeUtils.import("resource://kfmod/kfDataModel.js");
 
 keefox_win.panel = {
 
@@ -40,7 +40,7 @@ keefox_win.panel = {
         try
         {
             // Get or create the main KeeFox widget (it's shared across windows)
-            Components.utils.import("resource:///modules/CustomizableUI.jsm", this);
+            this.CustomizableUI = ChromeUtils.import("resource:///modules/CustomizableUI.jsm");
             let wrapperGroup = this.CustomizableUI.getWidget('keefox-button');
             if (wrapperGroup == null || wrapperGroup.type == 'custom')
             {

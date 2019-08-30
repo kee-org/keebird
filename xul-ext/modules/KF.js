@@ -29,21 +29,21 @@ let Ci = Components.interfaces;
 let Cu = Components.utils;
 
 var EXPORTED_SYMBOLS = ["keefox_org"];
-Cu.import("resource://gre/modules/AddonManager.jsm");
-Cu.import("resource://gre/modules/XPCOMUtils.jsm");
-Cu.import("resource://kfmod/KFLogger.js");
-Cu.import("resource://kfmod/jsonrpcClient.js");
-Cu.import("resource://kfmod/locales.js");
-Cu.import("resource://kfmod/utils.js");
-Cu.import("resource://kfmod/KFExtension.js");
-Cu.import("resource://kfmod/config.js");
-Cu.import("resource://kfmod/commands.js");
-Cu.import("resource://kfmod/search.js");
-Cu.import("resource://kfmod/TutorialHelper.js");
-Cu.import("resource://kfmod/SampleChecker.js");
-Cu.import("resource://kfmod/DataMigration.js");
-Cu.import("resource://gre/modules/Timer.jsm");
-Cu.import("resource://gre/modules/FileUtils.jsm");
+const { AddonManager } = ChromeUtils.import("resource://gre/modules/AddonManager.jsm");
+const { XPCOMUtils } = ChromeUtils.import("resource://gre/modules/XPCOMUtils.jsm");
+const { KeeFoxLog } = ChromeUtils.import("resource://kfmod/KFLogger.js");
+const { jsonrpcClient } = ChromeUtils.import("resource://kfmod/jsonrpcClient.js");
+const { Localisation } = ChromeUtils.import("resource://kfmod/locales.js");
+const { utils } = ChromeUtils.import("resource://kfmod/utils.js");
+const { KFExtension } = ChromeUtils.import("resource://kfmod/KFExtension.js");
+const { KFConfig } = ChromeUtils.import("resource://kfmod/config.js");
+const { KFCommands } = ChromeUtils.import("resource://kfmod/commands.js");
+const { Search } = ChromeUtils.import("resource://kfmod/search.js");
+const { tutorialHelper } = ChromeUtils.import("resource://kfmod/TutorialHelper.js");
+const { sampleChecker } = ChromeUtils.import("resource://kfmod/SampleChecker.js");
+const { DataMigration } = ChromeUtils.import("resource://kfmod/DataMigration.js");
+const { setTimeout } = ChromeUtils.import("resource://gre/modules/Timer.jsm");
+const { FileUtils } = ChromeUtils.import("resource://gre/modules/FileUtils.jsm");
 
 // constructor
 function KeeFox()

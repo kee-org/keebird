@@ -28,9 +28,9 @@ let Cu = Components.utils;
 
 var EXPORTED_SYMBOLS = ["SRPc"];
 
-Cu.import("resource://kfmod/utils.js");
-Cu.import("resource://kfmod/biginteger.js");
-Cu.import("resource://kfmod/KFLogger.js");
+const { utils } = ChromeUtils.import("resource://kfmod/utils.js");
+const { BigInteger } = ChromeUtils.import("resource://kfmod/biginteger.js");
+const { KeeFoxLog } = ChromeUtils.import("resource://kfmod/KFLogger.js");
 
 function SRPc()
 {

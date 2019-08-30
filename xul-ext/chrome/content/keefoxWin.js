@@ -29,18 +29,18 @@
 
 var keefox_win = {};
 
-Cu.import("resource://gre/modules/XPCOMUtils.jsm");
-Cu.import("resource://gre/modules/Timer.jsm");
+// const { XPCOMUtils } = ChromeUtils.import("resource://gre/modules/XPCOMUtils.jsm");
+// const { Timer } = ChromeUtils.import("resource://gre/modules/Timer.jsm");
 
 // Load our logging subsystem
-Cu.import("resource://kfmod/KFLogger.js");
+const { KeeFoxLog } = ChromeUtils.import("resource://kfmod/KFLogger.js");
 keefox_win.Logger = KeeFoxLog;
 
 // Load our other javascript
 keefox_win.scriptLoader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
                        .getService(Components.interfaces.mozIJSSubScriptLoader);
 keefox_win.scriptLoader.loadSubScript("chrome://keefox/content/shared/uriUtils.js", keefox_win);
-Cu.import("resource://kfmod/kfDataModel.js");
+// const { keeFoxLoginInfo, keeFoxLoginField, keeFoxFormFieldType } = ChromeUtils.import("resource://kfmod/kfDataModel.js");
 keefox_win.scriptLoader.loadSubScript("chrome://keefox/content/SearchFilter.js");
 keefox_win.scriptLoader.loadSubScript("chrome://keefox/content/panel.js");
 keefox_win.scriptLoader.loadSubScript("chrome://keefox/content/context.js");
@@ -50,9 +50,9 @@ keefox_win.scriptLoader.loadSubScript("chrome://keefox/content/notificationManag
 keefox_win.scriptLoader.loadSubScript("chrome://keefox/content/persistentPanelWin.js");
 keefox_win.scriptLoader.loadSubScript("chrome://keefox/content/PasswordSaver.js");
 keefox_win.scriptLoader.loadSubScript("chrome://keefox/content/KFUI.js");
-Cu.import("resource://kfmod/KF.js");
+const { keefox_org } = ChromeUtils.import("resource://kfmod/KF.js");
 keefox_win.scriptLoader.loadSubScript("chrome://keefox/content/KFUtils.js");
-Cu.import("resource://kfmod/FAMS.js", keefox_org);
+const { FirefoxAddonMessageService, keeFoxGetFamsInst } = ChromeUtils.import("resource://kfmod/FAMS.js");
 
 keefox_win.scriptLoader.loadSubScript("chrome://keefox/content/UninstallHelper.js");
 keefox_win.uninstallHelper = new keefox_win.UninstallHelper();
@@ -118,12 +118,12 @@ keefox_win.mainEventHandler =
 
                 
                 this.startupKeeFox();
-                keefox_win.FAMS = keefox_org.keeFoxGetFamsInst("KeeFox",
-                    keefox_org.FirefoxAddonMessageService.prototype.defaultConfiguration,
+                keefox_win.FAMS = keeFoxGetFamsInst("KeeFox",
+                    FirefoxAddonMessageService.prototype.defaultConfiguration,
                     function (msg) { keefox_win.Logger.info.call(this, msg); },
                     window.gBrowser ? // Old-skool notifications if we're not running in Firefox
                         function() { return keefox_win.notificationManager; } :
-                        keefox_org.FirefoxAddonMessageService.prototype.getNotifyBox
+                        FirefoxAddonMessageService.prototype.getNotifyBox
                     );
 
                 // Load our frame scripts into each tab created by this window

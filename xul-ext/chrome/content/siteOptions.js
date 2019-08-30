@@ -22,7 +22,7 @@ let Cc = Components.classes;
 let Ci = Components.interfaces;
 let Cu = Components.utils;
 
-Cu.import("resource://kfmod/ClassTreeView.jsm");
+const { ClassTreeView } = ChromeUtils.import("resource://kfmod/ClassTreeView.js");
 
 var configMan = null;
 

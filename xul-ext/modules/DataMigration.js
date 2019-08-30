@@ -2,18 +2,18 @@
 
 var EXPORTED_SYMBOLS = ["DataMigration"];
 
-const { KeeFoxLog } = Components.utils.import("resource://kfmod/KFLogger.js");
-Components.utils.import("resource://kfmod/KFExtension.js");
+const { KeeFoxLog } = ChromeUtils.import("resource://kfmod/KFLogger.js");
+const { KFExtension} = ChromeUtils.import("resource://kfmod/KFExtension.js");
 
 var webExtensionPort;
 
 try
 {
     const addonId = "keefox@chris.tomlinson";
-    Components.utils.import("resource://gre/modules/AddonManager.jsm");
-    const { LegacyExtensionsUtils } = Components.utils.import("resource://gre/modules/LegacyExtensionsUtils.jsm");
+    const { AddonManager} = ChromeUtils.import("resource://gre/modules/AddonManager.jsm");
+    const { LegacyExtensionsUtils } = ChromeUtils.import("resource://gre/modules/LegacyExtensionsUtils.jsm");
 
-    AddonManager.getAddonByID(addonId, addon => {
+    AddonManager.getAddonByID(addonId).then(addon => {
         const baseURI = addon.getResourceURI("/");
 
         const embeddedWebExtension = LegacyExtensionsUtils.getEmbeddedExtensionFor({
