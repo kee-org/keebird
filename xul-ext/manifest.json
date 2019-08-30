@@ -1,0 +1,26 @@
+{
+	"applications": {
+		"gecko": {
+			"id": "keebird@kee-org",
+			"strict_min_version": "68.0",
+			"strict_max_version": "68.*"
+		}
+	},
+	"manifest_version": 2,
+	"name": "KeeBird",
+	"version": "2.0.0",
+	"author": "Chris Tomlinson",
+	"homepage_url": "http://github.com/kee-org/keebird",
+	"description": "Use KeePass Password Safe to manage your login credentials.",
+	"icons": {
+		"48": "chrome/icon.png",
+		"64": "chrome/icon64.png"
+	},
+	"legacy": {
+		"type": "xul",
+		"options": {
+			"page": "chrome://keefox/content/options.xul",
+			"open_in_tab": true
+		}
+	}
+}
