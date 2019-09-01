@@ -36,7 +36,7 @@ let scriptLoader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
 scriptLoader.loadSubScript("resource://kfmod/sjcl.js");
 
 const { utils } = ChromeUtils.import("resource://kfmod/utils.js");
-// const { SRPc } = ChromeUtils.import("resource://kfmod/SRP.js");
+const { SRPc } = ChromeUtils.import("resource://kfmod/SRP.js");
 // const { setTimeout } = ChromeUtils.import("resource://gre/modules/Timer.jsm");
 
 const { session } = ChromeUtils.import("resource://kfmod/session.js");
