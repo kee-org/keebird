@@ -50,7 +50,7 @@ keefox_win.scriptLoader.loadSubScript("chrome://keefox/content/notificationManag
 keefox_win.scriptLoader.loadSubScript("chrome://keefox/content/persistentPanelWin.js");
 keefox_win.scriptLoader.loadSubScript("chrome://keefox/content/PasswordSaver.js");
 keefox_win.scriptLoader.loadSubScript("chrome://keefox/content/KFUI.js");
-const { keefox_org } = ChromeUtils.import("resource://kfmod/KF.js");
+var { keefox_org } = ChromeUtils.import("resource://kfmod/KF.js");
 keefox_win.scriptLoader.loadSubScript("chrome://keefox/content/KFUtils.js");
 const { FirefoxAddonMessageService, keeFoxGetFamsInst } = ChromeUtils.import("resource://kfmod/FAMS.js");
 
