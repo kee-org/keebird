@@ -25,7 +25,7 @@
 */
 "use strict";
 
-const { keeFoxLoginInfo } = ChromeUtils.import("resource://kfmod/kfDataModel.js");
+// const { keeFoxLoginInfo } = ChromeUtils.import("resource://kfmod/kfDataModel.js");
 
 var formSubmitObserver = {
     notify: function (form, domWin, actionURI, cancelSubmit) {
