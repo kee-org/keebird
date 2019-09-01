@@ -56,11 +56,12 @@ function KeeFoxLogger()
     this.prefBranch = this._prefService.getBranch("extensions.keefox@chris.tomlinson.");
     this.configureFromPreferences();
 
-    let globalMM = Cc["@mozilla.org/globalmessagemanager;1"].getService(Ci.nsIMessageListenerManager);
-    globalMM.addMessageListener("keefox:log-debug", function (message) { KeeFoxLog.debug(message.data); });
-    globalMM.addMessageListener("keefox:log-info", function (message) { KeeFoxLog.info(message.data); });
-    globalMM.addMessageListener("keefox:log-warn", function (message) { KeeFoxLog.warn(message.data); });
-    globalMM.addMessageListener("keefox:log-error", function (message) { KeeFoxLog.error(message.data); });
+    // FIXME: nsIMessageListenerManager has been removed from gecko
+    // let globalMM = Cc["@mozilla.org/globalmessagemanager;1"].getService(Ci.nsIMessageListenerManager);
+    // globalMM.addMessageListener("keefox:log-debug", function (message) { KeeFoxLog.debug(message.data); });
+    // globalMM.addMessageListener("keefox:log-info", function (message) { KeeFoxLog.info(message.data); });
+    // globalMM.addMessageListener("keefox:log-warn", function (message) { KeeFoxLog.warn(message.data); });
+    // globalMM.addMessageListener("keefox:log-error", function (message) { KeeFoxLog.error(message.data); });
 
     this._log("Logging system initialised at " + Date());
     if (this.logSensitiveData)
