@@ -7,38 +7,7 @@ const { KFExtension} = ChromeUtils.import("resource://kfmod/KFExtension.js");
 
 var webExtensionPort;
 
-try
-{
-    const addonId = "keefox@chris.tomlinson";
-    const { AddonManager} = ChromeUtils.import("resource://gre/modules/AddonManager.jsm");
-    const { LegacyExtensionsUtils } = ChromeUtils.import("resource://gre/modules/LegacyExtensionsUtils.jsm");
-
-    AddonManager.getAddonByID(addonId).then(addon => {
-        const baseURI = addon.getResourceURI("/");
-
-        const embeddedWebExtension = LegacyExtensionsUtils.getEmbeddedExtensionFor({
-            id: addonId, resourceURI: baseURI,
-        });
-
-        embeddedWebExtension.startup().then(api => {
-            const {browser} = api;
-
-            KeeFoxLog.debug("Embedded WebExtension started");
-
-            browser.runtime.onConnect.addListener(port => {
-                KeeFoxLog.debug("Embedded WebExtension connected");
-                webExtensionPort = port;
-            });
-
-        }).catch(error => {
-            KeeFoxLog.error("Embedded WebExtension failed. Data loss may occur. Details: " + error.message + " " + error.stack);
-        });
-    });
-} catch (e)
-{
-    KeeFoxLog.error("Embedded WebExtension crashed. Data loss may occur. Details: " + e.message + " " + e.stack);
-}
-
+// TODO: remove DataMigration
 var DataMigration = {
     exportAll: function(siteConfig) {
         if (!webExtensionPort)
