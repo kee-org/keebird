@@ -39,7 +39,6 @@ const { KFExtension } = ChromeUtils.import("resource://kfmod/KFExtension.js");
 const { KFConfig } = ChromeUtils.import("resource://kfmod/config.js");
 const { KFCommands } = ChromeUtils.import("resource://kfmod/commands.js");
 const { Search } = ChromeUtils.import("resource://kfmod/search.js");
-const { tutorialHelper } = ChromeUtils.import("resource://kfmod/TutorialHelper.js");
 const { sampleChecker } = ChromeUtils.import("resource://kfmod/SampleChecker.js");
 const { DataMigration } = ChromeUtils.import("resource://kfmod/DataMigration.js");
 const { setTimeout } = ChromeUtils.import("resource://gre/modules/Timer.jsm");
@@ -110,14 +109,12 @@ function KeeFox()
         searchAllDatabases: this._keeFoxExtension.prefs.getValue("searchAllOpenDBs", true)
     });
 
-    this.tutorialHelper = tutorialHelper;
     this.sampleChecker = sampleChecker;
 
     var observerService = Components.classes["@mozilla.org/observer-service;1"].
                               getService(Ci.nsIObserverService);
     this._observer._kf = this;    
     observerService.addObserver(this._observer, "quit-application", false);   
-    observerService.addObserver(this._observer, "http-on-modify-request", false);
         
     this._keeFoxExtension.prefs._prefBranchRoot.QueryInterface(Ci.nsIPrefBranch);
     this._keeFoxExtension.prefs._prefBranchRoot.addObserver("signon.rememberSignons", this._observer, false);
@@ -937,30 +934,7 @@ KeeFox.prototype = {
                     
                     this.preferenceChangeResponder(subject, data, window, promptService);
                     break;
-                case "http-on-modify-request":
-                    // Send a custom header to the tutorial website so we know that
-                    // the user is running KeeFox 1.5 or above. We don't send any
-                    // details (such as the exact version) until the tutorial page
-                    // requests the information via a custom Javascript event.
-                    let httpChannel = subject.QueryInterface(Ci.nsIHttpChannel);
-
-                    // This can throw a NS_ERROR_FAILURE sometimes. No idea why - maybe some
-                    // requests have no host? Anyway, it's not something we're interested in
-                    // but is unfortunate because we now have to try/catch just in case
-                    try {
-                        let host = httpChannel.originalURI.host;
-                        if (host.startsWith("tutorial") && 
-                            (host == "tutorial.keefox.org" || 
-                            host == "tutorial-section-b.keefox.org" || 
-                            host == "tutorial-section-c.keefox.org" || 
-                            host == "tutorial-section-d.keefox.org"))
-                            httpChannel.setRequestHeader("X-KeeFox", "Installed", false);
-                    } catch (e)
-                    {
-                        // Don't care
-                    }
-                    break;
-            }          
+            }
         },
         
         preferenceChangeResponder : function (prefBranch, prefName, window, promptService)
@@ -1244,7 +1218,7 @@ KeeFox.prototype = {
             else
                 dbState = "noSamples";
         }
-        return [connectState,setupState,setupActive, keefox_org.tutorialHelper.progress, dbState];
+        return [connectState,setupState,setupActive, /* keefox_org.tutorialHelper.progress */ {}, dbState];
     },
 
 };

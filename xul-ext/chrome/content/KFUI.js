@@ -211,10 +211,6 @@ keefox_win.UI = {
                             keefox_win.notificationManager.remove("password-save");
                         }
 
-
-                        if (login.URLs[0].startsWith("http://tutorial-section-b.keefox.org/part2"))
-                            keefox_org.tutorialHelper.tutorialProgressSaved();
-
                         browser.passwordSaver = null;
                     });
 

@@ -217,18 +217,6 @@ function commandManager () {
             "accesskey": ""
         },
         {
-            "name": "showGettingStartedTutorial",
-            "description": this.locale.$STR("KeeFox_Help-GettingStarted-Button.label"),
-            "keyboardModifierFlags": 0,
-            "key": "",
-            "contextLocationFlags": this.CONTEXT_SUB,
-            "speech": {},
-            "gesture": {},
-            "label": this.locale.$STR("KeeFox_Help-GettingStarted-Button.label"),
-            "tooltip": this.locale.$STR("KeeFox_Help-GettingStarted-Button.tip"),
-            "accesskey": ""
-        },
-        {
             "name": "showHelpCenter",
             "description": "KeeFox_Help-Centre-Button.label",
             "keyboardModifierFlags": this.MOD_DEFAULT,
@@ -451,15 +439,6 @@ function commandManager () {
 
         },
         */
-        showGettingStartedTutorial: function()
-        {
-            let win = utils.getWindow();
-            if (!win) return;
-            var container = win.document.getElementById("KeeFox_Help-GettingStarted-Button");
-            if (!container)
-                return;
-            container.doCommand();
-        },
         showHelpCenter: function()
         {
             let win = utils.getWindow();
