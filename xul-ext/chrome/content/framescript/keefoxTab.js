@@ -1,4 +1,4 @@
-﻿/*
+/*
   KeeFox - Allows Firefox to communicate with KeePass (via the KeePassRPC KeePass plugin)
   Copyright 2015 Chris Tomlinson <keefox@christomlinson.name>
   
@@ -340,8 +340,10 @@ keefox_tab.progressListener = {
     onStatusChange: function () { throw "Unexpected onStatusChange"; },
     onSecurityChange: function () { throw "Unexpected onSecurityChange"; },
 
-    QueryInterface: XPCOMUtils.generateQI([Ci.nsIWebProgressListener,
-                                            Ci.nsISupportsWeakReference])
+    QueryInterface: ChromeUtils.generateQI([
+        Ci.nsIWebProgressListener,
+        Ci.nsISupportsWeakReference,
+    ]),
 };
 
 try {

@@ -64,9 +64,11 @@ keefox_win.mainEventHandler =
     // the window we are interested in (to prevent events being handled by the wrong instance of keefox_win).
     _assignedWindow: null,
 
-    QueryInterface: XPCOMUtils.generateQI([Components.interfaces.nsIObserver,
-                        Components.interfaces.nsIDOMEventListener,
-                        Components.interfaces.nsISupportsWeakReference]),
+    QueryInterface: ChromeUtils.generateQI([
+        Components.interfaces.nsIObserver,
+        Components.interfaces.nsIDOMEventListener,
+        Components.interfaces.nsISupportsWeakReference,
+    ]),
 
     // nsObserver
     observe: function (subject, topic, data) {

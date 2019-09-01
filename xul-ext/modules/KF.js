@@ -890,8 +890,10 @@ KeeFox.prototype = {
     {
         _kf : null,
 
-        QueryInterface : XPCOMUtils.generateQI([Ci.nsIObserver, 
-                                                Ci.nsISupportsWeakReference]),
+        QueryInterface : ChromeUtils.generateQI([
+            Ci.nsIObserver, 
+            Ci.nsISupportsWeakReference,
+        ]),
         // nsObserver
         observe : function (subject, topic, data)
         {

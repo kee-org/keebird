@@ -67,9 +67,11 @@ var formSubmitObserver = {
                               .getService(Components.interfaces.nsIObserverService);
         observerService.addObserver(this, "earlyformsubmit", false);
     },
-    QueryInterface: XPCOMUtils.generateQI([Ci.nsIObserver,
+    QueryInterface: ChromeUtils.generateQI([
+        Ci.nsIObserver,
         Ci.nsIFormSubmitObserver,
-        Ci.nsISupportsWeakReference])
+        Ci.nsISupportsWeakReference,
+    ]),
 };
 
 /*
