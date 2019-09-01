@@ -270,7 +270,14 @@ function session()
                     var uri = ioService.newURI(rpc.httpChannelURI, null, null);
 
                     // get a channel for that nsIURI
-                    rpc.httpChannel = ioService.newChannelFromURI(uri);//newChannelFromURI2 is the new way but it needs some kind of extra secret parameters and has no backwards compatibility.
+                    rpc.httpChannel = ioService.newChannelFromURI(
+                        uri,
+                        null, // loadingNode
+                        Services.scriptSecurityManager.getSystemPrincipal(), // loadingPrincipal
+                        null, // triggeringPrincipal
+                        Ci.nsILoadInfo.SEC_ALLOW_CROSS_ORIGIN_DATA_IS_NULL, // securityFlags
+                        Ci.nsIContentPolicy.TYPE_OTHER // contentPolicyType
+                    );
 
                     var listener = new KPRPCHTTPStreamListener(rpc.httpConnectionAttemptCallback);
                     rpc.httpChannel.notificationCallbacks = listener;
