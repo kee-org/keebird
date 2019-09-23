@@ -1,6 +1,6 @@
 <overlay id="KeeFox-GData-Provider-Overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <script type="application/x-javascript" src="chrome://keefox/content/gdata-provider.js" />
+  <script type="application/javascript" src="chrome://keefox/content/gdata-provider.js" />
 
   <window id="browserRequest">
     <hbox id="keefox-hbox" insertbefore="requestFrame">

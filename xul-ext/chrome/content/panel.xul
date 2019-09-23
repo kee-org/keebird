@@ -27,7 +27,7 @@
 
 <overlay id="KeeFox-Overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <script type="application/x-javascript" src="chrome://keefox/content/keefoxWin.js" />
+  <script type="application/javascript" src="chrome://keefox/content/keefoxWin.js" />
 
   <popupset>
     <menupopup id="KeeFox-login-context" position="after_start">

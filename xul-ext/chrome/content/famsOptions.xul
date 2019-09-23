@@ -29,7 +29,7 @@
         ondialogaccept="return FAMS.setConfiguration(config);"
         ondialogcancel="return;"
         onload="onLoad();">
-  <script type="application/x-javascript" src="chrome://keefox/content/famsOptions.js"/>
+  <script type="application/javascript" src="chrome://keefox/content/famsOptions.js"/>
   <grid flex="1" >
     <columns>
       <column flex="1" />

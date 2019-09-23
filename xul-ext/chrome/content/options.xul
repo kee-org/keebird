@@ -316,6 +316,6 @@
       </tabpanels>
     </tabbox>
 
-    <script type="application/x-javascript" src="chrome://keefox/content/options.js" />
+    <script type="application/javascript" src="chrome://keefox/content/options.js" />
   </prefpane>
 </prefwindow>

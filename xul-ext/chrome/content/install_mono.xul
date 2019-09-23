@@ -30,7 +30,7 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" onload="prepareMonoInstallPage();">
 
-  <script type="application/x-javascript" src="chrome://keefox/content/install_mono.js" />
+  <script type="application/javascript" src="chrome://keefox/content/install_mono.js" />
   
   <!-- 
 
