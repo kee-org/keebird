@@ -794,8 +794,8 @@ kprpcClient.prototype.constructor = kprpcClient;
 	        
                 // these parameters allows KPRPC to identify which type of client is making
                 // this request. We can't trust it but it can help the user to understand what's going on.
-                clientTypeId: "keefox", 
-	            clientDisplayName: "KeeFox",
+                clientTypeId: "keebird", 
+	            clientDisplayName: "KeeBird",
                 clientDisplayDescription: window.keefox_org.locale.$STR("KeeFox-conn-display-description")
     	    }
     	
