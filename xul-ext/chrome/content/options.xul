@@ -3,7 +3,7 @@
 <?xml-stylesheet href="chrome://keefox/skin/options.css" type="text/css"?>
 <?xml-stylesheet type="text/css" href="chrome://messenger/skin/preferences/preferences.css"?>
 
-<!DOCTYPE prefwindow>
+<!DOCTYPE dialog>
 
 <!--
   KeeFox - Allows Firefox to communicate with KeePass (via the KeePassRPC KeePass plugin)
@@ -27,57 +27,23 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 -->
 
-<prefwindow id="KeeFox-prefs"
-     title="%-KeeFox-Options.title-%"
-     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-            type="prefwindow"
-      windowtype="Browser:Preferences"
-          onload="onLoad(); window.sizeToContent();"
-          xmlns:html="http://www.w3.org/1999/xhtml"
-          height="480"
-        >
-
-
-  <prefpane id="KeeFox-notifications-pane" label="Temp label" image="chrome://dwhelper/skin/pref-general.png" flex="1">
-    <preferences>
-      <preference id="KeeFox-pref-autoSubmitMatchedForms" name="extensions.keefox@chris.tomlinson.autoSubmitMatchedForms" type="bool"/>
-      <preference id="KeeFox-pref-autoFillForms" name="extensions.keefox@chris.tomlinson.autoFillForms" type="bool"/>
-      <preference id="KeeFox-pref-autoSubmitForms" name="extensions.keefox@chris.tomlinson.autoSubmitForms" type="bool"/>
-      <preference id="KeeFox-pref-autoFillDialogs" name="extensions.keefox@chris.tomlinson.autoFillDialogs" type="bool"/>
-      <preference id="KeeFox-pref-autoSubmitDialogs" name="extensions.keefox@chris.tomlinson.autoSubmitDialogs" type="bool"/>
-      <preference id="KeeFox-pref-autoFillFormsWithMultipleMatches" name="extensions.keefox@chris.tomlinson.autoFillFormsWithMultipleMatches" type="bool"/>
-      <preference id="KeeFox-pref-triggerChangeInputEventAfterFill" name="extensions.keefox@chris.tomlinson.triggerChangeInputEventAfterFill" type="bool"/>
-      <preference id="KeeFox-pref-searchAllOpenDBs" name="extensions.keefox@chris.tomlinson.searchAllOpenDBs" type="bool"/>
-      <preference id="KeeFox-pref-listAllOpenDBs" name="extensions.keefox@chris.tomlinson.listAllOpenDBs" type="bool"/>
-      <preference id="KeeFox-pref-alwaysDisplayUsernameWhenTitleIsShown" name="extensions.keefox@chris.tomlinson.alwaysDisplayUsernameWhenTitleIsShown" type="bool"/>
-      <preference id="KeeFox-pref-maxMatchedLoginsInMainPanel" name="extensions.keefox@chris.tomlinson.maxMatchedLoginsInMainPanel" type="int"/>
-
-      <preference id="KeeFox-pref-notifyBarRequestPasswordSave" name="extensions.keefox@chris.tomlinson.notifyBarRequestPasswordSave" type="bool"/>
-      <preference id="KeeFox-pref-notifyWhenLoggedOut" name="extensions.keefox@chris.tomlinson.notifyWhenLoggedOut" type="bool"/>
-      <preference id="KeeFox-pref-notifyWhenEntryUpdated" name="extensions.keefox@chris.tomlinson.notifyWhenEntryUpdated" type="bool"/>
-      <preference id="KeeFox-pref-notifyWhenLateDiscovery" name="extensions.keefox@chris.tomlinson.notifyWhenLateDiscovery" type="bool"/>
-
-      <preference id="KeeFox-pref-logMethodConsole" name="extensions.keefox@chris.tomlinson.logMethodConsole" type="bool"/>
-      <preference id="KeeFox-pref-logMethodStdOut" name="extensions.keefox@chris.tomlinson.logMethodStdOut" type="bool"/>
-      <preference id="KeeFox-pref-logMethodFile" name="extensions.keefox@chris.tomlinson.logMethodFile" type="bool"/>
-      <preference id="KeeFox-pref-logLevel" name="extensions.keefox@chris.tomlinson.logLevel" type="int"/>
-
-      <preference id="KeeFox-pref-keePassRPCPort" name="extensions.keefox@chris.tomlinson.KeePassRPC.webSocketPort" type="int"/>
-      <preference id="KeeFox-pref-saveFavicons" name="extensions.keefox@chris.tomlinson.saveFavicons" type="bool"/>
-      <preference id="KeeFox-pref-keePassDBToOpen" name="extensions.keefox@chris.tomlinson.keePassDBToOpen" type="string"/>
-      <preference id="KeeFox-pref-rememberMRUDB" name="extensions.keefox@chris.tomlinson.rememberMRUDB" type="bool"/>
-      <preference id="KeeFox-pref-rememberMRUGroup" name="extensions.keefox@chris.tomlinson.rememberMRUGroup" type="bool"/>
-
-      <preference id="KeeFox-pref-keePassRPCInstalledLocation" name="extensions.keefox@chris.tomlinson.keePassRPCInstalledLocation" type="string"/>
-      <preference id="KeeFox-pref-keePassInstalledLocation" name="extensions.keefox@chris.tomlinson.keePassInstalledLocation" type="string"/>
-      <preference id="KeeFox-pref-keePassRememberInstalledLocation" name="extensions.keefox@chris.tomlinson.keePassRememberInstalledLocation" type="bool"/>
-      <preference id="KeeFox-pref-keePassLocation" name="extensions.keefox@chris.tomlinson.currentLocation" type="string"/>
-      <preference id="KeeFox-pref-monoLocation" name="extensions.keefox@chris.tomlinson.monoLocation" type="string"/>
-
-      <preference id="KeeFox-pref-connSLClient" name="extensions.keefox@chris.tomlinson.connSLClient" type="int"/>
-      <preference id="KeeFox-pref-connSLServerMin" name="extensions.keefox@chris.tomlinson.connSLServerMin" type="int"/>
-    </preferences>
-
+<dialog id="KeeFox-prefs"
+  buttons="accept"
+  title="%-KeeFox-Options.title-%"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  type="prefwindow"
+  windowtype="Browser:Preferences"
+  onload="onLoad(); window.sizeToContent();"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  height="480"
+>
+  <script 
+     src="chrome://global/content/preferencesBindings.js" 
+     type="application/javascript"/>
+  <script 
+     src="chrome://keefox/content/KFpreferences.js" 
+     type="application/javascript"/>
+  <vbox>
     <tabbox flex="1">
       <tabs>
         <tab id="tab-FindingEntries" label="%-KeeFox-pref-FindingEntries.heading-%"/>
@@ -101,13 +67,13 @@
               );'>%-KeeFox-pref-site-options-find.link-%</html:a>
             </description>
             
-            <checkbox id="check-searchAllOpenDBs" preference="KeeFox-pref-searchAllOpenDBs" label="%-KeeFox-pref-searchAllOpenDBs.label-%" />
-            <checkbox id="check-listAllOpenDBs" preference="KeeFox-pref-listAllOpenDBs" label="%-KeeFox-pref-listAllOpenDBs.label-%" />
-            <checkbox id="check-alwaysDisplayUsernameWhenTitleIsShown" preference="KeeFox-pref-alwaysDisplayUsernameWhenTitleIsShown" label="%-KeeFox-pref-alwaysDisplayUsernameWhenTitleIsShown.label-%" />
-            <checkbox id="check-notifyWhenLateDiscovery" preference="KeeFox-pref-notifyWhenLateDiscovery" label="%-KeeFox-pref-notifyWhenLateDiscovery.label-%" class="itemEnd" />
+            <checkbox id="check-searchAllOpenDBs" preference="extensions.keefox@chris.tomlinson.searchAllOpenDBs" label="%-KeeFox-pref-searchAllOpenDBs.label-%" />
+            <checkbox id="check-listAllOpenDBs" preference="extensions.keefox@chris.tomlinson.listAllOpenDBs" label="%-KeeFox-pref-listAllOpenDBs.label-%" />
+            <checkbox id="check-alwaysDisplayUsernameWhenTitleIsShown" preference="extensions.keefox@chris.tomlinson.alwaysDisplayUsernameWhenTitleIsShown" label="%-KeeFox-pref-alwaysDisplayUsernameWhenTitleIsShown.label-%" />
+            <checkbox id="check-notifyWhenLateDiscovery" preference="extensions.keefox@chris.tomlinson.notifyWhenLateDiscovery" label="%-KeeFox-pref-notifyWhenLateDiscovery.label-%" class="itemEnd" />
             <hbox align="center" class="itemEnd">
               <label id="lab-maxMatchedLoginsInMainPanel" control="maxMatchedLoginsInMainPanel" value="%-KeeFox-pref-maxMatchedLoginsInMainPanel.label-%:"/>
-              <textbox preference="KeeFox-pref-maxMatchedLoginsInMainPanel" id="maxMatchedLoginsInMainPanel" maxlength="3" size="3" />
+              <textbox preference="extensions.keefox@chris.tomlinson.maxMatchedLoginsInMainPanel" id="maxMatchedLoginsInMainPanel" maxlength="3" size="3" />
             </hbox>
             
           </vbox>
@@ -126,7 +92,7 @@
               <rows>
                 <row align="center">
                   <label control="KeeFox-pref-matchStandard-list" id="when-keefox-chooses-standard-form" style="text-align:right">%-KeeFox-pref-when-keefox-chooses-standard-form.desc-%:</label>
-                  <menulist id="KeeFox-pref-matchStandard-list" preference="KeeFox-pref-autoSubmitForms" onsyncfrompreference="return onsyncfrompreferenceMatchStandard();" onsynctopreference="return onsynctopreferenceMatchStandard();" class="kfMenu">
+                  <menulist id="KeeFox-pref-matchStandard-list" preference="extensions.keefox@chris.tomlinson.autoSubmitForms" onsyncfrompreference="return onsyncfrompreferenceMatchStandard();" onsynctopreference="return onsynctopreferenceMatchStandard();" class="kfMenu">
                     <menupopup>
                       <menuitem id="mi-do-nothing" label="%-KeeFox-pref-DoNothing.desc-%" value="DoNothing"/>
                       <menuitem id="mi-FillForm2" label="%-KeeFox-pref-FillForm.desc-%" value="Fill"/>
@@ -136,7 +102,7 @@
                 </row>
                 <row align="center">
                   <label control="KeeFox-pref-matchHTTP-list" id="when-keefox-chooses-prompt" style="text-align:right">%-KeeFox-pref-when-keefox-chooses-prompt.desc-%:</label>
-                  <menulist id="KeeFox-pref-matchHTTP-list" preference="KeeFox-pref-autoSubmitDialogs" onsyncfrompreference="return onsyncfrompreferenceMatchHTTP();" onsynctopreference="return onsynctopreferenceMatchHTTP();" class="kfMenu">
+                  <menulist id="KeeFox-pref-matchHTTP-list" preference="extensions.keefox@chris.tomlinson.autoSubmitDialogs" onsyncfrompreference="return onsyncfrompreferenceMatchHTTP();" onsynctopreference="return onsynctopreferenceMatchHTTP();" class="kfMenu">
                     <menupopup>
                       <menuitem id="mi-do-nothing2" label="%-KeeFox-pref-DoNothing.desc-%" value="DoNothing"/>
                       <menuitem id="mi-FillForm3" label="%-KeeFox-pref-FillPrompt.desc-%" value="Fill"/>
@@ -146,7 +112,7 @@
                 </row>
                 <row align="center">
                   <label control="KeeFox-pref-matchSelected-list" id="when-user-chooses" style="text-align:right">%-KeeFox-pref-when-user-chooses.desc-%:</label>
-                  <menulist id="KeeFox-pref-matchSelected-list" preference="KeeFox-pref-autoSubmitMatchedForms" onsyncfrompreference="return onsyncfrompreferenceMatchSelected();" onsynctopreference="return onsynctopreferenceMatchSelected();">
+                  <menulist id="KeeFox-pref-matchSelected-list" preference="extensions.keefox@chris.tomlinson.autoSubmitMatchedForms" onsyncfrompreference="return onsyncfrompreferenceMatchSelected();" onsynctopreference="return onsynctopreferenceMatchSelected();">
                     <menupopup>
                       <menuitem id="mi-FillForm" label="%-KeeFox-pref-FillForm.desc-%" value="Fill"/>
                       <menuitem id="mi-FillAndSubmitForm" label="%-KeeFox-pref-FillAndSubmitForm.desc-%" value="FillAndSubmit"/>
@@ -159,9 +125,9 @@
 
             <description id="desc-fill-note" class="itemEnd note">%-KeeFox-pref-FillNote.desc-%</description>
 
-            <checkbox id="check-autoFillFormsWithMultipleMatches" preference="KeeFox-pref-autoFillFormsWithMultipleMatches" label="%-KeeFox-pref-autoFillFormsWithMultipleMatches.label-%" />
+            <checkbox id="check-autoFillFormsWithMultipleMatches" preference="extensions.keefox@chris.tomlinson.autoFillFormsWithMultipleMatches" label="%-KeeFox-pref-autoFillFormsWithMultipleMatches.label-%" />
 
-            <checkbox id="check-triggerChangeInputEventAfterFill" preference="KeeFox-pref-triggerChangeInputEventAfterFill" label="%-KeeFox-pref-triggerChangeInputEventAfterFill.label-%" />
+            <checkbox id="check-triggerChangeInputEventAfterFill" preference="extensions.keefox@chris.tomlinson.triggerChangeInputEventAfterFill" label="%-KeeFox-pref-triggerChangeInputEventAfterFill.label-%" />
 
           </vbox>
         </tabpanel>
@@ -177,13 +143,13 @@
               );'>%-KeeFox-pref-site-options-find.link-%</html:a>
             </description>
             
-            <checkbox id="saveFavicons" preference="KeeFox-pref-saveFavicons"
+            <checkbox id="saveFavicons" preference="extensions.keefox@chris.tomlinson.saveFavicons"
                       label="%-KeeFox-pref-saveFavicons.label-%" class="itemEnd" />
 
-            <checkbox id="rememberMRUGroup" preference="KeeFox-pref-rememberMRUGroup"
+            <checkbox id="rememberMRUGroup" preference="extensions.keefox@chris.tomlinson.rememberMRUGroup"
                       label="%-KeeFox-pref-rememberMRUGroup.label-%"  class="itemEnd"/>
             
-            <checkbox id="notifyWhenEntryUpdated" preference="KeeFox-pref-notifyWhenEntryUpdated"
+            <checkbox id="notifyWhenEntryUpdated" preference="extensions.keefox@chris.tomlinson.notifyWhenEntryUpdated"
                     label="%-KeeFox-pref-notifyWhenEntryUpdated.label-%" class="itemEnd"/>
           </vbox>
         </tabpanel>
@@ -192,12 +158,12 @@
           <vbox align="left">
             <groupbox>
               <caption label="%-KeeFox-pref-logMethod.desc-%" id="desc-log-method"/>
-              <checkbox id="check-log-method-console" preference="KeeFox-pref-logMethodConsole" label="%-KeeFox-pref-logMethodConsole-%"/>
-              <checkbox id="check-log-method-stdout" preference="KeeFox-pref-logMethodStdOut" label="%-KeeFox-pref-logMethodStdOut-%"/>
-              <checkbox id="check-log-method-file" preference="KeeFox-pref-logMethodFile" label="%-KeeFox-pref-logMethodFile-%" class="itemEnd"/>
+              <checkbox id="check-log-method-console" preference="extensions.keefox@chris.tomlinson.logMethodConsole" label="%-KeeFox-pref-logMethodConsole-%"/>
+              <checkbox id="check-log-method-stdout" preference="extensions.keefox@chris.tomlinson.logMethodStdOut" label="%-KeeFox-pref-logMethodStdOut-%"/>
+              <checkbox id="check-log-method-file" preference="extensions.keefox@chris.tomlinson.logMethodFile" label="%-KeeFox-pref-logMethodFile-%" class="itemEnd"/>
             </groupbox>
             <label control="KeeFox-pref-logLevel-list" id="desc-log-level">%-KeeFox-pref-logLevel.desc-%</label>
-            <menulist id="KeeFox-pref-logLevel-list" preference="KeeFox-pref-logLevel" onsyncfrompreference="return onsyncfrompreferenceLogLevel();" onsynctopreference="return onsynctopreferenceLogLevel();" class="itemEnd kfMenu">
+            <menulist id="KeeFox-pref-logLevel-list" preference="extensions.keefox@chris.tomlinson.logLevel" onsyncfrompreference="return onsyncfrompreferenceLogLevel();" onsynctopreference="return onsynctopreferenceLogLevel();" class="itemEnd kfMenu">
               <menupopup>
                 <menuitem id="KeeFox-pref-logLevel-debug" label="%-KeeFox-pref-logLevelDebugging.label-%" value="Debugging"/>
                 <menuitem id="KeeFox-pref-logLevel-info" label="%-KeeFox-pref-logLevelInformation.label-%" value="Information"/>
@@ -211,7 +177,7 @@
 
         <tabpanel>
           <vbox align="left">
-            <checkbox id="notifyWhenLoggedOut" preference="KeeFox-pref-notifyWhenLoggedOut"
+            <checkbox id="notifyWhenLoggedOut" preference="extensions.keefox@chris.tomlinson.notifyWhenLoggedOut"
                     label="%-KeeFox-pref-notifyWhenLoggedOut.label-%" class="itemEnd"/>
             <button id="famsOptionsButton" label="%-KeeFox-FAMS-Options.label-%..." oncommand='openDialog(
                "chrome://keefox/content/famsOptions.xul?famsConfigId=KeeFox",
@@ -221,17 +187,17 @@
             
             <hbox align="center">
               <label id="lab-keePassRPCPort" control="keePassRPCPort" value="%-KeeFox-pref-keePassRPCPort.label-%:"/>
-              <textbox preference="KeeFox-pref-keePassRPCPort" id="keePassRPCPort" maxlength="5" size="5"/>
+              <textbox preference="extensions.keefox@chris.tomlinson.KeePassRPC.webSocketPort" id="keePassRPCPort" maxlength="5" size="5"/>
             </hbox>
             <label id="lab-keePassRPCPortWarning" value="%-KeeFox-pref-keePassRPCPortWarning.label-%" class="itemEnd note"/>
 
             <label id="lab-keePassDBToOpen" control="keePassDBToOpen" value="%-KeeFox-pref-keePassDBToOpen.label-%:"/>
             <hbox class="itemEnd">
-              <textbox preference="KeeFox-pref-keePassDBToOpen" id="keePassDBToOpen" maxlength="255" size="80" />
+              <textbox preference="extensions.keefox@chris.tomlinson.keePassDBToOpen" id="keePassDBToOpen" maxlength="255" size="80" />
               <button id="keePassDBToOpenBrowseButton" label="%-KeeFox-browse.label-%..." oncommand="browseForDefaultKDBXLocation(document.getElementById('keePassDBToOpen').value);"/>
             </hbox>
 
-            <checkbox id="rememberMRUDB" preference="KeeFox-pref-rememberMRUDB"
+            <checkbox id="rememberMRUDB" preference="extensions.keefox@chris.tomlinson.rememberMRUDB"
                       label="%-KeeFox-pref-rememberMRUDB.label-%"  class="itemEnd"/>
             
           </vbox>
@@ -241,25 +207,25 @@
           <vbox align="left">
             <label id="lab-keePassRPCInstalledLocation" control="keePassRPCInstalledLocation" value="%-KeeFox-pref-keePassRPCInstalledLocation.label-%:"/>            
             <hbox class="itemEnd" id="hbox-keePassRPCInstalledLocation">
-              <textbox preference="KeeFox-pref-keePassRPCInstalledLocation" id="keePassRPCInstalledLocation" maxlength="255" size="80" />
+              <textbox preference="extensions.keefox@chris.tomlinson.keePassRPCInstalledLocation" id="keePassRPCInstalledLocation" maxlength="255" size="80" />
               <button id="keePassRPCInstalledLocationBrowseButton" label="%-KeeFox-browse.label-%..." oncommand="browseForKPRPCLocation(document.getElementById('keePassRPCInstalledLocation').value);"/>
             </hbox>
             
             <label id="lab-keePassInstalledLocation" control="keePassInstalledLocation" value="%-KeeFox-pref-keePassInstalledLocation.label-%:"/>
             <hbox class="itemEnd">
-              <textbox preference="KeeFox-pref-keePassInstalledLocation" id="keePassInstalledLocation" maxlength="255" size="80" />
+              <textbox preference="extensions.keefox@chris.tomlinson.keePassInstalledLocation" id="keePassInstalledLocation" maxlength="255" size="80" />
               <button id="keePassInstalledLocationBrowseButton" label="%-KeeFox-browse.label-%..." oncommand="browseForKeePassLocation(document.getElementById('keePassInstalledLocation').value);"/>
             </hbox>
             
             <label id="lab-monoLocation" control="monoLocation" value="%-KeeFox-pref-monoLocation.label-%:" />
             <hbox class="itemEnd" id="hbox-monoLocation">
-              <textbox preference="KeeFox-pref-monoLocation" id="monoLocation" maxlength="255" size="80" />
+              <textbox preference="extensions.keefox@chris.tomlinson.monoLocation" id="monoLocation" maxlength="255" size="80" />
               <button id="monoLocationBrowseButton" label="%-KeeFox-browse.label-%..." oncommand="browseForMonoLocation(document.getElementById('monoLocation').value);"/>
             </hbox>
 
-            <checkbox id="keePassRememberInstalledLocation" preference="KeeFox-pref-keePassRememberInstalledLocation" label="%-KeeFox-pref-keePassRememberInstalledLocation.label-%" class="itemEnd" />
+            <checkbox id="keePassRememberInstalledLocation" preference="extensions.keefox@chris.tomlinson.keePassRememberInstalledLocation" label="%-KeeFox-pref-keePassRememberInstalledLocation.label-%" class="itemEnd" />
             <label id="lab-keePassLocation" control="keePassLocation" value="%-KeeFox-pref-keePassLocation.label-%:"/>
-            <textbox preference="KeeFox-pref-keePassLocation" id="keePassLocation" maxlength="128" size="40" class="itemEnd"/>
+            <textbox preference="extensions.keefox@chris.tomlinson.currentLocation" id="keePassLocation" maxlength="128" size="40" class="itemEnd"/>
 
           </vbox>
         </tabpanel>
@@ -272,7 +238,7 @@
             </description>
             <hbox align="center">
               <label control="KeeFox-pref-sl-client-list" id="desc-conn-sl-client">%-KeeFox-conn-sl-client-%: </label>
-              <menulist id="KeeFox-pref-sl-client-list" preference="KeeFox-pref-connSLClient">
+              <menulist id="KeeFox-pref-sl-client-list" preference="extensions.keefox@chris.tomlinson.connSLClient">
                 <menupopup>
                   <menuitem id="slc-Low" label="%-KeeFox-conn-sl-low-%" value="1"/>
                   <menuitem id="slc-Medium" label="%-KeeFox-conn-sl-medium-%" value="2"/>
@@ -284,7 +250,7 @@
 
             <hbox align="center">
               <label control="KeeFox-pref-sl-server-list" id="desc-conn-sl-server">%-KeeFox-conn-sl-server-min-%: </label>
-              <menulist id="KeeFox-pref-sl-server-list" preference="KeeFox-pref-connSLServerMin">
+              <menulist id="KeeFox-pref-sl-server-list" preference="extensions.keefox@chris.tomlinson.connSLServerMin">
                 <menupopup>
                   <menuitem id="sls-Low" label="%-KeeFox-conn-sl-low-%" value="1"/>
                   <menuitem id="sls-Medium" label="%-KeeFox-conn-sl-medium-%" value="2"/>
@@ -317,5 +283,5 @@
     </tabbox>
 
     <script type="application/javascript" src="chrome://keefox/content/options.js" />
-  </prefpane>
-</prefwindow>
+  </vbox>
+</dialog>

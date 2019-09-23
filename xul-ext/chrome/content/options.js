@@ -39,26 +39,28 @@ function hideIrrelevantOptions()
                     .getService(Components.interfaces.nsIWindowMediator);
     var window = wm.getMostRecentWindow("navigator:browser") ||
         wm.getMostRecentWindow("mail:3pane");
+    const prefBranch = Cc["@mozilla.org/preferences-service;1"]
+        .getService(Ci.nsIPrefService).getBranch("extensions.keefox@chris.tomlinson.");
 
     var isWindows = Components.classes["@mozilla.org/xre/app-info;1"]  
                     .getService(Components.interfaces.nsIXULRuntime).OS == "WINNT";
 
-    var forceShowMonoLocation = true;
-    var monoLocation = document.getElementById("KeeFox-pref-monoLocation");
-    // .value === undefined means the preference is set to the default value
-    if (monoLocation.value === undefined || monoLocation.value === null || monoLocation.value.length <= 0)
+    let forceShowMonoLocation = true;
+    const monoLocation = prefBranch.getStringPref("monoLocation");
+    if (monoLocation === undefined || monoLocation === null || monoLocation.length <= 0) {
         forceShowMonoLocation = false;
+    }
 
     if (isWindows && !forceShowMonoLocation) {
         document.getElementById("lab-monoLocation").classList.add('keefox-hide');
         document.getElementById("hbox-monoLocation").classList.add('keefox-hide');
     }
 
-    var forceShowKPRPCLocation = true;
-    var KPRPCLocation = document.getElementById("KeeFox-pref-keePassRPCInstalledLocation");
-    // .value === undefined means the preference is set to the default value
-    if (KPRPCLocation.value === undefined || KPRPCLocation.value === null || KPRPCLocation.value.length <= 0)
+    let forceShowKPRPCLocation = true;
+    const KPRPCLocation = prefBranch.getStringPref("keePassRPCInstalledLocation");
+    if (KPRPCLocation === undefined || KPRPCLocation === null || KPRPCLocation.length <= 0) {
         forceShowKPRPCLocation = false;
+    }
 
     if (!forceShowKPRPCLocation) {
         document.getElementById("lab-keePassRPCInstalledLocation").classList.add('keefox-hide');
@@ -334,13 +336,11 @@ function onCommandBlur(evt)
 
 function onsyncfrompreferenceMatchSelected()
 {
-    var prefSubmit = document.getElementById("KeeFox-pref-autoSubmitMatchedForms");
-    // .value === undefined means the preference is set to the default value
-    var actualSubmitValue = prefSubmit.value !== undefined ?
-        prefSubmit.value : prefSubmit.defaultValue;
-    // actualValue may be |null| here if the pref didn't have the default value.
+    const prefBranch = Cc["@mozilla.org/preferences-service;1"]
+        .getService(Ci.nsIPrefService).getBranch("extensions.keefox@chris.tomlinson.");
+    const prefSubmit = prefBranch.getBoolPref("autoSubmitMatchedForms");
 
-    if (actualSubmitValue == true)
+    if (prefSubmit === true)
         return "FillAndSubmit";
     else
         return "Fill";
@@ -360,78 +360,96 @@ function onsynctopreferenceMatchSelected()
 
 function onsyncfrompreferenceMatchStandard()
 {
-    var prefFill = document.getElementById("KeeFox-pref-autoFillForms");
-    var prefSubmit = document.getElementById("KeeFox-pref-autoSubmitForms");
-    // .value === undefined means the preference is set to the default value
-    var actualFillValue = prefFill.value !== undefined ?
-        prefFill.value : prefFill.defaultValue;
-    var actualSubmitValue = prefSubmit.value !== undefined ?
-        prefSubmit.value : prefSubmit.defaultValue;
-    // actualValue may be |null| here if the pref didn't have the default value.
+    const prefBranch = Cc["@mozilla.org/preferences-service;1"]
+        .getService(Ci.nsIPrefService).getBranch("extensions.keefox@chris.tomlinson.");
+    const prefFill = prefBranch.getBoolPref("autoFillForms");
+    const prefSubmit = prefBranch.getBoolPref("autoSubmitForms");
 
-    if (actualSubmitValue == true)
+    if (prefSubmit === true) {
         return "FillAndSubmit";
-    else if (actualFillValue == true)
+    }
+    else if (prefFill === true) {
         return "Fill";
-    else
+    }
+    else {
         return "DoNothing";
+    }
 }
 
 function onsynctopreferenceMatchStandard()
 {
+    const prefBranch = Cc["@mozilla.org/preferences-service;1"]
+        .getService(Ci.nsIPrefService).getBranch("extensions.keefox@chris.tomlinson.");
+
     switch (document.getElementById("KeeFox-pref-matchStandard-list").selectedItem.getAttribute("value"))
     {
-        case "FillAndSubmit": document.getElementById("KeeFox-pref-autoFillForms").value = true; return true;
-        case "Fill": document.getElementById("KeeFox-pref-autoFillForms").value = true; return false;
-        default: document.getElementById("KeeFox-pref-autoFillForms").value = false; return false;
+        case "FillAndSubmit":
+            prefBranch.setBoolPref("autoFillForms", true);
+            return true;
+        case "Fill":
+            prefBranch.setBoolPref("autoFillForms", true);
+            return false;
+        default:
+            prefBranch.setBoolPref("autoFillForms", false);
+            return false;
     }
 }
 
 function onsyncfrompreferenceMatchHTTP()
 {
-    var prefFill = document.getElementById("KeeFox-pref-autoFillDialogs");
-    var prefSubmit = document.getElementById("KeeFox-pref-autoSubmitDialogs");
-    // .value === undefined means the preference is set to the default value
-    var actualFillValue = prefFill.value !== undefined ?
-        prefFill.value : prefFill.defaultValue;
-    var actualSubmitValue = prefSubmit.value !== undefined ?
-        prefSubmit.value : prefSubmit.defaultValue;
-    // actualValue may be |null| here if the pref didn't have the default value.
+    const prefBranch = Cc["@mozilla.org/preferences-service;1"]
+        .getService(Ci.nsIPrefService).getBranch("extensions.keefox@chris.tomlinson.");
+    const prefFill = prefBranch.getBoolPref("autoFillDialogs");
+    const prefSubmit = prefBranch.getBoolPref("autoSubmitDialogs");
 
-    if (actualSubmitValue == true)
+    if (prefSubmit === true) {
         return "FillAndSubmit";
-    else if (actualFillValue == true)
+    }
+    else if (prefFill === true) {
         return "Fill";
-    else
+    }
+    else {
         return "DoNothing";
+    }
 }
 
 function onsynctopreferenceMatchHTTP()
 {
+    const prefBranch = Cc["@mozilla.org/preferences-service;1"]
+        .getService(Ci.nsIPrefService).getBranch("extensions.keefox@chris.tomlinson.");
+
     switch (document.getElementById("KeeFox-pref-matchHTTP-list").selectedItem.getAttribute("value"))
     {
-        case "FillAndSubmit": document.getElementById("KeeFox-pref-autoFillDialogs").value = true; return true;
-        case "Fill": document.getElementById("KeeFox-pref-autoFillDialogs").value = true; return false;
-        default: document.getElementById("KeeFox-pref-autoFillDialogs").value = false; return false;
+        case "FillAndSubmit":
+            prefBranch.setBoolPref("autoFillDialogs", true);
+            return true;
+        case "Fill":
+            prefBranch.setBoolPref("autoFillDialogs", true);
+            return false;
+        default:
+            prefBranch.setBoolPref("autoFillDialogs", false);
+            return false;
     }
 }
 
 function onsyncfrompreferenceLogLevel()
 {
-    var preference = document.getElementById("KeeFox-pref-logLevel");
-    // .value === undefined means the preference is set to the default value
-    var actualValue = preference.value !== undefined ?
-        preference.value : preference.defaultValue;
-    // actualValue may be |null| here if the pref didn't have the default value.
+    const prefBranch = Cc["@mozilla.org/preferences-service;1"]
+        .getService(Ci.nsIPrefService).getBranch("extensions.keefox@chris.tomlinson.");
+    const level = prefBranch.getIntPref("logLevel");
 
-    if (actualValue == 4)
+    if (level === 4) {
         return "Debugging";
-    else if (actualValue == 3)
+    }
+    else if (level === 3) {
         return "Information";
-    else if (actualValue == 2)
+    }
+    else if (level === 2) {
         return "Warnings";
-    else
+    }
+    else {
         return "Errors";
+    }
 }
 
 function onsynctopreferenceLogLevel()
@@ -453,9 +471,11 @@ function browseForKeePassLocation(currentLocationPath)
 {
     browseForLocation(currentLocationPath, 
                       Components.interfaces.nsIFilePicker.modeGetFolder, 'selectKeePassLocation', 'NoFilter',
-                      function(location) {
+                      location => {
+                            const prefBranch = Cc["@mozilla.org/preferences-service;1"]
+                                .getService(Ci.nsIPrefService).getBranch("extensions.keefox@chris.tomlinson.");
                             document.getElementById("keePassInstalledLocation").value = location;
-                            document.getElementById("KeeFox-pref-keePassInstalledLocation").value = location;
+                            prefBranch.setStringPref("keePassInstalledLocation", location);
                       });
 }
 
@@ -463,9 +483,11 @@ function browseForKPRPCLocation(currentLocationPath)
 {
     browseForLocation(currentLocationPath, 
                       Components.interfaces.nsIFilePicker.modeGetFolder, 'selectKeePassLocation', 'NoFilter',
-                      function(location){
+                      location => {
+                            const prefBranch = Cc["@mozilla.org/preferences-service;1"]
+                                .getService(Ci.nsIPrefService).getBranch("extensions.keefox@chris.tomlinson.");
                             document.getElementById("keePassRPCInstalledLocation").value = location;
-                            document.getElementById("KeeFox-pref-keePassRPCInstalledLocation").value = location;                                         
+                            prefBranch.setStringPref("keePassRPCInstalledLocation", location);
                       });
 }
 
@@ -473,9 +495,11 @@ function browseForMonoLocation(currentLocationPath)
 {
     browseForLocation(currentLocationPath, 
                       Components.interfaces.nsIFilePicker.modeOpen, 'selectMonoLocation', 'NoFilter',
-                      function(location){
+                      location => {
+                            const prefBranch = Cc["@mozilla.org/preferences-service;1"]
+                                .getService(Ci.nsIPrefService).getBranch("extensions.keefox@chris.tomlinson.");
                             document.getElementById("monoLocation").value = location;
-                            document.getElementById("KeeFox-pref-monoLocation").value = location;
+                            prefBranch.setStringPref("monoLocation", location);
                       });
 }
 
@@ -483,9 +507,11 @@ function browseForDefaultKDBXLocation(currentLocationPath)
 {
     browseForLocation(currentLocationPath, 
                       Components.interfaces.nsIFilePicker.modeOpen, 'selectDefaultKDBXLocation', 'DBFilter',
-                      function(location){
+                      location => {
+                            const prefBranch = Cc["@mozilla.org/preferences-service;1"]
+                                .getService(Ci.nsIPrefService).getBranch("extensions.keefox@chris.tomlinson.");
                             document.getElementById("keePassDBToOpen").value = location;
-                            document.getElementById("KeeFox-pref-keePassDBToOpen").value = location;
+                            prefBranch.setStringPref("keePassDBToOpen", location);
                       });
 }
 
