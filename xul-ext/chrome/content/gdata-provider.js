@@ -34,6 +34,7 @@ if (!Cu)
     var Cu = Components.utils;
 
 const { keefox_org } = ChromeUtils.import("resource://kfmod/KF.js");
+const { keeFoxLoginInfo } = ChromeUtils.import("resource://kfmod/kfDataModel.js");
 
 var keeFoxGDataProviderHelper = {
     scriptLoader : Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
@@ -246,7 +247,7 @@ var keeFoxGDataProviderHelper = {
 
             for (var i in logins)
             {
-                var kfl = window.keeFoxLoginInfo();
+                var kfl = keeFoxLoginInfo();
                 kfl.initFromEntry(logins[i]);
                 convertedResult.push(kfl);
             }
