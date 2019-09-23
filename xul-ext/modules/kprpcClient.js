@@ -872,7 +872,7 @@ kprpcClient.prototype.constructor = kprpcClient;
     {
         let myLoginManager = Components.classes["@mozilla.org/login-manager;1"].
             getService(Components.interfaces.nsILoginManager);
-        let logins = myLoginManager.findLogins({}, 'chrome://keefox', "", 'KPRPC key');
+        let logins = myLoginManager.findLogins('chrome://keefox', null, 'KPRPC key');
         for (let i=0; i < logins.length; i++)
             if (logins[i].username == username)
                 return logins[i].password;
@@ -882,7 +882,7 @@ kprpcClient.prototype.constructor = kprpcClient;
     {
         let myLoginManager = Components.classes["@mozilla.org/login-manager;1"].
             getService(Components.interfaces.nsILoginManager);
-        let logins = myLoginManager.findLogins({}, 'chrome://keefox', "", 'KPRPC key');
+        let logins = myLoginManager.findLogins('chrome://keefox', null, 'KPRPC key');
         for (let i=0; i < logins.length; i++)
             if (logins[i].username == username)
                 myLoginManager.removeLogin(logins[i]);
