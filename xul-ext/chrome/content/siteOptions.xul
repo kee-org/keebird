@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://keefox/skin/keefox.css" type="text/css"?>
+<?xml-stylesheet type="text/css" href="chrome://messenger/skin/messenger.css"?>
 
 <!--
   KeeFox - Allows Firefox to communicate with KeePass (via the KeePassRPC KeePass plugin)
@@ -61,7 +62,9 @@
           <description id="invisibleTip">%-KeeFox-site-options-invisible-tip.desc-%</description>
 
           <groupbox>
-            <caption id="gb-form-name-caption" label="%-KeeFox-form-name-%"/>
+            <hbox class="groupbox-title">
+              <label class="header" id="gb-form-name-caption">%-KeeFox-form-name-%</label>
+            </hbox>
             <hbox class="listGroup">
               <checkbox id="gb-form-name-wl-enabled"/>
               <label id="gb-form-name-wl-lab" control="gb-form-name-wl" value="%-KeeFox-white-list-%" />
@@ -75,7 +78,9 @@
           </groupbox>
 
           <groupbox>
-            <caption id="gb-form-id-caption" label="%-KeeFox-form-id-%"/>
+            <hbox class="groupbox-title">
+              <label class="header" id="gb-form-id-caption">%-KeeFox-form-id-%</label>
+            </hbox>
             <hbox class="listGroup">
               <checkbox id="gb-form-id-wl-enabled"/>
               <label id="gb-form-id-wl-lab" control="gb-form-id-wl" value="%-KeeFox-white-list-%" />
@@ -89,7 +94,9 @@
           </groupbox>
 
           <groupbox>
-            <caption id="gb-field-name-caption" label="%-KeeFox-text-field-name-%"/>
+            <hbox class="groupbox-title">
+              <label class="header" id="gb-field-name-caption">%-KeeFox-text-field-name-%</label>
+            </hbox>
             <hbox class="listGroup">
               <checkbox id="gb-field-name-wl-enabled"/>
               <label id="gb-field-name-wl-lab" control="gb-field-name-wl" value="%-KeeFox-white-list-%" />
@@ -103,7 +110,9 @@
           </groupbox>
 
           <groupbox>
-            <caption id="gb-field-id-caption" label="%-KeeFox-text-field-id-%"/>
+            <hbox class="groupbox-title">
+              <label class="header" id="gb-field-id-caption">%-KeeFox-text-field-id-%</label>
+            </hbox>
             <hbox class="listGroup">
               <checkbox id="gb-field-id-wl-enabled"/>
               <label id="gb-field-id-wl-lab" control="gb-field-id-wl" value="%-KeeFox-white-list-%" />
