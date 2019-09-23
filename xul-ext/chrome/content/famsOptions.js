@@ -57,6 +57,11 @@ function onLoad()
     //FAMS.configuration = FAMS.getConfiguration();
     config = JSON.parse(JSON.stringify(FAMS.configuration)); //TODO:2: less hacky clone. https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/The_structured_clone_algorithm ?
     document.title = FAMS.getLocalisedString("Options.title");
+    document.addEventListener("dialogaccept", event => {
+        if (!FAMS.setConfiguration(config)) {
+            event.preventDefault();
+        }
+    });
     go();
 }
 

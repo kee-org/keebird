@@ -26,7 +26,6 @@
 <dialog id="KeeFoxSiteOptions" title=""
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         buttons="extra1" buttonlabelextra1="Close" ondialogextra1 ="window.close();"
-        ondialogaccept=""
         ondialogcancel="return;"
         onload="onLoad();">
   <script type="application/javascript" src="chrome://keefox/content/siteOptions.js"/>

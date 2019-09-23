@@ -157,6 +157,12 @@ var keeFoxDialogManager = {
         window.removeEventListener("load", keeFoxDialogManager.dialogInit);
         try
         {
+            document.addEventListener("dialogaccept", event => {
+                if (keeFoxDialogManager === undefined) {
+                    return;
+                }
+                keeFoxDialogManager.kfCommonDialogOnAccept();
+            });
             document.getElementById("commonDialog").setAttribute("windowtype","common-dialog");
             keeFoxDialogManager.prepareFill();
         } catch (exception) {
