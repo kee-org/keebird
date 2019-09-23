@@ -214,6 +214,8 @@ keefox_win.UninstallHelper.prototype =
         extraLabel.setAttribute("control", "keefox-uninstall-helper-feedback-extra");
         container.appendChild(extraLabel);
 
+        // FIXME: textbox multiline="true" is removed in TB68
+        // https://developer.thunderbird.net/add-ons/updates/tb68#less-than-textbox-multiline-true-greater-than
         let extra = this.doc.createElement('textbox');
         extra.setAttribute("id","keefox-uninstall-helper-feedback-extra");
         extra.setAttribute("multiline","true");
