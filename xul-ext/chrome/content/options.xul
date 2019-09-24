@@ -34,9 +34,7 @@
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
   type="prefwindow"
   windowtype="Browser:Preferences"
-  onload="onLoad(); window.sizeToContent();"
   xmlns:html="http://www.w3.org/1999/xhtml"
-  height="480"
 >
   <script 
      src="chrome://global/content/preferencesBindings.js" 
