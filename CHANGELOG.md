@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 <!-- The format is based on https://keepachangelog.com/en/1.0.0/ -->
 
-## [Unreleased]
+## [2.0.1] - 2019-12-06
 ### Fixed
 - Fix preferences tab resizing main window. [#22]
 
@@ -41,8 +41,9 @@ All notable changes to this project will be documented in this file.
 - Mark as compatible with macOS.
 - Improvements to Google OAuth dialog filling.
 
-[Unreleased]: https://github.com/kee-org/keebird/compare/v2.0.0...HEAD
-[2.0.0]: https://github.com/kee-org/keebird/compare/v1.1.3...v2.0.0
+[Unreleased]: https://github.com/kee-org/keebird/compare/v2.0.1...HEAD
+[2.0.0]: https://github.com/kee-org/keebird/compare/v2.0.0...v2.0.1
+[1.1.2]: https://github.com/kee-org/keebird/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/kee-org/keebird/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/kee-org/keebird/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/kee-org/keebird/compare/v1.1.0...v1.1.1

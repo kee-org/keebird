@@ -8,7 +8,7 @@
 	},
 	"manifest_version": 2,
 	"name": "KeeBird",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"author": "Chris Tomlinson",
 	"homepage_url": "http://github.com/kee-org/keebird",
 	"description": "Use KeePass Password Safe to manage your login credentials.",
