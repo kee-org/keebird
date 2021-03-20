@@ -270,7 +270,7 @@ function session()
                     var uri = ioService.newURI(rpc.httpChannelURI, null, null);
 
                     // get a channel for that nsIURI
-                    rpc.httpChannel = ioService.newChannelFromURI(
+                    rpc.httpChannel = Services.io.newChannelFromURI(
                         uri,
                         null, // loadingNode
                         Services.scriptSecurityManager.getSystemPrincipal(), // loadingPrincipal
