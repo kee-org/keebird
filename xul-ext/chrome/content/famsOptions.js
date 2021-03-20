@@ -62,6 +62,10 @@ function onLoad()
             event.preventDefault();
         }
     });
+    document.addEventListener("dialogcancel", event => {
+        event.preventDefault(); // Prevent the dialog closing.
+        return;
+    });
     go();
 }
 
