@@ -593,17 +593,7 @@ Utils.prototype = {
     //TODO:2: Maybe shouldn't use byteArray output at all - seems a bit buggy RE different encodings and maybe negative ints
     hash: function(data, outFormat, algorithm)
     {
-        var converterUTF8 =
-            Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].
-            createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
- 
-        converterUTF8.charset = "UTF-8";
-
-        var converterUTF16 =
-            Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].
-            createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
- 
-        converterUTF16.charset = "UTF-16";
+        let encoderUtf8 = new TextEncoder('utf-8');
 
         // result is an out parameter,
         // result.value will contain the array length
@@ -612,7 +602,7 @@ Utils.prototype = {
         if (typeof data === "string")
         {
             // data is now an array of bytes
-            data = converterUTF8.convertToByteArray(data, result);
+            data = encoderUtf8.encode(data);
         }
         var ch = Components.classes["@mozilla.org/security/hash;1"]
                            .createInstance(Components.interfaces.nsICryptoHash);
@@ -629,9 +619,11 @@ Utils.prototype = {
  
         if (outFormat === "binary")
             return hash;
-        else if (outFormat === "byteArray")
-            return converterUTF16.convertToByteArray(hash, result);
-
+        else if (outFormat === "byteArray") {
+            let encoderUtf16 = new TextEncoder('utf-16');
+            return encoderUtf16.encode(hash);
+            
+        }
         // convert the binary hash data to a hex string.
         var s = Array.from(hash, (c, i) => utils.toHexString(hash.charCodeAt(i))).join("");
 
