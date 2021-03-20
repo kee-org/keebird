@@ -47,9 +47,7 @@ var keeFoxDialogManager = {
     __promptBundle : null, // String bundle for L10N
     get _promptBundle() {
         if (!this.__promptBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                getService(Components.interfaces.nsIStringBundleService);
-            this.__promptBundle = bunService.createBundle(
+            this.__promptBundle = Services.strings.createBundle(
                 "chrome://global/locale/prompts.properties");
             if (!this.__promptBundle)
                 throw "Prompt string bundle not present!";
@@ -60,9 +58,7 @@ var keeFoxDialogManager = {
     __cdBundle : null, // String bundle for L10N
     get _cdBundle() {
         if (!this.__cdBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                             getService(Components.interfaces.nsIStringBundleService);
-            this.__cdBundle = bunService.createBundle(
+            this.__cdBundle = Services.strings.createBundle(
                         "chrome://global/locale/commonDialogs.properties");
             if (!this.__cdBundle)
                 throw "Common Dialogs string bundle not present!";
@@ -73,9 +69,7 @@ var keeFoxDialogManager = {
     __messengerBundle : null, // string bundle for thunderbird l10n
     get _messengerBundle() {    
         if (!this.__messengerBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                getService(Components.interfaces.nsIStringBundleService);
-            this.__messengerBundle = bunService.createBundle(
+            this.__messengerBundle = Services.strings.createBundle(
                 "chrome://messenger/locale/messenger.properties");
             if (!this.__messengerBundle)
                 throw "Messenger string bundle not present!";
@@ -86,9 +80,7 @@ var keeFoxDialogManager = {
     __localMsgsBundle : null, // string bundle for thunderbird l10n
     get _localMsgsBundle() {    
         if (!this.__localMsgsBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                getService(Components.interfaces.nsIStringBundleService);
-            this.__localMsgsBundle = bunService.createBundle(
+            this.__localMsgsBundle = Services.strings.createBundle(
                 "chrome://messenger/locale/localMsgs.properties");
             if (!this.__localMsgsBundle)
                 throw "localMsgs string bundle not present!";
@@ -99,9 +91,7 @@ var keeFoxDialogManager = {
     __imapMsgsBundle : null, // string bundle for thunderbird l10n
     get _imapMsgsBundle() {    
         if (!this.__imapMsgsBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                getService(Components.interfaces.nsIStringBundleService);
-            this.__imapMsgsBundle = bunService.createBundle(
+            this.__imapMsgsBundle = Services.strings.createBundle(
                 "chrome://messenger/locale/imapMsgs.properties");
             if (!this.__imapMsgsBundle)
                 throw "imapMsgs string bundle not present!";
@@ -128,9 +118,7 @@ var keeFoxDialogManager = {
     __newsBundle : null, // string bundle for thunderbird l10n
     get _newsBundle() {    
         if (!this.__newsBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                getService(Components.interfaces.nsIStringBundleService);
-            this.__newsBundle = bunService.createBundle(
+            this.__newsBundle = Services.strings.createBundle(
                 "chrome://messenger/locale/news.properties");
             if (!this.__newsBundle)
                 throw "news string bundle not present!";
@@ -141,9 +129,7 @@ var keeFoxDialogManager = {
     __composeBundle : null, // string bundle for thunderbird l10n
     get _composeBundle() {    
         if (!this.__composeBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                getService(Components.interfaces.nsIStringBundleService);
-            this.__composeBundle = bunService.createBundle(
+            this.__composeBundle = Services.strings.createBundle(
                 "chrome://messenger/locale/messengercompose/composeMsgs.properties");
             if (!this.__composeBundle)
                 throw "Compose Message string bundle not present!";
