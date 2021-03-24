@@ -27,6 +27,7 @@ const { KeeFoxLog } = ChromeUtils.import("resource://kfmod/KFLogger.js");
 const { KFExtension } = ChromeUtils.import("resource://kfmod/KFExtension.js");
 const { BigInteger } = ChromeUtils.import("resource://kfmod/biginteger.js");
 const { FileUtils } = ChromeUtils.import("resource://gre/modules/FileUtils.jsm");
+var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
 
 // constructor
 function Utils()
@@ -155,12 +156,24 @@ Utils.prototype = {
                 this._KFLog.debug("Checking KeePass installation location from filesystem");
 
                 // Get the users home directory
-                var dirService = Components.classes["@mozilla.org/file/directory_service;1"].  
-                  getService(Components.interfaces.nsIProperties);   
-                var keePassFolder = dirService.get("Home", Components.interfaces.nsIFile); // returns an nsIFile object
+                var keePassFolder = Services.dirsvc.get("Home", Components.interfaces.nsIFile); // returns an nsIFile object
                 keePassFolder.append("KeePass");
                 var keePassFile = keePassFolder.clone();
                 keePassFile.append("KeePass.exe");
+                if (!keePassFile.exists())
+                {
+                    // try a location like /usr/lib/thunderbird/../keepass2
+                    // eg /usr/lib/keepass2 but a workaround seems needed as 
+                    // the parameter for dirsvc.get() is a constant
+                    // see https://gist.github.com/Noitidart/715840fa5008ee032017 for more details
+                    this._KFLog.debug("***was testing "+keePassFolder.path);
+                    keePassFolder = Services.dirsvc.get("GreD", Components.interfaces.nsIFile);
+                    this._KFLog.debug("***is testing "+keePassFolder.path);
+                    keePassFolder.append("..");
+                    keePassFolder.append("keepass2");
+                    keePassFile = keePassFolder.clone();
+                    keePassFile.append("KeePass.exe");  
+                }
                 if (keePassFile.exists())
                 {
                     keePassLocation = keePassFolder.path;
@@ -420,7 +433,7 @@ Utils.prototype = {
         else
             this._KFLog.debug("trying to find an already open tab with the requested url");
         var found = false;
-        
+
         var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                    .getService(Components.interfaces.nsIWindowMediator);
         try
