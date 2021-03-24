@@ -170,8 +170,9 @@ keefox_win.mainEventHandler =
                 var observerService = Cc["@mozilla.org/observer-service;1"].
                               getService(Ci.nsIObserverService);
                 observerService.removeObserver(this, "sessionstore-windows-restored", false);
-
-                keefox_win.mainUI.shutdown();
+                if (keefox_win.mainUI !== undefined) {
+                    keefox_win.mainUI.shutdown();
+                }
                 keefox_win.Logger.info("Window shut down.");
                 return;
             default:
