@@ -67,6 +67,10 @@ overlay chrome://messenger/content/browserRequest.xul chrome://keefox/content/gd
     messenger.WindowListener.registerWindow(
         "chrome://global/content/commonDialog.xul", 
         "chrome://keefox/content/scripts/KFcommonDialog.js");
-        
+    /*
+        messenger.WindowListener.registerWindow(
+            "chrome://global/content/win.xul",
+            "chrome://keefox/content/scripts/install.js");*/
+
     await messenger.WindowListener.startListening();
 })()
