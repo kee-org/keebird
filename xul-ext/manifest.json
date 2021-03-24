@@ -27,5 +27,12 @@
   },
   "background": {
     "scripts": ["background.js"]
-  }
+  },
+
+  "permissions": [
+      "storage",
+      "activeTab",
+      "tabs",
+      "tabHide"
+    ]
 }

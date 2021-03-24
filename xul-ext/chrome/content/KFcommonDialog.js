@@ -39,6 +39,7 @@ if (!Cu)
 
 const { keefox_org } = ChromeUtils.import("resource://kfmod/KF.js");
 const { keeFoxLoginInfo } = ChromeUtils.import("resource://kfmod/kfDataModel.js");
+var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
 
 var keeFoxDialogManager = {
     scriptLoader : Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
@@ -141,7 +142,7 @@ var keeFoxDialogManager = {
         .getService(Components.interfaces.nsIXULAppInfo),
     
     dialogInit : function(e) {
-        window.removeEventListener("load", keeFoxDialogManager.dialogInit);
+        //window.removeEventListener("load", keeFoxDialogManager.dialogInit);
         try
         {
             document.addEventListener("dialogaccept", event => {
@@ -583,6 +584,10 @@ var keeFoxDialogManager = {
         }
     },
 
+    /**
+     * This is where we send the identification request to keefox RPC
+     * Assuming that the validation token has been stored
+     */
     updateDialog : function()
     {
         // check to make sure prepareFill was called
@@ -914,4 +919,5 @@ KPRPCConnectionObserver.prototype = {
 keeFoxDialogManager.Logger = keefox_org._KFLog;
 keeFoxDialogManager.scriptLoader.loadSubScript(
     "chrome://keefox/content/shared/uriUtils.js", keeFoxDialogManager);
-window.addEventListener("load", keeFoxDialogManager.dialogInit, false);
+//window.addEventListener("load", keeFoxDialogManager.dialogInit, false);
+
