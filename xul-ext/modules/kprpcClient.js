@@ -524,9 +524,11 @@ kprpcClient.prototype.constructor = kprpcClient;
   	this.identifyToClient = function(data) {
         var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                     .getService(Components.interfaces.nsIWindowMediator);
-        var window = wm.getMostRecentWindow("common-dialog") ||
-                        wm.getMostRecentWindow("navigator:browser") ||
-                        wm.getMostRecentWindow("mail:3pane");
+        var window = wm.getMostRecentWindow("navigator:browser") ||
+        wm.getMostRecentWindow("mail:3pane") ||
+        // to avoid the "JavaScript error: resource://kfmod/kprpcClient.js, line 537: TypeError: window.keefox_org is undefined"
+        // -> move common-dialog to the end of window lookup
+        wm.getMostRecentWindow("common-dialog");
 
         // get the user to type in the one-time password
         let prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
