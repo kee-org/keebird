@@ -521,6 +521,9 @@ kprpcClient.prototype.constructor = kprpcClient;
         }
   	};
   	
+    /**
+     * Prompts the user for the token from keepass to allow RPC
+     */
   	this.identifyToClient = function(data) {
         var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                     .getService(Components.interfaces.nsIWindowMediator);
