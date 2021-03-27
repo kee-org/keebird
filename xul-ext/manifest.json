@@ -2,7 +2,7 @@
   "applications": {
     "gecko": {
       "id": "keebird-xn1@kee-org",
-      "strict_min_version": "68.1.0"
+      "strict_min_version": "78.1.0"
     }
   },
   "manifest_version": 2,
@@ -28,7 +28,6 @@
   "background": {
     "scripts": ["background.js"]
   },
-
   "permissions": [
       "storage",
       "activeTab",
