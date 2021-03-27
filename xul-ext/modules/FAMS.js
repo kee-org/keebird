@@ -533,7 +533,7 @@ FirefoxAddonMessageService.prototype.showMessageNotification = function (name, a
                     var win = wm.getMostRecentWindow("navigator:browser") ||
                         wm.getMostRecentWindow("mail:3pane");
                     win.openDialog(
-                       "chrome://keefox/content/famsOptions.xul?famsConfigId=KeeFox", //TODO:2: KeeFox specific
+                       "chrome://keefox/content/famsOptions.xhtml?famsConfigId=KeeFox", //TODO:2: KeeFox specific
                        "",
                        "centerscreen,dialog=no,chrome,resizable,dependent,modal"
                       );

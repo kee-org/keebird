@@ -226,11 +226,11 @@ KeeFox.prototype = {
         // Set the baseURL to use for Mono vs Windows
         if (!this.useMono)
         {
-            this.baseInstallURL = 'chrome://keefox/content/install.xul';
+            this.baseInstallURL = 'chrome://keefox/content/install.xhtml';
         }
         else
         {
-            this.baseInstallURL = 'chrome://keefox/content/install_mono.xul';
+            this.baseInstallURL = 'chrome://keefox/content/install_mono.xhtml';
         }
         
         this._KFLog.info("KeeFox initialising");

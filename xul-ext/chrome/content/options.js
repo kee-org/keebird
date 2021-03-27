@@ -559,7 +559,7 @@ function browseForLocation(currentLocationPath, pickerMode, captionStringKey, fi
 
 function openSiteConfig()
 {
-    window.openDialog("chrome://keefox/content/siteOptions.xul",
+    window.openDialog("chrome://keefox/content/siteOptions.xhtml",
     "siteoptions", "chrome,centerscreen", 
     onOK,
     onCancel,

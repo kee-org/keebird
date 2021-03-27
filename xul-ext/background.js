@@ -42,23 +42,8 @@ const locales = [
         ["locale",   "keefox", localeId,        `chrome/locale/${localeId}/`])
     ]);
     // https://github.com/thundernest/addon-developer-support/wiki/WindowListener-API:-Getting-Started#windowlistenerregisteroptionspage
-    messenger.WindowListener.registerOptionsPage("chrome://keefox/content/options.xul");
+    messenger.WindowListener.registerOptionsPage("chrome://keefox/content/options.xhtml");
 
-/**
- * Alternatives to overlays 
- * 
-overlay chrome://browser/content/browser.xul chrome://keefox/content/panel.xul
-overlay chrome://browser/content/browser.xul chrome://keefox/content/context.xul
--> chrome://browser/content/browser.xul could not be found, replaced by chrome://messenger/content/messenger.xul
-
-overlay	chrome://global/content/commonDialog.xul chrome://keefox/content/protocolAuth.xul
-
-overlay chrome://messenger/content/messenger.xul chrome://keefox/content/panel.xul
-
-# This is for the "Provider for Google Calendar" extension in Thunderbird
-overlay chrome://gdata-provider/content/browserRequest.xul chrome://keefox/content/gdata-provider.xul
-overlay chrome://messenger/content/browserRequest.xul chrome://keefox/content/gdata-provider.xul
- */
     //
     messenger.WindowListener.registerWindow(
         "chrome://messenger/content/messenger.xul", 
