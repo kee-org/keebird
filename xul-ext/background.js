@@ -41,16 +41,17 @@ const locales = [
         ...locales.map((localeId) => 
         ["locale",   "keefox", localeId,        `chrome/locale/${localeId}/`])
     ]);
+    //xul-ext/chrome/skin
     // https://github.com/thundernest/addon-developer-support/wiki/WindowListener-API:-Getting-Started#windowlistenerregisteroptionspage
     messenger.WindowListener.registerOptionsPage("chrome://keefox/content/options.xhtml");
 
     //
     messenger.WindowListener.registerWindow(
-        "chrome://messenger/content/messenger.xul", 
+        "chrome://messenger/content/messenger.xhtml", 
         "chrome://keefox/content/scripts/messengerPanel.js");
 
     messenger.WindowListener.registerWindow(
-        "chrome://global/content/commonDialog.xul", 
+        "chrome://global/content/commonDialog.xhtml", 
         "chrome://keefox/content/scripts/KFcommonDialog.js");
     /*
         messenger.WindowListener.registerWindow(
