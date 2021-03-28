@@ -565,3 +565,5 @@ function openSiteConfig()
     onCancel,
     null);
 }
+
+onLoad();
