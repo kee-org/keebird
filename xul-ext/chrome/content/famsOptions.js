@@ -95,7 +95,7 @@ function go() {
 function renderAllMessageGroups()
 {
     var msgGroupContainer = window.document.getElementById("msgGroupContainer");
-    var famsDescription = window.document.createElement("description");    
+    var famsDescription = window.document.createXULElement("description");    
     famsDescription.textContent = FAMS.locale.internationaliseString(config.description);
     msgGroupContainer.appendChild(famsDescription);
     
@@ -112,11 +112,11 @@ function renderAllMessageGroups()
 function renderDownloadOptions()
 {
     var msgGroupContainer = window.document.getElementById("msgGroupContainer");
-    var downloadSliderComplete = window.document.createElement("hbox");
-    var downloadLabelExplanation = window.document.createElement("label");
-    var downloadLabelNote = window.document.createElement("description");
-    var downloadSlider = window.document.createElement("scale");
-    var downloadLabel = window.document.createElement("label");
+    var downloadSliderComplete = window.document.createXULElement("hbox");
+    var downloadLabelExplanation = window.document.createXULElement("label");
+    var downloadLabelNote = window.document.createXULElement("description");
+    var downloadSlider = window.document.createXULElement("scale");
+    var downloadLabel = window.document.createXULElement("label");
 
     downloadLabelExplanation.setAttribute("value", FAMS.getLocalisedString("Options-Download-Freq.label"));
     downloadLabelNote.textContent = FAMS.getLocalisedString("Options-Download-Freq.desc", config.name);
@@ -146,14 +146,14 @@ function renderMessageGroup(msgGroupIndex)
     var msgGroup = config.messageGroups[msgGroupIndex];
     var msgGroupContainer = window.document.getElementById("msgGroupContainer");
 
-    var singleMsgGroupContainer = window.document.createElement("vbox");
-    var desc = window.document.createElement("description");
-    var appearanceLabelNote = window.document.createElement("description");
-    var enabledCheckbox = window.document.createElement("checkbox");
-    var appearanceSliderComplete = window.document.createElement("hbox");
-    var appearanceLabelExplanation = window.document.createElement("label");
-    var appearanceSlider = window.document.createElement("scale");
-    var appearanceLabel = window.document.createElement("label");
+    var singleMsgGroupContainer = window.document.createXULElement("vbox");
+    var desc = window.document.createXULElement("description");
+    var appearanceLabelNote = window.document.createXULElement("description");
+    var enabledCheckbox = window.document.createXULElement("checkbox");
+    var appearanceSliderComplete = window.document.createXULElement("hbox");
+    var appearanceLabelExplanation = window.document.createXULElement("label");
+    var appearanceSlider = window.document.createXULElement("scale");
+    var appearanceLabel = window.document.createXULElement("label");
     //var seeAllButton = window.document.createElement("button");
     desc.textContent = FAMS.locale.internationaliseString(msgGroup.description);
 

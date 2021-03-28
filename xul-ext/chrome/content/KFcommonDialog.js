@@ -375,7 +375,7 @@ var keeFoxDialogManager = {
                     }
                 }
             } // end if Thunderbird
-            
+
             if (host.length < 1)
             {
                 // e.g. en-US:
@@ -547,24 +547,23 @@ var keeFoxDialogManager = {
             this.mustAutoSubmit = mustAutoSubmit;
 
             /* add ui elements to dialog */
-            
-            var row = document.createElement("row");
+
+            var row = document.createElement("div");
             row.setAttribute("id","keefox-autoauth-row");
-            row.setAttribute("flex", "1");
+            row.setAttribute("class","dialogRow");
 
             // spacer to take up first column in layout
-            var spacer = document.createElement("spacer");
-            spacer.setAttribute("flex", "1");
+            var spacer = document.createElement("div");
             row.appendChild(spacer);
 
             // this box displays labels and also the list of entries when fetched
-            var box = document.createElement("hbox");
+            var box = document.createXULElement("hbox");
             box.setAttribute("id","keefox-autoauth-box");
             box.setAttribute("align", "center");
             box.setAttribute("flex", "1");
             box.setAttribute("pack", "start");
 
-            var loadingPasswords = document.createElement("description");
+            var loadingPasswords = document.createXULElement("description");
             loadingPasswords.setAttribute("id","keefox-autoauth-description");
             loadingPasswords.setAttribute("align", "start");
             loadingPasswords.setAttribute("flex", "1");
@@ -572,7 +571,7 @@ var keeFoxDialogManager = {
             row.appendChild(box);
 
             // button to lauch KeePass
-            var launchKeePassButton = document.createElement("button");
+            var launchKeePassButton = document.createXULElement("button");
             launchKeePassButton.setAttribute("id", "keefox-launch-kp-button");
             launchKeePassButton.setAttribute("label", keefox_org.locale.$STR("launchKeePass.label"));
             launchKeePassButton.addEventListener("command", function (event) { keefox_org.launchKeePass(''); }, false);
@@ -752,9 +751,9 @@ var keeFoxDialogManager = {
         if (showList) {
             var box = dialogFindLoginStorage.document.getElementById("keefox-autoauth-box");
 
-            var list = dialogFindLoginStorage.document.createElement("menulist");
+            var list = dialogFindLoginStorage.document.createXULElement("menulist");
             list.setAttribute("id","autoauth-list");
-            var popup = dialogFindLoginStorage.document.createElement("menupopup");
+            var popup = dialogFindLoginStorage.document.createXULElement("menupopup");
             var done = false;            
             
             for (var i = 0; i < matchedLogins.length; i++) {
@@ -770,7 +769,7 @@ var keeFoxDialogManager = {
             });
 
             for (var i = 0; i < matchedLogins.length; i++){
-                var item = dialogFindLoginStorage.document.createElement("menuitem");
+                var item = dialogFindLoginStorage.document.createXULElement("menuitem");
                 item.setAttribute("label", keefox_org.locale.$STRF("matchedLogin.label",
                     [matchedLogins[i].username, matchedLogins[i].host]));
                 item.setAttribute("tooltiptext", keefox_org.locale.$STRF("matchedLogin.tip",
