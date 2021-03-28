@@ -270,110 +270,125 @@ var keeFoxDialogManager = {
                     {
                         let regexChars = /[\[\{\(\)\*\+\?\.\\\^\$\|]/g;
                         protocols[aDialogType] = aDialogType.split("-")[0];
-                        titles[aDialogType] = aStringBundle.GetStringFromName(aTitlePropertyName);
-                        prompts[aDialogType] = aStringBundle.GetStringFromName(aPromptPropertyName);
-                        prompts[aDialogType] = prompts[aDialogType].replace(regexChars, "\\$&");
-                        aHostPlaceholder = aHostPlaceholder.replace(regexChars, "\\$&");
-                        // use null as a flag to indicate that there was only one
-                        // placeholder and hostIsFirst and secondIsUserName are not applicable
-                        hostIsFirst[aDialogType] = null;
-                        if (aUserPlaceholder != null)
-                        {
-                            aUserPlaceholder = aUserPlaceholder.replace(regexChars, "\\$&");
-                            hostIsFirst[aDialogType] = prompts[aDialogType].indexOf(aHostPlaceholder) <
-                                prompts[aDialogType].indexOf(aUserPlaceholder);
-                            secondIsUserName[aDialogType] = true;
+                        // dirty fix
+                        // use a big try/catch here to avoid errors on null string resources
+                        try {
+                            titles[aDialogType] = aStringBundle.GetStringFromName(aTitlePropertyName);
+                            prompts[aDialogType] = aStringBundle.GetStringFromName(aPromptPropertyName);
+                            titles[aDialogType] = titles[aDialogType].replace(regexChars, "\\$&");
+                            prompts[aDialogType] = prompts[aDialogType].replace(regexChars, "\\$&");
+                            aHostPlaceholder = aHostPlaceholder.replace(regexChars, "\\$&");
+                            // use null as a flag to indicate that there was only one
+                            // placeholder and hostIsFirst and secondIsUserName are not applicable
+                            hostIsFirst[aDialogType] = null;
+                            if (aUserPlaceholder != null)
+                            {
+                                aUserPlaceholder = aUserPlaceholder.replace(regexChars, "\\$&");
+                                hostIsFirst[aDialogType] = prompts[aDialogType].indexOf(aHostPlaceholder) <
+                                    prompts[aDialogType].indexOf(aUserPlaceholder);
+                                secondIsUserName[aDialogType] = true;
+                            }
+                            if (aRealmPlaceholder != null)
+                            {
+                                aRealmPlaceholder = aRealmPlaceholder.replace(regexChars, "\\$&");
+                                hostIsFirst[aDialogType] = prompts[aDialogType].indexOf(aHostPlaceholder) <
+                                    prompts[aDialogType].indexOf(aRealmPlaceholder);
+                                secondIsUserName[aDialogType] = false;
+                            }
+                            titles[aDialogType] = titles[aDialogType].replace(aHostPlaceholder, "([^\\s]+)");
+                            prompts[aDialogType] = prompts[aDialogType].replace(aHostPlaceholder, "([^\\s]+)");
+                            if (aUserPlaceholder != null)
+                            {
+                                titles[aDialogType] = titles[aDialogType].replace(aUserPlaceholder, "([^\\s]+)");
+                                prompts[aDialogType] = prompts[aDialogType].replace(aUserPlaceholder, "([^\\s]+)");
+                            }
+                            if (aRealmPlaceholder != null)
+                            {
+                                prompts[aDialogType] = prompts[aDialogType].replace(aRealmPlaceholder, "([^\\s]+)");
+                            }
+                            extractUserFromHost[aDialogType] = aExtractUserFromHost;
                         }
-                        if (aRealmPlaceholder != null)
-                        {
-                            aRealmPlaceholder = aRealmPlaceholder.replace(regexChars, "\\$&");
-                            hostIsFirst[aDialogType] = prompts[aDialogType].indexOf(aHostPlaceholder) <
-                                prompts[aDialogType].indexOf(aRealmPlaceholder);
-                            secondIsUserName[aDialogType] = false;
+                        catch (resourceError) {
+                            keefox_org._KFLog.error(`LoadDialogData failed for ${aDialogType},${aTitlePropertyName},${aPromptPropertyName}`, resourceError); 
                         }
-                        prompts[aDialogType] = prompts[aDialogType].replace(aHostPlaceholder, "([^\\s]+)");
-                        if (aUserPlaceholder != null)
-                        {
-                            prompts[aDialogType] = prompts[aDialogType].replace(aUserPlaceholder, "([^\\s]+)");
-                        }
-                        if (aRealmPlaceholder != null)
-                        {
-                            prompts[aDialogType] = prompts[aDialogType].replace(aRealmPlaceholder, "([^\\s]+)");
-                        }
-                        extractUserFromHost[aDialogType] = aExtractUserFromHost;
                     }
-                }
-                  
-                LoadDialogData(this._composeBundle, "smtp", "smtpEnterPasswordPromptTitle",
+                };
+                LoadDialogData(this._composeBundle, "smtp", "smtpEnterPasswordPrompt",
                     "smtpEnterPasswordPromptWithUsername", "%1$S", null, "%2$S");
+                    
                 var imapEnterPasswordPromptTitle = this._imapBundleUsesStrings
-                    ? "imapEnterPasswordPromptTitle" : "5051";
+                    ? "imapEnterPasswordPromptTitleWithUsername" : "5051";
                 var imapEnterPasswordPrompt = this._imapBundleUsesStrings
-                    ? "imapEnterPasswordPrompt" : "5047";
-                var isPreTB40ImapStrings = true;
-                try {
+                    ? "imapEnterServerPasswordPrompt" : "5047";
+                var isPreTB40ImapStrings = false;
+                /*try {
                     // Take a peek at imapEnterPasswordPrompt
                     this._imapMsgsBundle.GetStringFromName(imapEnterPasswordPrompt);
                 } catch (e) {
                     // The string identifier changed again in TB 40
                     imapEnterPasswordPrompt = "imapEnterServerPasswordPrompt";
                     isPreTB40ImapStrings = false;
-                }
+                }*/
                 // The prompt changed from using one parameter to using two in TB40
                 LoadDialogData(this._imapMsgsBundle, "imap",
                     imapEnterPasswordPromptTitle, imapEnterPasswordPrompt,
                     isPreTB40ImapStrings ? "%S" : "%2$S", null,
                     isPreTB40ImapStrings ? null : "%1$S", isPreTB40ImapStrings);
-                LoadDialogData(this._localMsgsBundle, "pop3", "pop3EnterPasswordPromptTitle",
-                    "pop3EnterPasswordPrompt", "%2$S", null, "%1$S");
+
+                LoadDialogData(this._localMsgsBundle, "pop3", "pop3EnterPasswordPromptTitleWithUsername",
+                    "pop3EnterPasswordPromptTitleWithUsername", "%2$S", null, "%1$S");
+
                 LoadDialogData(this._newsBundle, "nntp-1", "enterUserPassTitle",
                     "enterUserPassServer", "%S");
+                    
                 LoadDialogData(this._newsBundle, "nntp-2", "enterUserPassTitle",
                     "enterUserPassGroup", "%2$S", "%1$S");
+                    
                 LoadDialogData(this._messengerBundle, "mail", "passwordTitle",
                     "passwordPrompt", "%2$S", null, "%1$S");
                 
-                for (let type in titles)
-                {                  
-                    if (Dialog.args.title == titles[type])
-                    {
-                        // some types have the same title, so we have more checking to do
-                        let regEx = new RegExp(prompts[type]);
-                        let matches = Dialog.args.text.match(regEx);
-                        if (!matches)
-                        {
-                            continue;
-                        }
-                        if (hostIsFirst[type] === null) {
-                            // there is only one parameter, so nothing is first
-                            if (matches.length == 2) {
-                                if (extractUserFromHost[type])
-                                {
-                                    // user and host are separated by @ character
-                                    let lastAtSym = matches[1].lastIndexOf("@");                            
-                                    username = matches[1].substring(0, lastAtSym);
-                                    host = protocols[type] + "://" +
-                                        matches[1].substring(lastAtSym + 1, matches[1].length);
-                                } else {
-                                    host = protocols[type] + "://" + matches[1];
-                                }
-                                break;
+                const matchings = Object.keys(titles).filter((type) => {
+                    // refactor the title identification with a regEx because some have placeholders like $S
+                    let reTitle = new RegExp(titles[type]);
+                    return reTitle.test(Dialog.args.title);
+                }).map((type) => {
+                    let regEx = new RegExp(prompts[type]);
+                    let matches = Dialog.args.text.match(regEx);
+                    return {
+                        type,
+                        matches
+                    };
+                });
+
+                matchings.forEach((m) => {
+                    const type = m.type;
+                    const matches = m.matches;
+                    if (hostIsFirst[type] === null) {
+                        // there is only one parameter, so nothing is first
+                        if (matches.length == 2) {
+                            if (extractUserFromHost[type])
+                            {
+                                // user and host are separated by @ character
+                                let lastAtSym = matches[1].lastIndexOf("@");                            
+                                username = matches[1].substring(0, lastAtSym);
+                                host = protocols[type] + "://" +
+                                    matches[1].substring(lastAtSym + 1, matches[1].length);
+                            } else {
+                                host = protocols[type] + "://" + matches[1];
                             }
-                        } else
-                        {
-                            if (matches.length == 3) {
-                                if (hostIsFirst[type]) {
-                                    host = protocols[type] + "://" + matches[1];
-                                    username = matches[2];
-                                } else {
-                                    host = protocols[type] + "://" + matches[2];
-                                    username = matches[1];
-                                }
-                                break;
+                        }
+                    } else {
+                        if (matches.length == 3) {
+                            if (hostIsFirst[type]) {
+                                host = protocols[type] + "://" + matches[1];
+                                username = matches[2];
+                            } else {
+                                host = protocols[type] + "://" + matches[2];
+                                username = matches[1];
                             }
                         }
                     }
-                }
+                });
             } // end if Thunderbird
 
             if (host.length < 1)
