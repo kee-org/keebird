@@ -69,6 +69,14 @@ function onLoad()
 
     configMan = mainWindow.keefox_org.config;
     document.title = mainWindow.keefox_org.locale.$STR("KeeFox-site-options-title");
+    document.addEventListener("dialogextra1", event => {
+        event.preventDefault(); // Prevent the dialog closing.
+        window.close();
+    });
+    document.addEventListener("dialogcancel", event => {
+        event.preventDefault(); // Prevent the dialog closing.
+        return;
+    });
 
     go(selectURL);
 }

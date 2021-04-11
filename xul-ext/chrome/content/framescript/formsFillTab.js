@@ -124,9 +124,9 @@ var _fillMatchedFields = function (fields, dataFields, formFields)
         let DOMelement;
 
         if (formFields[ffi].type == "select-one")
-            DOMelement = formFields[ffi].DOMSelectElement;
+            DOMelement = formFields[ffi].SelectElement;
         else
-            DOMelement = formFields[ffi].DOMInputElement;
+            DOMelement = formFields[ffi].InputElement;
 
         Logger.info("We will populate field " + ffi + " (id:" + formFields[ffi].fieldId + ")", " with: " + dataFields[dfi].value);
 

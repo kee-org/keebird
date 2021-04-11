@@ -4,7 +4,7 @@ Copyright 2008-2015 Chris Tomlinson <keefox@christomlinson.name>
   
 This install_mono.js file helps manage the installation under Mono.
 
-See install_mono.xul for a description of each of the ICs (Install Cases)
+See install_mono.xhtml for a description of each of the ICs (Install Cases)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

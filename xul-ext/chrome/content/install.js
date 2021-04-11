@@ -4,7 +4,7 @@ Copyright 2008-2015 Chris Tomlinson <keefox@christomlinson.name>
   
 This install.js file helps manage the installation of .NET, KeePass and KeePassRPC.
 
-See install.xul for a description of each of the ICs (Install Cases)
+See install.xhtml for a description of each of the ICs (Install Cases)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

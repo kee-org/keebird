@@ -142,9 +142,9 @@ var _getFormFields = function (form, isSubmission, currentPage)
         allFields[allFields.length-1].element.init(
             form.elements[i].name, fieldValue, form.elements[i].id, DOMtype, currentPage);
         if (DOMtype == "select-one")
-            allFields[allFields.length-1].element.DOMSelectElement = form.elements[i];
+            allFields[allFields.length-1].element.SelectElement = form.elements[i];
         else
-            allFields[allFields.length-1].element.DOMInputElement = form.elements[i];
+            allFields[allFields.length-1].element.InputElement = form.elements[i];
             
         if (DOMtype == "password" && firstPasswordIndex == -1)
             firstPasswordIndex = allFields.length-1;

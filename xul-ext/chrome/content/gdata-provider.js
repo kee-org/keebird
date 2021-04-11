@@ -43,9 +43,7 @@ var keeFoxGDataProviderHelper = {
     __messengerBundle : null, // string bundle for thunderbird l10n
     get _messengerBundle() {
         if (!this.__messengerBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                getService(Components.interfaces.nsIStringBundleService);
-            this.__messengerBundle = bunService.createBundle(
+            this.__messengerBundle = Services.strings.createBundle(
                 "chrome://messenger/locale/messenger.properties");
             if (!this.__messengerBundle)
                 throw "Messenger string bundle not present!";
@@ -56,9 +54,7 @@ var keeFoxGDataProviderHelper = {
     __gdataBundle : null, // String bundle for L10N
     get _gdataBundle() {
         if (!this.__gdataBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                getService(Components.interfaces.nsIStringBundleService);
-            this.__gdataBundle = bunService.createBundle(
+            this.__gdataBundle = Services.strings.createBundle(
                 "chrome://gdata-provider/locale/gdata.properties");
             if (!this.__gdataBundle)
                 throw "GData string bundle not present!";

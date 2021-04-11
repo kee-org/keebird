@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://global/skin/in-content/common.css"?>
 <?xml-stylesheet href="chrome://keefox/skin/options.css" type="text/css"?>
 <?xml-stylesheet type="text/css" href="chrome://messenger/skin/preferences/preferences.css"?>
 <?xml-stylesheet type="text/css" href="chrome://messenger/skin/messenger.css"?>
@@ -60,7 +61,7 @@
         <tabpanel>
           <vbox align="left">
             <description id="desc-site-specific" class="itemEnd">%-KeeFox-pref-site-options-find.desc-% <html:a id="desc-site-specific-link" class="text-link" onclick='javascript:openDialog(
-               "chrome://keefox/content/siteOptions.xul",
+               "chrome://keefox/content/siteOptions.xhtml",
                "",
                "centerscreen,dialog=no,chrome,resizable,dependent,modal"
               );'>%-KeeFox-pref-site-options-find.link-%</html:a>
@@ -72,7 +73,7 @@
             <checkbox id="check-notifyWhenLateDiscovery" preference="extensions.keefox@chris.tomlinson.notifyWhenLateDiscovery" label="%-KeeFox-pref-notifyWhenLateDiscovery.label-%" class="itemEnd" />
             <hbox align="center" class="itemEnd">
               <label id="lab-maxMatchedLoginsInMainPanel" control="maxMatchedLoginsInMainPanel" value="%-KeeFox-pref-maxMatchedLoginsInMainPanel.label-%:"/>
-              <textbox preference="extensions.keefox@chris.tomlinson.maxMatchedLoginsInMainPanel" id="maxMatchedLoginsInMainPanel" maxlength="3" size="3" />
+              <html:input preference="extensions.keefox@chris.tomlinson.maxMatchedLoginsInMainPanel" id="maxMatchedLoginsInMainPanel" maxlength="3" size="3" />
             </hbox>
             
           </vbox>
@@ -136,7 +137,7 @@
 
             <description id="desc-site-specific-savepass" class="itemEnd">
               %-KeeFox-pref-site-options-savepass.desc-% <html:a id="desc-site-specific-savepass-link" class="text-link" onclick='javascript:openDialog(
-               "chrome://keefox/content/siteOptions.xul",
+               "chrome://keefox/content/siteOptions.xhtml",
                "",
                "centerscreen,dialog=no,chrome,resizable,dependent,modal"
               );'>%-KeeFox-pref-site-options-find.link-%</html:a>
@@ -181,20 +182,20 @@
             <checkbox id="notifyWhenLoggedOut" preference="extensions.keefox@chris.tomlinson.notifyWhenLoggedOut"
                     label="%-KeeFox-pref-notifyWhenLoggedOut.label-%" class="itemEnd"/>
             <button id="famsOptionsButton" label="%-KeeFox-FAMS-Options.label-%..." oncommand='openDialog(
-               "chrome://keefox/content/famsOptions.xul?famsConfigId=KeeFox",
+               "chrome://keefox/content/famsOptions.xhtml?famsConfigId=KeeFox",
                "",
                "centerscreen,dialog=no,chrome,resizable,dependent,modal"
               );' class="itemEnd"/>
             
             <hbox align="center">
               <label id="lab-keePassRPCPort" control="keePassRPCPort" value="%-KeeFox-pref-keePassRPCPort.label-%:"/>
-              <textbox preference="extensions.keefox@chris.tomlinson.KeePassRPC.webSocketPort" id="keePassRPCPort" maxlength="5" size="5"/>
+              <html:input preference="extensions.keefox@chris.tomlinson.KeePassRPC.webSocketPort" id="keePassRPCPort" maxlength="5" size="5"/>
             </hbox>
             <label id="lab-keePassRPCPortWarning" value="%-KeeFox-pref-keePassRPCPortWarning.label-%" class="itemEnd note"/>
 
             <label id="lab-keePassDBToOpen" control="keePassDBToOpen" value="%-KeeFox-pref-keePassDBToOpen.label-%:"/>
             <hbox class="itemEnd">
-              <textbox preference="extensions.keefox@chris.tomlinson.keePassDBToOpen" id="keePassDBToOpen" maxlength="255" size="80" />
+              <html:input preference="extensions.keefox@chris.tomlinson.keePassDBToOpen" id="keePassDBToOpen" maxlength="255" size="80" />
               <button id="keePassDBToOpenBrowseButton" label="%-KeeFox-browse.label-%..." oncommand="browseForDefaultKDBXLocation(document.getElementById('keePassDBToOpen').value);"/>
             </hbox>
 
@@ -208,25 +209,25 @@
           <vbox align="left">
             <label id="lab-keePassRPCInstalledLocation" control="keePassRPCInstalledLocation" value="%-KeeFox-pref-keePassRPCInstalledLocation.label-%:"/>            
             <hbox class="itemEnd" id="hbox-keePassRPCInstalledLocation">
-              <textbox preference="extensions.keefox@chris.tomlinson.keePassRPCInstalledLocation" id="keePassRPCInstalledLocation" maxlength="255" size="80" />
+              <html:input preference="extensions.keefox@chris.tomlinson.keePassRPCInstalledLocation" id="keePassRPCInstalledLocation" maxlength="255" size="80" />
               <button id="keePassRPCInstalledLocationBrowseButton" label="%-KeeFox-browse.label-%..." oncommand="browseForKPRPCLocation(document.getElementById('keePassRPCInstalledLocation').value);"/>
             </hbox>
             
             <label id="lab-keePassInstalledLocation" control="keePassInstalledLocation" value="%-KeeFox-pref-keePassInstalledLocation.label-%:"/>
             <hbox class="itemEnd">
-              <textbox preference="extensions.keefox@chris.tomlinson.keePassInstalledLocation" id="keePassInstalledLocation" maxlength="255" size="80" />
+              <html:input preference="extensions.keefox@chris.tomlinson.keePassInstalledLocation" id="keePassInstalledLocation" maxlength="255" size="80" />
               <button id="keePassInstalledLocationBrowseButton" label="%-KeeFox-browse.label-%..." oncommand="browseForKeePassLocation(document.getElementById('keePassInstalledLocation').value);"/>
             </hbox>
             
             <label id="lab-monoLocation" control="monoLocation" value="%-KeeFox-pref-monoLocation.label-%:" />
             <hbox class="itemEnd" id="hbox-monoLocation">
-              <textbox preference="extensions.keefox@chris.tomlinson.monoLocation" id="monoLocation" maxlength="255" size="80" />
+              <html:input preference="extensions.keefox@chris.tomlinson.monoLocation" id="monoLocation" maxlength="255" size="80" />
               <button id="monoLocationBrowseButton" label="%-KeeFox-browse.label-%..." oncommand="browseForMonoLocation(document.getElementById('monoLocation').value);"/>
             </hbox>
 
             <checkbox id="keePassRememberInstalledLocation" preference="extensions.keefox@chris.tomlinson.keePassRememberInstalledLocation" label="%-KeeFox-pref-keePassRememberInstalledLocation.label-%" class="itemEnd" />
             <label id="lab-keePassLocation" control="keePassLocation" value="%-KeeFox-pref-keePassLocation.label-%:"/>
-            <textbox preference="extensions.keefox@chris.tomlinson.currentLocation" id="keePassLocation" maxlength="128" size="40" class="itemEnd"/>
+            <html:input preference="extensions.keefox@chris.tomlinson.currentLocation" id="keePassLocation" maxlength="128" size="40" class="itemEnd"/>
 
           </vbox>
         </tabpanel>
