@@ -315,6 +315,18 @@ var keeFoxDialogManager = {
                 };
                 LoadDialogData(this._composeBundle, "smtp", "smtpEnterPasswordPrompt",
                     "smtpEnterPasswordPromptWithUsername", "%1$S", null, "%2$S");
+
+                // SMTP alt
+                // title  "Password Required for Outgoing (SMTP) Server %1$S"
+                // prompt "Enter your password for %2$S on %1$S:"
+                // see omni.ja/chrome/en-US/locale/en-US/messenger/messengercompose/composeMsgs.properties
+                LoadDialogData(this._composeBundle, 
+                    "smtp2", 
+                    "smtpEnterPasswordPromptTitleWithHostname",
+                    "smtpEnterPasswordPromptWithUsername", 
+                    "%1$S", 
+                    null, 
+                    "%2$S");
                     
                 var imapEnterPasswordPromptTitle = this._imapBundleUsesStrings
                     ? "imapEnterPasswordPromptTitleWithUsername" : "5051";
