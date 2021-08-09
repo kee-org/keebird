@@ -377,7 +377,7 @@ var keeFoxDialogManager = {
                     const matches = m.matches;
                     if (hostIsFirst[type] === null) {
                         // there is only one parameter, so nothing is first
-                        if (matches.length == 2) {
+                        if (matches !== null && matches.length == 2) {
                             if (extractUserFromHost[type])
                             {
                                 // user and host are separated by @ character
@@ -390,7 +390,7 @@ var keeFoxDialogManager = {
                             }
                         }
                     } else {
-                        if (matches.length == 3) {
+                        if (matches !== null && matches.length == 3) {
                             if (hostIsFirst[type]) {
                                 host = protocols[type] + "://" + matches[1];
                                 username = matches[2];
