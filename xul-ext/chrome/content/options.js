@@ -228,7 +228,7 @@ function onCommandClick(evt)
 
     // swap label for a textbox
     var label = document.getElementById(evt.target.id);
-    var textbox = document.createElement("textbox");
+    var textbox = document.createElementNS("http://www.w3.org/1999/xhtml", "input");
     textbox.setAttribute("placeholder",window.keefox_org.locale.$STR("KeeFox-type-new-shortcut-key.placeholder"));
     textbox.setAttribute("id",evt.target.id+"-textbox");
     textbox.addEventListener("keydown", onCommandKeyDown, false);
@@ -559,9 +559,11 @@ function browseForLocation(currentLocationPath, pickerMode, captionStringKey, fi
 
 function openSiteConfig()
 {
-    window.openDialog("chrome://keefox/content/siteOptions.xul",
+    window.openDialog("chrome://keefox/content/siteOptions.xhtml",
     "siteoptions", "chrome,centerscreen", 
     onOK,
     onCancel,
     null);
 }
+
+onLoad();

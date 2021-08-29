@@ -368,8 +368,9 @@ Localisation.prototype = {
                 args = elements[i][1];
             }
 
-            if (!element)
+            if (!element) {
                 continue;
+            }
 
             // Replace within text content too. Assumes there are no other subnodes. May need to be more clever here.
             if (element.childNodes != null && element.childNodes.length > 0)

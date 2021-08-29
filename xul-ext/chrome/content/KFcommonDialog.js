@@ -39,6 +39,7 @@ if (!Cu)
 
 const { keefox_org } = ChromeUtils.import("resource://kfmod/KF.js");
 const { keeFoxLoginInfo } = ChromeUtils.import("resource://kfmod/kfDataModel.js");
+var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
 
 var keeFoxDialogManager = {
     scriptLoader : Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
@@ -47,9 +48,7 @@ var keeFoxDialogManager = {
     __promptBundle : null, // String bundle for L10N
     get _promptBundle() {
         if (!this.__promptBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                getService(Components.interfaces.nsIStringBundleService);
-            this.__promptBundle = bunService.createBundle(
+            this.__promptBundle = Services.strings.createBundle(
                 "chrome://global/locale/prompts.properties");
             if (!this.__promptBundle)
                 throw "Prompt string bundle not present!";
@@ -60,9 +59,7 @@ var keeFoxDialogManager = {
     __cdBundle : null, // String bundle for L10N
     get _cdBundle() {
         if (!this.__cdBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                             getService(Components.interfaces.nsIStringBundleService);
-            this.__cdBundle = bunService.createBundle(
+            this.__cdBundle = Services.strings.createBundle(
                         "chrome://global/locale/commonDialogs.properties");
             if (!this.__cdBundle)
                 throw "Common Dialogs string bundle not present!";
@@ -73,9 +70,7 @@ var keeFoxDialogManager = {
     __messengerBundle : null, // string bundle for thunderbird l10n
     get _messengerBundle() {    
         if (!this.__messengerBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                getService(Components.interfaces.nsIStringBundleService);
-            this.__messengerBundle = bunService.createBundle(
+            this.__messengerBundle = Services.strings.createBundle(
                 "chrome://messenger/locale/messenger.properties");
             if (!this.__messengerBundle)
                 throw "Messenger string bundle not present!";
@@ -86,9 +81,7 @@ var keeFoxDialogManager = {
     __localMsgsBundle : null, // string bundle for thunderbird l10n
     get _localMsgsBundle() {    
         if (!this.__localMsgsBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                getService(Components.interfaces.nsIStringBundleService);
-            this.__localMsgsBundle = bunService.createBundle(
+            this.__localMsgsBundle = Services.strings.createBundle(
                 "chrome://messenger/locale/localMsgs.properties");
             if (!this.__localMsgsBundle)
                 throw "localMsgs string bundle not present!";
@@ -99,9 +92,7 @@ var keeFoxDialogManager = {
     __imapMsgsBundle : null, // string bundle for thunderbird l10n
     get _imapMsgsBundle() {    
         if (!this.__imapMsgsBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                getService(Components.interfaces.nsIStringBundleService);
-            this.__imapMsgsBundle = bunService.createBundle(
+            this.__imapMsgsBundle = Services.strings.createBundle(
                 "chrome://messenger/locale/imapMsgs.properties");
             if (!this.__imapMsgsBundle)
                 throw "imapMsgs string bundle not present!";
@@ -128,9 +119,7 @@ var keeFoxDialogManager = {
     __newsBundle : null, // string bundle for thunderbird l10n
     get _newsBundle() {    
         if (!this.__newsBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                getService(Components.interfaces.nsIStringBundleService);
-            this.__newsBundle = bunService.createBundle(
+            this.__newsBundle = Services.strings.createBundle(
                 "chrome://messenger/locale/news.properties");
             if (!this.__newsBundle)
                 throw "news string bundle not present!";
@@ -141,9 +130,7 @@ var keeFoxDialogManager = {
     __composeBundle : null, // string bundle for thunderbird l10n
     get _composeBundle() {    
         if (!this.__composeBundle) {
-            var bunService = Components.classes["@mozilla.org/intl/stringbundle;1"].
-                getService(Components.interfaces.nsIStringBundleService);
-            this.__composeBundle = bunService.createBundle(
+            this.__composeBundle = Services.strings.createBundle(
                 "chrome://messenger/locale/messengercompose/composeMsgs.properties");
             if (!this.__composeBundle)
                 throw "Compose Message string bundle not present!";
@@ -155,7 +142,7 @@ var keeFoxDialogManager = {
         .getService(Components.interfaces.nsIXULAppInfo),
     
     dialogInit : function(e) {
-        window.removeEventListener("load", keeFoxDialogManager.dialogInit);
+        //window.removeEventListener("load", keeFoxDialogManager.dialogInit);
         try
         {
             document.addEventListener("dialogaccept", event => {
@@ -283,112 +270,139 @@ var keeFoxDialogManager = {
                     {
                         let regexChars = /[\[\{\(\)\*\+\?\.\\\^\$\|]/g;
                         protocols[aDialogType] = aDialogType.split("-")[0];
-                        titles[aDialogType] = aStringBundle.GetStringFromName(aTitlePropertyName);
-                        prompts[aDialogType] = aStringBundle.GetStringFromName(aPromptPropertyName);
-                        prompts[aDialogType] = prompts[aDialogType].replace(regexChars, "\\$&");
-                        aHostPlaceholder = aHostPlaceholder.replace(regexChars, "\\$&");
-                        // use null as a flag to indicate that there was only one
-                        // placeholder and hostIsFirst and secondIsUserName are not applicable
-                        hostIsFirst[aDialogType] = null;
-                        if (aUserPlaceholder != null)
-                        {
-                            aUserPlaceholder = aUserPlaceholder.replace(regexChars, "\\$&");
-                            hostIsFirst[aDialogType] = prompts[aDialogType].indexOf(aHostPlaceholder) <
-                                prompts[aDialogType].indexOf(aUserPlaceholder);
-                            secondIsUserName[aDialogType] = true;
+                        // dirty fix
+                        // use a big try/catch here to avoid errors on null string resources
+                        try {
+                            titles[aDialogType] = aStringBundle.GetStringFromName(aTitlePropertyName);
+                            prompts[aDialogType] = aStringBundle.GetStringFromName(aPromptPropertyName);
+                            titles[aDialogType] = titles[aDialogType].replace(regexChars, "\\$&");
+                            prompts[aDialogType] = prompts[aDialogType].replace(regexChars, "\\$&");
+                            aHostPlaceholder = aHostPlaceholder.replace(regexChars, "\\$&");
+                            // use null as a flag to indicate that there was only one
+                            // placeholder and hostIsFirst and secondIsUserName are not applicable
+                            hostIsFirst[aDialogType] = null;
+                            if (aUserPlaceholder != null)
+                            {
+                                aUserPlaceholder = aUserPlaceholder.replace(regexChars, "\\$&");
+                                hostIsFirst[aDialogType] = prompts[aDialogType].indexOf(aHostPlaceholder) <
+                                    prompts[aDialogType].indexOf(aUserPlaceholder);
+                                secondIsUserName[aDialogType] = true;
+                            }
+                            if (aRealmPlaceholder != null)
+                            {
+                                aRealmPlaceholder = aRealmPlaceholder.replace(regexChars, "\\$&");
+                                hostIsFirst[aDialogType] = prompts[aDialogType].indexOf(aHostPlaceholder) <
+                                    prompts[aDialogType].indexOf(aRealmPlaceholder);
+                                secondIsUserName[aDialogType] = false;
+                            }
+                            titles[aDialogType] = titles[aDialogType].replace(aHostPlaceholder, "([^\\s]+)");
+                            prompts[aDialogType] = prompts[aDialogType].replace(aHostPlaceholder, "([^\\s]+)");
+                            if (aUserPlaceholder != null)
+                            {
+                                titles[aDialogType] = titles[aDialogType].replace(aUserPlaceholder, "([^\\s]+)");
+                                prompts[aDialogType] = prompts[aDialogType].replace(aUserPlaceholder, "([^\\s]+)");
+                            }
+                            if (aRealmPlaceholder != null)
+                            {
+                                prompts[aDialogType] = prompts[aDialogType].replace(aRealmPlaceholder, "([^\\s]+)");
+                            }
+                            extractUserFromHost[aDialogType] = aExtractUserFromHost;
                         }
-                        if (aRealmPlaceholder != null)
-                        {
-                            aRealmPlaceholder = aRealmPlaceholder.replace(regexChars, "\\$&");
-                            hostIsFirst[aDialogType] = prompts[aDialogType].indexOf(aHostPlaceholder) <
-                                prompts[aDialogType].indexOf(aRealmPlaceholder);
-                            secondIsUserName[aDialogType] = false;
+                        catch (resourceError) {
+                            keefox_org._KFLog.error(`LoadDialogData failed for ${aDialogType},${aTitlePropertyName},${aPromptPropertyName}`, resourceError); 
                         }
-                        prompts[aDialogType] = prompts[aDialogType].replace(aHostPlaceholder, "([^\\s]+)");
-                        if (aUserPlaceholder != null)
-                        {
-                            prompts[aDialogType] = prompts[aDialogType].replace(aUserPlaceholder, "([^\\s]+)");
-                        }
-                        if (aRealmPlaceholder != null)
-                        {
-                            prompts[aDialogType] = prompts[aDialogType].replace(aRealmPlaceholder, "([^\\s]+)");
-                        }
-                        extractUserFromHost[aDialogType] = aExtractUserFromHost;
                     }
-                }
-                  
-                LoadDialogData(this._composeBundle, "smtp", "smtpEnterPasswordPromptTitle",
+                };
+                LoadDialogData(this._composeBundle, "smtp", "smtpEnterPasswordPrompt",
                     "smtpEnterPasswordPromptWithUsername", "%1$S", null, "%2$S");
+                    
+                // SMTP alt
+                // title  "Password Required for Outgoing (SMTP) Server %1$S"
+                // prompt "Enter your password for %2$S on %1$S:"
+                // see omni.ja/chrome/en-US/locale/en-US/messenger/messengercompose/composeMsgs.properties
+                LoadDialogData(this._composeBundle, 
+                    "smtp2", 
+                    "smtpEnterPasswordPromptTitleWithHostname",
+                    "smtpEnterPasswordPromptWithUsername", 
+                    "%1$S", 
+                    null, 
+                    "%2$S");
+                    
                 var imapEnterPasswordPromptTitle = this._imapBundleUsesStrings
-                    ? "imapEnterPasswordPromptTitle" : "5051";
+                    ? "imapEnterPasswordPromptTitleWithUsername" : "5051";
                 var imapEnterPasswordPrompt = this._imapBundleUsesStrings
-                    ? "imapEnterPasswordPrompt" : "5047";
-                var isPreTB40ImapStrings = true;
-                try {
+                    ? "imapEnterServerPasswordPrompt" : "5047";
+                var isPreTB40ImapStrings = false;
+                /*try {
                     // Take a peek at imapEnterPasswordPrompt
                     this._imapMsgsBundle.GetStringFromName(imapEnterPasswordPrompt);
                 } catch (e) {
                     // The string identifier changed again in TB 40
                     imapEnterPasswordPrompt = "imapEnterServerPasswordPrompt";
                     isPreTB40ImapStrings = false;
-                }
+                }*/
                 // The prompt changed from using one parameter to using two in TB40
                 LoadDialogData(this._imapMsgsBundle, "imap",
                     imapEnterPasswordPromptTitle, imapEnterPasswordPrompt,
                     isPreTB40ImapStrings ? "%S" : "%2$S", null,
                     isPreTB40ImapStrings ? null : "%1$S", isPreTB40ImapStrings);
-                LoadDialogData(this._localMsgsBundle, "pop3", "pop3EnterPasswordPromptTitle",
-                    "pop3EnterPasswordPrompt", "%2$S", null, "%1$S");
+
+                LoadDialogData(this._localMsgsBundle, "pop3", "pop3EnterPasswordPromptTitleWithUsername",
+                    "pop3EnterPasswordPromptTitleWithUsername", "%2$S", null, "%1$S");
+
                 LoadDialogData(this._newsBundle, "nntp-1", "enterUserPassTitle",
                     "enterUserPassServer", "%S");
+                    
                 LoadDialogData(this._newsBundle, "nntp-2", "enterUserPassTitle",
                     "enterUserPassGroup", "%2$S", "%1$S");
+                    
                 LoadDialogData(this._messengerBundle, "mail", "passwordTitle",
                     "passwordPrompt", "%2$S", null, "%1$S");
                 
-                for (let type in titles)
-                {                  
-                    if (Dialog.args.title == titles[type])
-                    {
-                        // some types have the same title, so we have more checking to do
-                        let regEx = new RegExp(prompts[type]);
-                        let matches = Dialog.args.text.match(regEx);
-                        if (!matches)
-                        {
-                            continue;
-                        }
-                        if (hostIsFirst[type] === null) {
-                            // there is only one parameter, so nothing is first
-                            if (matches.length == 2) {
-                                if (extractUserFromHost[type])
-                                {
-                                    // user and host are separated by @ character
-                                    let lastAtSym = matches[1].lastIndexOf("@");                            
-                                    username = matches[1].substring(0, lastAtSym);
-                                    host = protocols[type] + "://" +
-                                        matches[1].substring(lastAtSym + 1, matches[1].length);
-                                } else {
-                                    host = protocols[type] + "://" + matches[1];
-                                }
-                                break;
+                const matchings = Object.keys(titles).filter((type) => {
+                    // refactor the title identification with a regEx because some have placeholders like $S
+                    let reTitle = new RegExp(titles[type]);
+                    return reTitle.test(Dialog.args.title);
+                }).map((type) => {
+                    let regEx = new RegExp(prompts[type]);
+                    let matches = Dialog.args.text.match(regEx);
+                    return {
+                        type,
+                        matches
+                    };
+                });
+
+                matchings.forEach((m) => {
+                    const type = m.type;
+                    const matches = m.matches;
+                    if (hostIsFirst[type] === null) {
+                        // there is only one parameter, so nothing is first
+                        if (matches !== null && matches.length == 2) {
+                            if (extractUserFromHost[type])
+                            {
+                                // user and host are separated by @ character
+                                let lastAtSym = matches[1].lastIndexOf("@");                            
+                                username = matches[1].substring(0, lastAtSym);
+                                host = protocols[type] + "://" +
+                                    matches[1].substring(lastAtSym + 1, matches[1].length);
+                            } else {
+                                host = protocols[type] + "://" + matches[1];
                             }
-                        } else
-                        {
-                            if (matches.length == 3) {
-                                if (hostIsFirst[type]) {
-                                    host = protocols[type] + "://" + matches[1];
-                                    username = matches[2];
-                                } else {
-                                    host = protocols[type] + "://" + matches[2];
-                                    username = matches[1];
-                                }
-                                break;
+                        }
+                    } else {
+                        if (matches !== null && matches.length == 3) {
+                            if (hostIsFirst[type]) {
+                                host = protocols[type] + "://" + matches[1];
+                                username = matches[2];
+                            } else {
+                                host = protocols[type] + "://" + matches[2];
+                                username = matches[1];
                             }
                         }
                     }
-                }
+                });
             } // end if Thunderbird
-            
+
             if (host.length < 1)
             {
                 // e.g. en-US:
@@ -560,24 +574,23 @@ var keeFoxDialogManager = {
             this.mustAutoSubmit = mustAutoSubmit;
 
             /* add ui elements to dialog */
-            
-            var row = document.createElement("row");
+
+            var row = document.createElement("div");
             row.setAttribute("id","keefox-autoauth-row");
-            row.setAttribute("flex", "1");
+            row.setAttribute("class","dialogRow");
 
             // spacer to take up first column in layout
-            var spacer = document.createElement("spacer");
-            spacer.setAttribute("flex", "1");
+            var spacer = document.createElement("div");
             row.appendChild(spacer);
 
             // this box displays labels and also the list of entries when fetched
-            var box = document.createElement("hbox");
+            var box = document.createXULElement("hbox");
             box.setAttribute("id","keefox-autoauth-box");
             box.setAttribute("align", "center");
             box.setAttribute("flex", "1");
             box.setAttribute("pack", "start");
 
-            var loadingPasswords = document.createElement("description");
+            var loadingPasswords = document.createXULElement("description");
             loadingPasswords.setAttribute("id","keefox-autoauth-description");
             loadingPasswords.setAttribute("align", "start");
             loadingPasswords.setAttribute("flex", "1");
@@ -585,7 +598,7 @@ var keeFoxDialogManager = {
             row.appendChild(box);
 
             // button to lauch KeePass
-            var launchKeePassButton = document.createElement("button");
+            var launchKeePassButton = document.createXULElement("button");
             launchKeePassButton.setAttribute("id", "keefox-launch-kp-button");
             launchKeePassButton.setAttribute("label", keefox_org.locale.$STR("launchKeePass.label"));
             launchKeePassButton.addEventListener("command", function (event) { keefox_org.launchKeePass(''); }, false);
@@ -597,6 +610,10 @@ var keeFoxDialogManager = {
         }
     },
 
+    /**
+     * This is where we send the identification request to keefox RPC
+     * Assuming that the validation token has been stored
+     */
     updateDialog : function()
     {
         // check to make sure prepareFill was called
@@ -761,9 +778,9 @@ var keeFoxDialogManager = {
         if (showList) {
             var box = dialogFindLoginStorage.document.getElementById("keefox-autoauth-box");
 
-            var list = dialogFindLoginStorage.document.createElement("menulist");
+            var list = dialogFindLoginStorage.document.createXULElement("menulist");
             list.setAttribute("id","autoauth-list");
-            var popup = dialogFindLoginStorage.document.createElement("menupopup");
+            var popup = dialogFindLoginStorage.document.createXULElement("menupopup");
             var done = false;            
             
             for (var i = 0; i < matchedLogins.length; i++) {
@@ -779,7 +796,7 @@ var keeFoxDialogManager = {
             });
 
             for (var i = 0; i < matchedLogins.length; i++){
-                var item = dialogFindLoginStorage.document.createElement("menuitem");
+                var item = dialogFindLoginStorage.document.createXULElement("menuitem");
                 item.setAttribute("label", keefox_org.locale.$STRF("matchedLogin.label",
                     [matchedLogins[i].username, matchedLogins[i].host]));
                 item.setAttribute("tooltiptext", keefox_org.locale.$STRF("matchedLogin.tip",
@@ -928,4 +945,5 @@ KPRPCConnectionObserver.prototype = {
 keeFoxDialogManager.Logger = keefox_org._KFLog;
 keeFoxDialogManager.scriptLoader.loadSubScript(
     "chrome://keefox/content/shared/uriUtils.js", keeFoxDialogManager);
-window.addEventListener("load", keeFoxDialogManager.dialogInit, false);
+//window.addEventListener("load", keeFoxDialogManager.dialogInit, false);
+
