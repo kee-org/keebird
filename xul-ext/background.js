@@ -50,9 +50,10 @@ const locales = [
         "chrome://messenger/content/messenger.xhtml", 
         "chrome://keefox/content/scripts/messengerPanel.js");
 
-    messenger.WindowListener.registerWindow(
-        "chrome://global/content/commonDialog.xhtml", 
-        "chrome://keefox/content/scripts/KFcommonDialog.js");
+        messenger.WindowListener.registerWindow(
+            "chrome://messenger/content/commonDialog.xhtml", 
+            "chrome://keefox/content/scripts/KFcommonDialog.js");
+        
     /*
         messenger.WindowListener.registerWindow(
             "chrome://global/content/win.xul",

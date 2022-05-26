@@ -387,7 +387,6 @@ var WindowListener = class extends ExtensionCommon.ExtensionAPI {
           );
           try {
             let uriObject = Services.io.newURI(uriString);
-            let content = Cu.readUTF8URI(uriObject);
           } catch (e) {
             Components.utils.reportError(e);
             return false;
@@ -485,7 +484,18 @@ var WindowListener = class extends ExtensionCommon.ExtensionAPI {
             let path = jsFile.startsWith("chrome://")
               ? jsFile
               : context.extension.rootURI.resolve(jsFile);
-
+            if (windowHref == "chrome://messenger/content/commonDialog.xhtml") {
+              // @XN-BUGFIX
+              // there is a bug somewhere with aDocumentExistsAt and this very specific window
+              // the existence test fails for chrome://global/content/commonDialog.xhtml
+              // and succeed for chrome://messenger/content/commonDialog.xhtml
+              // BUT this commonDialog from messenger fails to _loadIntoWindow(window, isAddonActivation) and does not activate
+              // WORKAROUD : set xhtml namespace to global for this url when it's supposed to be in messenger
+              self.log(
+                "reverting chrome commonDialog from messenger to global"
+              );
+              windowHref = "chrome://global/content/commonDialog.xhtml";
+            }
             self.registeredWindows[windowHref] = path;
           } else {
             self.error(
