@@ -51,7 +51,7 @@ Utils.prototype = {
                  .getService(Components.interfaces.nsIWindowMediator);
         var window = wm.getMostRecentWindow("navigator:browser") ||
             wm.getMostRecentWindow("mail:3pane");
-        var sensistiveLoggingEnabled = window.keefox_org._keeFoxExtension.prefs.getValue("logSensitiveData", false);
+        var sensistiveLoggingEnabled = window?.keefox_org?._keeFoxExtension?.prefs?.getValue("logSensitiveData", false);
         if (sensistiveLoggingEnabled)
             window.keefox_win.UI._showSensitiveLogEnabledNotification();
     },

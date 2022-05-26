@@ -269,7 +269,9 @@ KeeFoxLogger.prototype = {
         try {
             this.logSensitiveData = this.prefBranch.getBoolPref("logSensitiveData");
             } catch (ex) { this.logSensitiveData = false; }  
-              
+        // DEBUG : uncomment the following to force debug output log to console
+        // this.levelDebug = true;
+        // this.methodConsole = true;
     }
 
 };

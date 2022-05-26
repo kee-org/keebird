@@ -39,7 +39,7 @@ if (!Cu)
 
 const { keefox_org } = ChromeUtils.import("resource://kfmod/KF.js");
 const { keeFoxLoginInfo } = ChromeUtils.import("resource://kfmod/kfDataModel.js");
-var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
+// var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
 
 var keeFoxDialogManager = {
     scriptLoader : Components.classes["@mozilla.org/moz/jssubscript-loader;1"]

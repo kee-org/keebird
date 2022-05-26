@@ -28,6 +28,7 @@ let Cu = Components.utils;
 var EXPORTED_SYMBOLS = ["session"];
 
 const { KeeFoxLog } = ChromeUtils.import("resource://kfmod/KFLogger.js");
+var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
 
 var log = KeeFoxLog;
 
