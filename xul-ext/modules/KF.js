@@ -226,11 +226,11 @@ KeeFox.prototype = {
         // Set the baseURL to use for Mono vs Windows
         if (!this.useMono)
         {
-            this.baseInstallURL = 'chrome://keefox/content/install.xul';
+            this.baseInstallURL = 'chrome://keefox/content/install.xhtml';
         }
         else
         {
-            this.baseInstallURL = 'chrome://keefox/content/install_mono.xul';
+            this.baseInstallURL = 'chrome://keefox/content/install_mono.xhtml';
         }
         
         this._KFLog.info("KeeFox initialising");
@@ -432,6 +432,10 @@ KeeFox.prototype = {
             try
             {
                 var win = enumerator.getNext();
+                if (win.keefox_win === undefined) {
+                    this._KFLog.debug("win.keefox_win === undefined");
+                    continue;
+                }
                 win.keefox_win.mainUI.resetSearchInterface();
                 win.keefox_win.mainUI.removeLogins();
                 win.keefox_win.context.removeLogins();
@@ -825,6 +829,19 @@ KeeFox.prototype = {
         }
     },
 
+    /**
+     * https://github.com/kee-org/keepassrpc/blob/v1.14.0/KeePassRPC/KeePassRPCService.cs
+     * @param {*} fullURL The URLs to search for. Host must be lower case as per the URI specs. Other parts are case sensitive.
+     * @param {*} formSubmitURL The action URL.
+     * @param {*} httpRealm The HTTP realm.
+     * @param {*} uniqueID The unique ID of a particular entry we want to retrieve.
+     * @param {*} dbFileName The unique ID of the root group of the database we want to search. Empty string = search all DBs
+     * @param {*} freeText A string to search for in all entries. E.g. title, username (may change)
+     * @param {*} username Limit a search for URL to exact username matches only
+     * @param {*} callback 
+     * @param {*} callbackData 
+     * @returns 
+     */
     findLogins: function(fullURL, formSubmitURL, httpRealm, uniqueID, dbFileName, freeText, username, callback, callbackData)
     {
         try
@@ -991,6 +1008,8 @@ KeeFox.prototype = {
                 case "logMethodStdOut":
                 case "logSensitiveData":
                     // Allow the change to go ahead but warn the user (in case they did not understand the change that was made)
+                    // Remark : strange here to refer to keefox_org from window, other cases directly uses keefox_org
+                    // -> don't have any test scenario to see if it's working or not
                     window.keefox_org._KFLog.configureFromPreferences();
                     utils.oneOffSensitiveLogCheckHandler();
                     break;
