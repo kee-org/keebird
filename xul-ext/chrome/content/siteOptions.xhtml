@@ -26,8 +26,9 @@
 -->
 <dialog id="KeeFoxSiteOptions" title=""
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-        buttons="extra1" buttonlabelextra1="Close" ondialogextra1 ="window.close();"
-        ondialogcancel="return;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        buttons="extra1" 
+        buttonlabelextra1="Close" 
         onload="onLoad();">
   <script type="application/javascript" src="chrome://keefox/content/siteOptions.js"/>
   <grid flex="1" >
@@ -68,12 +69,12 @@
             <hbox class="listGroup">
               <checkbox id="gb-form-name-wl-enabled"/>
               <label id="gb-form-name-wl-lab" control="gb-form-name-wl" value="%-KeeFox-white-list-%" />
-              <textbox id="gb-form-name-wl" maxlength="50000" flex="2" />
+              <html:input id="gb-form-name-wl" maxlength="50000" flex="2" />
             </hbox>
             <hbox class="listGroup">
               <checkbox id="gb-form-name-bl-enabled"/>
               <label id="gb-form-name-bl-lab" control="gb-form-name-bl" value="%-KeeFox-black-list-%" />
-              <textbox id="gb-form-name-bl" maxlength="50000" flex="2" />
+              <html:input id="gb-form-name-bl" maxlength="50000" flex="2" />
             </hbox>
           </groupbox>
 
@@ -84,12 +85,12 @@
             <hbox class="listGroup">
               <checkbox id="gb-form-id-wl-enabled"/>
               <label id="gb-form-id-wl-lab" control="gb-form-id-wl" value="%-KeeFox-white-list-%" />
-              <textbox id="gb-form-id-wl" maxlength="50000" flex="2" />
+              <html:input id="gb-form-id-wl" maxlength="50000" flex="2" />
             </hbox>
             <hbox class="listGroup">
               <checkbox id="gb-form-id-bl-enabled"/>
               <label id="gb-form-id-bl-lab" control="gb-form-id-bl" value="%-KeeFox-black-list-%" />
-              <textbox id="gb-form-id-bl" maxlength="50000" flex="2" size="10" />
+              <html:input id="gb-form-id-bl" maxlength="50000" flex="2" size="10" />
             </hbox>
           </groupbox>
 
@@ -100,12 +101,12 @@
             <hbox class="listGroup">
               <checkbox id="gb-field-name-wl-enabled"/>
               <label id="gb-field-name-wl-lab" control="gb-field-name-wl" value="%-KeeFox-white-list-%" />
-              <textbox id="gb-field-name-wl" maxlength="50000" flex="2" />
+              <html:input id="gb-field-name-wl" maxlength="50000" flex="2" />
             </hbox>
             <hbox class="listGroup">
               <checkbox id="gb-field-name-bl-enabled"/>
               <label id="gb-field-name-bl-lab" control="gb-field-name-bl" value="%-KeeFox-black-list-%" />
-              <textbox id="gb-field-name-bl" maxlength="50000" flex="2" />
+              <html:input id="gb-field-name-bl" maxlength="50000" flex="2" />
             </hbox>
           </groupbox>
 
@@ -116,12 +117,12 @@
             <hbox class="listGroup">
               <checkbox id="gb-field-id-wl-enabled"/>
               <label id="gb-field-id-wl-lab" control="gb-field-id-wl" value="%-KeeFox-white-list-%" />
-              <textbox id="gb-field-id-wl" maxlength="50000" flex="2" />
+              <html:input id="gb-field-id-wl" maxlength="50000" flex="2" />
             </hbox>
             <hbox class="listGroup">
               <checkbox id="gb-field-id-bl-enabled"/>
               <label id="gb-field-id-bl-lab" control="gb-field-id-bl" value="%-KeeFox-black-list-%" />
-              <textbox id="gb-field-id-bl" maxlength="50000" flex="2" />
+              <html:input id="gb-field-id-bl" maxlength="50000" flex="2" />
             </hbox>
           </groupbox>
 

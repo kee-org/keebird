@@ -27,6 +27,7 @@ const { KeeFoxLog } = ChromeUtils.import("resource://kfmod/KFLogger.js");
 const { KFExtension } = ChromeUtils.import("resource://kfmod/KFExtension.js");
 const { BigInteger } = ChromeUtils.import("resource://kfmod/biginteger.js");
 const { FileUtils } = ChromeUtils.import("resource://gre/modules/FileUtils.jsm");
+var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
 
 // constructor
 function Utils()
@@ -50,7 +51,7 @@ Utils.prototype = {
                  .getService(Components.interfaces.nsIWindowMediator);
         var window = wm.getMostRecentWindow("navigator:browser") ||
             wm.getMostRecentWindow("mail:3pane");
-        var sensistiveLoggingEnabled = window.keefox_org._keeFoxExtension.prefs.getValue("logSensitiveData", false);
+        var sensistiveLoggingEnabled = window?.keefox_org?._keeFoxExtension?.prefs?.getValue("logSensitiveData", false);
         if (sensistiveLoggingEnabled)
             window.keefox_win.UI._showSensitiveLogEnabledNotification();
     },
@@ -155,12 +156,24 @@ Utils.prototype = {
                 this._KFLog.debug("Checking KeePass installation location from filesystem");
 
                 // Get the users home directory
-                var dirService = Components.classes["@mozilla.org/file/directory_service;1"].  
-                  getService(Components.interfaces.nsIProperties);   
-                var keePassFolder = dirService.get("Home", Components.interfaces.nsIFile); // returns an nsIFile object
+                var keePassFolder = Services.dirsvc.get("Home", Components.interfaces.nsIFile); // returns an nsIFile object
                 keePassFolder.append("KeePass");
                 var keePassFile = keePassFolder.clone();
                 keePassFile.append("KeePass.exe");
+                if (!keePassFile.exists())
+                {
+                    // try a location like /usr/lib/thunderbird/../keepass2
+                    // eg /usr/lib/keepass2 but a workaround seems needed as 
+                    // the parameter for dirsvc.get() is a constant
+                    // see https://gist.github.com/Noitidart/715840fa5008ee032017 for more details
+                    this._KFLog.debug("***was testing "+keePassFolder.path);
+                    keePassFolder = Services.dirsvc.get("GreD", Components.interfaces.nsIFile);
+                    const folder = keePassFolder.parent;
+                    this._KFLog.debug("***is testing "+keePassFolder.parent);
+                    folder.append("keepass2");
+                    keePassFile = folder.clone();
+                    keePassFile.append("KeePass.exe");  
+                }
                 if (keePassFile.exists())
                 {
                     keePassLocation = keePassFolder.path;
@@ -420,7 +433,7 @@ Utils.prototype = {
         else
             this._KFLog.debug("trying to find an already open tab with the requested url");
         var found = false;
-        
+
         var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
                    .getService(Components.interfaces.nsIWindowMediator);
         try
@@ -580,17 +593,7 @@ Utils.prototype = {
     //TODO:2: Maybe shouldn't use byteArray output at all - seems a bit buggy RE different encodings and maybe negative ints
     hash: function(data, outFormat, algorithm)
     {
-        var converterUTF8 =
-            Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].
-            createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
- 
-        converterUTF8.charset = "UTF-8";
-
-        var converterUTF16 =
-            Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].
-            createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
- 
-        converterUTF16.charset = "UTF-16";
+        let encoderUtf8 = new TextEncoder('utf-8');
 
         // result is an out parameter,
         // result.value will contain the array length
@@ -599,7 +602,7 @@ Utils.prototype = {
         if (typeof data === "string")
         {
             // data is now an array of bytes
-            data = converterUTF8.convertToByteArray(data, result);
+            data = encoderUtf8.encode(data);
         }
         var ch = Components.classes["@mozilla.org/security/hash;1"]
                            .createInstance(Components.interfaces.nsICryptoHash);
@@ -616,9 +619,11 @@ Utils.prototype = {
  
         if (outFormat === "binary")
             return hash;
-        else if (outFormat === "byteArray")
-            return converterUTF16.convertToByteArray(hash, result);
-
+        else if (outFormat === "byteArray") {
+            let encoderUtf16 = new TextEncoder('utf-16');
+            return encoderUtf16.encode(hash);
+            
+        }
         // convert the binary hash data to a hex string.
         var s = Array.from(hash, (c, i) => utils.toHexString(hash.charCodeAt(i))).join("");
 

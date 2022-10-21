@@ -28,6 +28,7 @@ let Cu = Components.utils;
 var EXPORTED_SYMBOLS = ["session"];
 
 const { KeeFoxLog } = ChromeUtils.import("resource://kfmod/KFLogger.js");
+var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
 
 var log = KeeFoxLog;
 
@@ -270,7 +271,7 @@ function session()
                     var uri = ioService.newURI(rpc.httpChannelURI, null, null);
 
                     // get a channel for that nsIURI
-                    rpc.httpChannel = ioService.newChannelFromURI(
+                    rpc.httpChannel = Services.io.newChannelFromURI(
                         uri,
                         null, // loadingNode
                         Services.scriptSecurityManager.getSystemPrincipal(), // loadingPrincipal
@@ -317,13 +318,32 @@ KPRPCHTTPStreamListener.prototype = {
    },
 
   // don't expect to receive any data but just in case, we want to handle it properly
-  onDataAvailable: function (aRequest, aStream, aSourceOffset, aLength) {
+  onDataAvailable: function (...args) {
+    let /*aRequest,*/ aStream, /*aSourceOffset,*/ aLength;
     log.debug("HTTP data available.");
     var scriptableInputStream = 
       Components.classes["@mozilla.org/scriptableinputstream;1"]
         .createInstance(Components.interfaces.nsIScriptableInputStream);
-    scriptableInputStream.init(aStream);
-    scriptableInputStream.read(aLength);
+    let hasArgument = false;
+    // The old API passes the stream as third parameter.
+    if (args[2] instanceof Ci.nsIInputStream){
+        aStream = args[2];
+        aLength = args[4];
+        hasArgument = true;
+    }
+    // The new API uses the second parameter.
+    if (args[1] instanceof Ci.nsIInputStream){
+        aStream = args[1];
+        aLength = args[3];
+        hasArgument = true;
+    }
+    if (hasArgument) {
+        scriptableInputStream.init(aStream);
+        scriptableInputStream.read(aLength);
+        return;
+    }
+
+    throw new Error("Unknown signature for nsIStreamListener.onDataAvailable()");
   },
   
   onStopRequest: function (aRequest, aContext, aStatus) {

@@ -135,7 +135,7 @@ keefox_win.context = {
 
             var tempButton = i == 0 ? 
                                     container : 
-                                    this._currentWindow.document.createElement("menuitem");
+                                    this._currentWindow.document.createXULElement("menuitem");
             tempButton.setAttribute("label", keefox_org.locale.$STRF("matchedLogin.label"
                 , [usernameDisplayValue, login.title]));
             tempButton.setAttribute("class", "menuitem-iconic");

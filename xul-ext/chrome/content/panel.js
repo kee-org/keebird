@@ -331,7 +331,7 @@ keefox_win.panel = {
         let options = this.createPanelSection(
             'KeeFox-PanelSection-options', 
             function () { openDialog(
-               "chrome://keefox/content/options.xul",
+               "chrome://keefox/content/options.xhtml",
                "",
                "centerscreen,dialog=no,chrome,resizable,dependent,modal"
               ); },
