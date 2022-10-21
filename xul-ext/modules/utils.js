@@ -168,10 +168,10 @@ Utils.prototype = {
                     // see https://gist.github.com/Noitidart/715840fa5008ee032017 for more details
                     this._KFLog.debug("***was testing "+keePassFolder.path);
                     keePassFolder = Services.dirsvc.get("GreD", Components.interfaces.nsIFile);
-                    this._KFLog.debug("***is testing "+keePassFolder.path);
-                    keePassFolder.append("..");
-                    keePassFolder.append("keepass2");
-                    keePassFile = keePassFolder.clone();
+                    const folder = keePassFolder.parent;
+                    this._KFLog.debug("***is testing "+keePassFolder.parent);
+                    folder.append("keepass2");
+                    keePassFile = folder.clone();
                     keePassFile.append("KeePass.exe");  
                 }
                 if (keePassFile.exists())
